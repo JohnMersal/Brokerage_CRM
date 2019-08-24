@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "key": "@base-accent",
+            "value": "rgba(0, 189, 218, 1)"
+        },
+        {
+            "key": "@badge-bg",
+            "value": "rgba(0, 189, 218, 1)"
+        },
+        {
+            "key": "@pager-page-selected-bg",
+            "value": "rgba(0, 189, 218, 1)"
+        },
+        {
+            "key": "@datagrid-spin-icon-color",
+            "value": "rgba(0, 189, 218, 1)"
+        },
+        {
+            "key": "@datagrid-selection-bg",
+            "value": "rgba(0, 189, 218, 1)"
+        }
+    ],
+    "baseTheme": "generic.greenmist.compact",
+    "outputColorScheme": "custom-scheme",
+    "makeSwatch": true,
+    "version": "19.1.5"
+}

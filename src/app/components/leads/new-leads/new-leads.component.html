@@ -1,0 +1,268 @@
+<!-- <mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="leadFormGroup">
+    <ng-template matStepLabel>Save New Lead</ng-template> -->
+    <fieldset>
+      <legend>Import Single Lead:</legend>
+      <!-- <form [formGroup]="leadFormGroup" (ngSubmit)="saveLead()"> -->
+        <dx-validation-group #DataValidator>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Lead name</label>
+              <dx-text-box [class.required]="true" [(value)]="singleLead.first_name">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="First name is Required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Lead name</label>
+              <dx-text-box [class.required]="true" [(value)]="singleLead.second_name">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Second name is Required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>project name</label>
+              <dx-text-box [class.required]="true" [(value)]="singleLead.project_name">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="project name is Required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="project name" (input)="singleLead.project_name=$event.target.value"
+                  formControlName="project_name" required>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Country code</label>
+              <dx-number-box [class.required]="true" [min]="0" [(value)]="singleLead.country_code" [showSpinButtons]="false"
+                [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="country code is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #country_code maxlength="5" placeholder="country code"
+                  (input)="singleLead.country_code=$event.target.value" formControlName="country_code" numbersOnly
+                  required>
+                <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Lead phone</label>
+              <dx-number-box [class.required]="true" [min]="0" [(value)]="singleLead.lead_phone" [showSpinButtons]="false"
+                [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Lead phone is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #lead_phone maxlength="10" placeholder="lead phone"
+                  (input)="singleLead.lead_phone=$event.target.value" formControlName="lead_phone" numbersOnly required>
+                <mat-hint align="end">{{lead_phone.value.length}} / 10</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <button type="button" mat-flat-button color="primary" (click)="saveLead()" class="mat-primary">Save</button>
+            </div>
+          </div>
+        </div>
+        </dx-validation-group>
+      <!-- </form> -->
+      <!-- <form [formGroup]="leadFormGroup" (ngSubmit)="saveLead()">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="lead name" (input)="singleLead.lead_name=$event.target.value"
+                  formControlName="lead_name" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="project name" (input)="singleLead.project_name=$event.target.value"
+                  formControlName="project_name" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput #country_code maxlength="5" placeholder="country code"
+                  (input)="singleLead.country_code=$event.target.value" formControlName="country_code" numbersOnly
+                  required>
+                <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput #lead_phone maxlength="10" placeholder="lead phone"
+                  (input)="singleLead.lead_phone=$event.target.value" formControlName="lead_phone" numbersOnly required>
+                <mat-hint align="end">{{lead_phone.value.length}} / 10</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <button type="submit" mat-flat-button color="primary" class="mat-primary">Save</button>
+            </div>
+          </div>
+        </div>
+      </form> -->
+    </fieldset>
+  <!-- </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Assign a task</ng-template>
+    <mat-form-field>
+      <input matInput placeholder="Address" required>
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper> -->
+
+
+
+
+<!-- <fieldset>
+  <legend>All leads</legend>
+  <div class="row">
+    <div class="col-sm-8" *ngIf="dataSource">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <table mat-table [dataSource]="dataSource" matSort
+        class="table table-Section table-striped mat-table table-bordered">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="lead_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.lead_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="project_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Project name </th>
+          <td mat-cell *matCellDef="let element"> {{element.project_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lead_status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let element">{{ element.lead_status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lead_phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+          <td mat-cell *matCellDef="let element"> {{element.country_code}} - {{element.lead_phone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let element"> <a href="javascript:;" (click)="openToEditLead(element)">Edit</a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+  </div>
+
+</fieldset> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Lead: {{editLead.lead_name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="lead name" [(value)]="editLead.lead_name"
+                  (input)="editLead.lead_name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="project name" [(value)]="editLead.project_name"
+                  (input)="editLead.project_name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput #country_code maxlength="5" placeholder="country code" [(value)]="editLead.country_code"
+                  (input)="editLead.country_code=$event.target.value" numbersOnly required>
+                <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput #lead_phone maxlength="10" placeholder="lead phone" [(value)]="editLead.lead_phone"
+                  (input)="editLead.lead_phone=$event.target.value" numbersOnly required>
+                <mat-hint align="end">{{lead_phone.value.length}} / 10</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateLead()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

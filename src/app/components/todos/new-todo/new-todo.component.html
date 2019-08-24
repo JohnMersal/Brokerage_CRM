@@ -1,0 +1,99 @@
+<fieldset>
+  <legend>New to-do:</legend>
+  <form [formGroup]="todoFormGroup" (ngSubmit)="saveTodo()">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>Assigned to</mat-label>
+            <mat-select autocomplete="off" formControlName="assigned_to" [(value)]="singleTodo.assigned_to" required>
+              <mat-option *ngFor="let employee of employeesLookup" [value]="employee.id">
+                {{employee.first_name}} {{employee.second_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>Status</mat-label>
+            <mat-select autocomplete="off" formControlName="todo_status" (selectionChange)="changeStatus($event)" [(value)]="singleTodo.todo_status" required>
+              <mat-option value="Not started">
+                Not started
+              </mat-option>
+              <mat-option value="In progress">
+                In progress
+              </mat-option>
+              <mat-option value="Done">
+                Done
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" (input)="singleTodo.name=$event.target.value" formControlName="name"
+              required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>Area</mat-label>
+            <mat-select formControlName="area_id" [(value)]="singleTodo.area_id" required>
+              <mat-option *ngFor="let area of areasLookup" [value]="area.id">
+                {{area.name}} - {{area.address}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div> -->
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput autocomplete="off" [max]="maxDate" [matDatepicker]="start_date" (dateChange)="setTodo_date($event.target.value)" placeholder="Start Date" formControlName="start_date" required>
+            <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+            <mat-datepicker #start_date></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput autocomplete="off" [max]="maxDate" [matDatepicker]="end_date" [(value)]="singleTodo.end_date" placeholder="Finish date" formControlName="end_date" required>
+            <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+            <mat-datepicker #end_date></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput autocomplete="off" [min]="maxDate" [matDatepicker]="picker" (dateChange)="setTodo_date($event.target.value)" placeholder="Due date" formControlName="todo_date" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Description" (input)="singleTodo.todo_desc=$event.target.value" formControlName="todo_desc" autocomplete="off" required></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <button type="submit" mat-flat-button color="primary" class="mat-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</fieldset>

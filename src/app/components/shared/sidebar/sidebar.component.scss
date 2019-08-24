@@ -1,0 +1,107 @@
+@import"../../../../assets/scss/variable";
+.left-sidebar{
+  background-image: linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+  overflow: hidden !important;
+  /*box-shadow: 0 8px 28px 0 rgba(0,0,0,0.07);
+  border-right: 1px solid rgba(0,0,0,.125);*/
+}
+.layerColor{
+  background-image: linear-gradient(-132deg, #FFFFFF 34%, rgba(240,240,240,0.59) 55%, rgba(193,192,192,0.00) 100%);
+  //background: red;
+  position: absolute;
+  top: 230px;
+  right: -240px;
+  width: 230%;
+  height: 100%;
+  border-radius: 70%;
+}
+.side-nav{
+    margin: 0px;
+    display:flex;
+    padding:16px 10px;
+    list-style:none;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    a{
+      font-size:12px;
+      flex: 0 0 auto;
+      text-align: center;
+      width: 100%;
+      padding: 20px;
+      color: #fff;
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s linear;
+      margin-bottom:10px;
+      span{
+        display: block;
+        width:100%;
+        white-space: nowrap;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+      }
+      &.router-link-active{
+        color: #666;
+        background: white;
+        transition: all 0.2s linear;
+        /*background-image: $gradientBlue;*/
+        box-shadow: 0 8px 28px 0 rgba(0,0,0,0.07);
+        border-radius: 6px;
+      }
+    }
+}
+
+
+
+mat-icon{
+  width: 30px;
+  height:30px;
+  margin-bottom:10px;
+}
+.linea-icon{
+  font-size: 30px;
+  width: 30px;
+  height:30px;
+  margin-bottom:10px;
+}
+
+
+
+
+
+
+
+
+
+
+.nested-menu {
+    .list-group-item {
+        cursor: pointer;
+    }
+    .nested {
+        list-style-type: none;
+    }
+    ul.submenu {
+        display: none;
+        height: 0;
+    }
+    & .expand {
+        ul.submenu {
+            display: block;
+            list-style-type: none;
+            height: auto;
+            li {
+                a {
+                    
+                    padding: 10px;
+                    display: block;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<app-tabs [currentTabName]="mainTabsName">
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'FixedPoints'">
+    <a (click)="changeMainTabs('FixedPoints')">Fixed points</a>
+  </li>
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'HappyHours'">
+    <a (click)="changeMainTabs('HappyHours')">Happy hours</a>
+  </li>
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'TargetPoints'">
+    <a (click)="changeMainTabs('TargetPoints')">Target points</a>
+  </li>
+</app-tabs>
+<div>
+  <div *ngIf="mainTabsSwitch == 'FixedPoints'">
+    <app-compitation></app-compitation>
+  </div>
+  <div *ngIf="mainTabsSwitch == 'HappyHours'">
+    <app-happy-hour></app-happy-hour>
+  </div>
+  <div *ngIf="mainTabsSwitch == 'TargetPoints'">
+    <app-target-points></app-target-points>
+  </div>
+</div>

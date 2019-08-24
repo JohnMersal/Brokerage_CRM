@@ -1,0 +1,497 @@
+<fieldset>
+  <legend>New unit:</legend>
+  <!-- <form [formGroup]="unitFormGroup" (ngSubmit)="saveUnit()"> -->
+  <dx-validation-group #DataValidator>
+    <!-- <mat-tab-group dynamicHeight>
+      <mat-tab label="New Cairo">
+      </mat-tab>
+      <mat-tab label="Mostakbal City">
+      </mat-tab>
+      <mat-tab label="New Capital">
+      </mat-tab>
+      <mat-tab label="Sokhna">
+      </mat-tab>
+      <mat-tab label="North Coast">
+      </mat-tab>
+      <mat-tab label="6th October">
+      </mat-tab>
+    </mat-tab-group>
+    <div class="typesOfProjects">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="bold">Mivida</mat-button-toggle>
+        <mat-button-toggle value="italic">Villette</mat-button-toggle>
+        <mat-button-toggle value="underline">Lake View</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div> -->
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Compound</label>
+          <dx-select-box [class.required]="true" [dataSource]="compoundsLookup" [(value)]="singleUnit.compound_id"
+            displayExpr="name" valueExpr="id" [searchEnabled]="true">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Compound is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-select-box>
+          <!-- <mat-form-field class="example-full-width">
+            <mat-label>Compound</mat-label>
+            <mat-select formControlName="compound_id" autocomplete="off" [(value)]="singleUnit.compound_id" required>
+              <mat-option *ngFor="let compound of compoundsLookup" [value]="compound.id">
+                {{compound.name}} - {{compound.area.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Unit type</label>
+          <dx-select-box [class.required]="true"
+            [dataSource]="[{name:'Apartment'},{name:'Standalone'}, {name:'Townhouse'}, {name:'Twin villa'}]"
+            [(value)]="singleUnit.unit_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Unit type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-select-box>
+          <!-- <mat-form-field class="example-full-width">
+            <mat-label>Unit type</mat-label>
+            <mat-select formControlName="unit_type" autocomplete="off" [(value)]="singleUnit.unit_type" required>
+              <mat-option value="Apartment">
+                <mat-icon svgIcon="Apartment-icon"></mat-icon> Apartment
+              </mat-option>
+              <mat-option value="Standalone">
+                <mat-icon svgIcon="Standalone-icon"></mat-icon> Standalone
+              </mat-option>
+              <mat-option value="Townhouse">
+                <mat-icon svgIcon="Townhouse-icon"></mat-icon> Townhouse
+              </mat-option>
+              <mat-option value="Twin villa">
+                <mat-icon svgIcon="TwinVilla-icon"></mat-icon> Twin villa
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- <mat-button-toggle-group class="typesOfBuildings" (change)="setTypeBlock($event); unit_type.value = $event.value" name="typeBlock" aria-label="typeBlock">
+      <mat-button-toggle class="typeBlock" value="Apartment">
+        <mat-icon svgIcon="Apartment-icon"></mat-icon><span>Apartment</span>
+      </mat-button-toggle>
+      <mat-button-toggle class="typeBlock" value="Standalone">
+        <mat-icon svgIcon="Standalone-icon"></mat-icon><span>Standalone</span>
+      </mat-button-toggle>
+      <mat-button-toggle class="typeBlock" value="Townhouse">
+        <mat-icon svgIcon="Townhouse-icon"></mat-icon><span>Townhouse</span>
+      </mat-button-toggle>
+      <mat-button-toggle class="typeBlock" value="Twin villa">
+        <mat-icon svgIcon="TwinVilla-icon"></mat-icon><span>Twin villa</span>
+      </mat-button-toggle>
+    </mat-button-toggle-group> -->
+    <div class="row">
+      <div class="col-sm-4">
+        <h2 class="sectionTitle">Unit Informtion</h2>
+        <div class="form-group">
+          <label>Offering type</label>
+          <dx-select-box [class.required]="true" [dataSource]="[{name:'Buy'},{name:'Sale'}, {name:'Rent'}]"
+            [(value)]="singleUnit.offering_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Offering type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-select-box>
+          <!-- <mat-form-field class="example-full-width">
+            <mat-label>Offering type</mat-label>
+            <mat-select formControlName="offering_type" autocomplete="off" [(value)]="singleUnit.offering_type" required>
+              <mat-option value="Buy">
+                Buy
+              </mat-option>
+              <mat-option value="Sale">
+                Sale
+              </mat-option>
+              <mat-option value="Rent">
+                Rent
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Unit number</label>
+              <dx-text-box [(value)]="singleUnit.unit_num">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Unit number is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="Unit number" (input)="singleUnit.unit_num=$event.target.value"
+                  formControlName="unit_num" autocomplete="off" numbersOnly required>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Floor num</label>
+              <dx-number-box [class.required]="true" [(value)]="singleUnit.floor_num" [showSpinButtons]="true"
+                [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Floor num is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="Floor num" (input)="singleUnit.floor_num=$event.target.value"
+                  formControlName="floor_num" autocomplete="off" numbersOnly required>
+              </mat-form-field> -->
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Unit view</label>
+          <dx-text-box [(value)]="singleUnit.unit_view">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Unit view is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+          <!-- <mat-form-field class="example-full-width">
+            <input matInput placeholder="Unit view" (input)="singleUnit.unit_view=$event.target.value"
+              formControlName="unit_view" autocomplete="off" required>
+          </mat-form-field> -->
+        </div>
+        <div class="form-group">
+          <label>Market price</label>
+          <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.market_price"
+            [showSpinButtons]="false" [showClearButton]="false">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Market price is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-number-box>
+          <!-- <mat-form-field class="example-full-width">
+            <input matInput placeholder="Market price" (input)="singleUnit.market_price=$event.target.value"
+              formControlName="market_price" autocomplete="off" numbersOnly required>
+            <span matSuffix>&nbsp; EGP</span>
+          </mat-form-field> -->
+        </div>
+        <div class="form-group">
+          <h2 class="sectionTitle">Owner's Information</h2>
+          <label>Owner name</label>
+          <dx-text-box [(value)]="singleUnit.owner_name">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Owner name is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+          <!-- <mat-form-field class="example-full-width">
+            <input matInput placeholder="Owner_name" autocomplete="off"
+              (input)="singleUnit.owner_name=$event.target.value" formControlName="owner_name" required>
+          </mat-form-field> -->
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <!-- <mat-form-field class="example-full-width">
+                <input type="tel" matInput #country_code maxlength="5" placeholder="Country code" autocomplete="off" placeholder="code" numbersOnly>
+                <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="form-group">
+              <label>Owner phone</label>
+              <dx-number-box [class.required]="true" [(value)]="singleUnit.owner_phone" [showSpinButtons]="false"
+                [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Owner phone is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #owner_phone maxlength="10" placeholder="Owner phone" autocomplete="off"
+                  (input)="singleUnit.owner_phone=$event.target.value" numbersOnly formControlName="owner_phone" required>
+                <mat-hint align="end">{{owner_phone.value.length}} / 10</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Owner email</label>
+          <dx-text-box [(value)]="singleUnit.owner_email">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Owner email is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+          <!-- <mat-form-field class="example-full-width">
+            <input matInput placeholder="Owner email" autocomplete="off"
+              (input)="singleUnit.owner_email=$event.target.value" formControlName="owner_email">
+          </mat-form-field> -->
+        </div>
+        <div class="form-group">
+          <label>Owner facebook</label>
+          <dx-text-box [(value)]="singleUnit.owner_facebook">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Owner facebook is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+          <!-- <mat-form-field class="example-full-width">
+            <input matInput placeholder="Owner facebook" autocomplete="off"
+              (input)="singleUnit.owner_facebook=$event.target.value" formControlName="owner_facebook">
+          </mat-form-field> -->
+        </div>
+        <!-- <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Leave a comment"></textarea>
+        </mat-form-field> -->
+      </div>
+      <div class="col-sm-8">
+        <h2 class="sectionTitle">Unit Details</h2>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Land area</label>
+              <dx-text-box [(value)]="singleUnit.land_area">
+                <!-- [disabled]="(!singleUnit.unit_type || singleUnit.unit_type == 'Townhouse' || singleUnit.unit_type == 'Twin villa')" -->
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Land area is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="Land area" autocomplete="off"
+                  (input)="singleUnit.land_area=$event.target.value" formControlName="land_area" required>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Garden area</label>
+              <dx-text-box [(value)]="singleUnit.garden_area" 
+              [disabled]="(!singleUnit.unit_type || singleUnit.unit_type == 'Apartment' || singleUnit.unit_type == 'Standalone')">
+                <!-- <dx-validator>
+                  <dxi-validation-rule type="required" message="Garden area is required"></dxi-validation-rule>
+                </dx-validator> -->
+              </dx-text-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="Garden area" autocomplete="off"
+                  (input)="singleUnit.garden_area=$event.target.value" formControlName="garden_area" required>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Building area</label>
+              <dx-text-box [(value)]="singleUnit.building_area">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Building area is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="Building area" autocomplete="off"
+                  (input)="singleUnit.building_area=$event.target.value" formControlName="building_area" required>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Bedrooms</label>
+              <dx-number-box [class.required]="true" [min]="0" [(value)]="singleUnit.bedrooms" [showSpinButtons]="false"
+                [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Bedrooms is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="Bedrooms" autocomplete="off"
+                  (input)="singleUnit.bedrooms=$event.target.value" numbersOnly formControlName="bedrooms">
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Bathrooms</label>
+              <dx-number-box [class.required]="true" [min]="0" [(value)]="singleUnit.bathrooms"
+                [showSpinButtons]="false" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Bathrooms is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="Bathrooms" autocomplete="off"
+                  (input)="singleUnit.bathrooms=$event.target.value" numbersOnly formControlName="bathrooms">
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+          </div>
+        </div>
+        <h2 class="sectionTitle">Unit Price</h2>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Original price</label>
+              <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" (onValueChanged)="calculateOverPrice($event)"
+                [(value)]="singleUnit.original_price" [showSpinButtons]="false" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Original price is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #original_price maxlength="12" placeholder="Original price"
+                  (input)="singleUnit.original_price=$event.target.value" formControlName="original_price"
+                  autocomplete="off" numbersOnly required>
+                <span matSuffix>&nbsp; EGP</span>
+                <mat-hint align="end">{{original_price.value.length}} / 12</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Original downpayment</label>
+              <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
+                [(value)]="singleUnit.original_downpayment" [showSpinButtons]="false" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Original downpayment is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #original_downpayment maxlength="12" placeholder="Original downpayment"
+                  (input)="singleUnit.original_downpayment=$event.target.value" formControlName="original_downpayment"
+                  autocomplete="off" numbersOnly required>
+                <span matSuffix>&nbsp; EGP</span>
+                <mat-hint align="end">{{original_downpayment.value.length}} / 12</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Owner price</label>
+              <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.owner_price"
+                [showSpinButtons]="false" [showClearButton]="false" (onValueChanged)="calculateOverPrice($event)">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Owner price is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #owner_price maxlength="12" placeholder="Owner price"
+                  (input)="singleUnit.owner_price=$event.target.value" formControlName="owner_price" autocomplete="off"
+                  numbersOnly required>
+                <span matSuffix>&nbsp; EGP</span>
+                <mat-hint align="end">{{owner_price.value.length}} / 12</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Over price</label>
+              <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.over_price"
+                [showSpinButtons]="false" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Over price is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #over_price maxlength="12" placeholder="Over price"
+                  (input)="singleUnit.over_price=$event.target.value" formControlName="over_price" autocomplete="off"
+                  numbersOnly required>
+                <span matSuffix>&nbsp; EGP</span>
+                <mat-hint align="end">{{over_price.value.length}} / 12</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Commission percentage</label>
+              <dx-number-box [class.required]="true" format="#0 %" [min]="0" (onValueChanged)="commissionChanged('%', $event)"
+                [(value)]="singleUnit.commission_percentage" [showSpinButtons]="false" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Commission percentage is required">
+                  </dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #commission_percentage maxlength="3" placeholder="Commission percentage"
+                  (input)="singleUnit.commission_percentage=$event.target.value" formControlName="commission_percentage"
+                  autocomplete="off" numbersOnly required>
+                <span matSuffix>&nbsp; %</span>
+                <mat-hint align="end">{{commission_percentage.value.length}} / 3</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Commission value</label>
+              <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" (onValueChanged)="commissionChanged('#', $event)"
+                [(value)]="singleUnit.commission_value" [showSpinButtons]="false" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Commission value is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #commission_value maxlength="12" placeholder="Commission value"
+                  (input)="singleUnit.commission_value=$event.target.value" formControlName="commission_value"
+                  autocomplete="off" numbersOnly required>
+                <span matSuffix>&nbsp; EGP</span>
+                <mat-hint align="end">{{commission_value.value.length}} / 12</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Final price</label>
+              <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.final_price"
+                [showSpinButtons]="false" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Final price is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #final_price maxlength="12" placeholder="Final price"
+                  (input)="singleUnit.final_price=$event.target.value" formControlName="final_price" autocomplete="off"
+                  numbersOnly required>
+                <span matSuffix>&nbsp; EGP</span>
+                <mat-hint align="end">{{final_price.value.length}} / 12</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Final downpayment</label>
+              <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
+                [(value)]="singleUnit.final_downpayment" [showSpinButtons]="false" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Final downpayment is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+              <!-- <mat-form-field class="example-full-width">
+                <input matInput #final_downpayment maxlength="12" placeholder="Final downpayment"
+                  (input)="singleUnit.final_downpayment=$event.target.value" formControlName="final_downpayment"
+                  autocomplete="off" numbersOnly required>
+                <span matSuffix>&nbsp; EGP</span>
+                <mat-hint align="end">{{final_downpayment.value.length}} / 12</mat-hint>
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Description</label>
+              <dx-text-area [class.required]="true" [autoResizeEnabled]="true" [(value)]="singleUnit.unit_desc"
+                [height]="130">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Description is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-text-area>
+              <!-- <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Description" (input)="singleUnit.unit_desc=$event.target.value"
+                  formControlName="unit_desc" autocomplete="off" required></textarea>
+              </mat-form-field> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col align-self-end">
+        <div class="form-group">
+          <button type="button" (click)="saveUnit()" mat-flat-button color="primary" class="mat-primary">Save</button>
+          &nbsp; &nbsp;
+          <!-- <button type="button" mat-flat-button color="accent" class="mat-primary">Save and add Another</button> -->
+        </div>
+      </div>
+    </div>
+    <!-- </form> -->
+  </dx-validation-group>
+</fieldset>

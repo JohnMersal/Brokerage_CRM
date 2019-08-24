@@ -1,0 +1,120 @@
+<fieldset>
+  <legend>All Happy hours</legend>
+  <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="HappyHoursList" [showRowLines]="true"
+    [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+    [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+    <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+    <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+    <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+    <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+    <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+    <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+    <!--fixed Column-->
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="action" caption="Action" [allowFiltering]="true"
+      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="number" dataField="happy_points" caption="Happy points" [allowFiltering]="true"
+      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="Date" dataField="happy_start"
+      caption="Start date" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+    </dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="Date" dataField="happy_end" caption="End date" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+    <!-- <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
+      caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+    </dxi-column>
+    <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
+      caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+    </dxi-column>
+
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="created_by" caption="Created by"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+      cellTemplate="created_byTemplate"></dxi-column>
+
+    <div *dxTemplate="let data of 'created_byTemplate'">
+      {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
+    </div> -->
+    <dxo-summary>
+      <dxi-total-item column="action" summaryType="count">
+      </dxi-total-item>
+    </dxo-summary>
+  </dx-data-grid>
+</fieldset>
+
+<div class="modal fade" id="editLevelModal" tabindex="-1" role="dialog" aria-labelledby="editLevelModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editLevelModalLabel">Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <dx-validation-group #DataValidator>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Call points</label>
+              <dx-number-box [class.required]="true" [(value)]="editHappyHour.call_HappyHour_points" [showSpinButtons]="true" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Meeting points</label>
+              <dx-number-box [class.required]="true" [(value)]="editHappyHour.meeting_HappyHour_points" [showSpinButtons]="true" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Won points</label>
+              <dx-number-box [class.required]="true" [(value)]="editHappyHour.won_HappyHour_points" [showSpinButtons]="true" [showClearButton]="false">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Start date</label>
+              <dx-date-box [class.required]="true" width="auto" [(value)]="editHappyHour.happy_start" [displayFormat]="DateTimeFormat"
+                 [max]="editHappyHour.happy_start" type="datetime">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Start date is Required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-date-box>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>End date</label>
+              <dx-date-box [class.required]="true" width="auto" [(value)]="editHappyHour.happy_end" [displayFormat]="DateTimeFormat"
+                [min]="maxDate" type="datetime">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="End date is Required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-date-box>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <button type="button" (click)="updateHappyHourPoints()" mat-flat-button color="primary" class="mat-primary">Update</button>
+            </div>
+          </div>
+        </div>
+        </dx-validation-group>
+      </div>
+    </div>
+  </div>
+</div>

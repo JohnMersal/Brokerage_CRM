@@ -1,0 +1,130 @@
+<fieldset>
+  <legend>All to-do list</legend>
+  <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="todosList" [showRowLines]="true"
+    [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+    [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+    <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+    <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+    <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+    <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+    <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+    <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+    <!--fixed Column-->
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="todo_desc" caption="Describtion"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="todo_status" caption="Status"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="Date" [customizeText]="getDateFormated" dataField="todo_date" caption="due date"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="Date" [customizeText]="getDateFormated" dataField="start_date" caption="Start date"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="Date" [customizeText]="getDateFormated" dataField="end_date" caption="End date" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+    <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at" caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at" caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="created_by" caption="Created by" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="created_byTemplate"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="assigned_to" caption="Assigned to" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="assigned_toTemplate"></dxi-column>
+
+    <div *dxTemplate="let data of 'created_byTemplate'">
+      {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
+    </div>
+    <div *dxTemplate="let data of 'assigned_toTemplate'">
+      {{data.data.assigned_to.first_name}} {{data.data.assigned_to.second_name}}
+    </div>
+    <dxo-summary>
+      <dxi-total-item column="first_name" summaryType="count">
+      </dxi-total-item>
+    </dxo-summary>
+  </dx-data-grid>
+</fieldset>
+
+<div class="modal fade" id="editTodoModal" tabindex="-1" role="dialog" aria-labelledby="editTodoModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editTodoModalLabel">Edit to-do</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <mat-label>Assigned to</mat-label>
+                <mat-select autocomplete="off" [(value)]="editTodo.assigned_to" required>
+                  <mat-option *ngFor="let employee of employeesLookup" [value]="employee.id">
+                    {{employee.first_name}} {{employee.second_name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <mat-label>Status</mat-label>
+                <mat-select autocomplete="off" (selectionChange)="changeStatus($event)" [(value)]="editTodo.todo_status" required>
+                  <mat-option value="Not started">
+                    Not started
+                  </mat-option>
+                  <mat-option value="In progress">
+                    In progress
+                  </mat-option>
+                  <mat-option value="Done">
+                    Done
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" [max]="maxDate" [matDatepicker]="start_date"
+                  (dateChange)="setTodo_date($event.target.value)" placeholder="Start Date" [(value)]="editTodo.start_date" required>
+                <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+                <mat-datepicker #start_date></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" [max]="maxDate" [matDatepicker]="end_date" [(value)]="editTodo.end_date"
+                  placeholder="Finish date" required>
+                <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+                <mat-datepicker #end_date></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" [min]="maxDate" [matDatepicker]="picker" (dateChange)="setTodo_date($event.target.value)" placeholder="Due date" [(value)]="editTodo.todo_date" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Description" (input)="editTodo.todo_desc=$event.target.value" [(value)]="editTodo.todo_desc" autocomplete="off" required></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateTodo()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

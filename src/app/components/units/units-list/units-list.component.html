@@ -1,0 +1,583 @@
+<app-tabs [currentTabName]="mainTabsName">
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'sales'">
+    <a (click)="changeMainTabs('sales')">For sale units</a>
+  </li>
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'rent'">
+    <a (click)="changeMainTabs('rent')">For rent units</a>
+  </li>
+</app-tabs>
+<div>
+  <div *ngIf="mainTabsSwitch == 'sales'">
+    <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="saleUnitsList" [showRowLines]="true"
+      [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+      [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+      <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+      <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+      <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-export [enabled]="true" fileName="Units" [allowExportSelectedData]="false"></dxo-export>
+      <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+      <dxo-column-chooser [enabled]="true" mode="select" [allowSearch]="true"></dxo-column-chooser>
+      <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+      <!--fixed Column-->
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="compound_id" caption="Compound"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+        cellTemplate="compound_idTemplate"></dxi-column>
+      <div *dxTemplate="let data of 'compound_idTemplate'">
+        {{traceCompoundName(data.data.compound_id)}}
+      </div>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_type" caption="Unit type"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="offering_type" caption="Offering type"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="original_price" caption="Original price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="market_price" caption="Market price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_price" caption="Owner price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="over_price" caption="Over price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="commission_percentage" caption="Commission (%)"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="commission_value" caption="Commission value"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="final_price" caption="Final price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="original_downpayment" caption="Original downpayment"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="final_downpayment" caption="Final downpayment"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_num" caption="Details" [allowFiltering]="true"
+        [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="DetailsTemplate"></dxi-column>
+      <div *dxTemplate="let data of 'DetailsTemplate'">
+        Unit #: {{data.data.unit_num}}, Floor: {{data.data.floor_num}}, Bedrooms: {{data.data.bedrooms}}, Bathrooms:
+        {{data.data.bathrooms}},
+        Land area: {{data.data.land_area}}, Building area: {{data.data.building_area}}, Garden area:
+        {{data.data.garden_area}}
+      </div>
+
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_desc" caption="Describtion"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_view" caption="Unit view"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_name" caption="Owner name"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_phone" caption="Owner phone"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_email" caption="Owner email"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_facebook" caption="Owner facebook"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+
+      <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
+        caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+      </dxi-column>
+      <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
+        caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+      </dxi-column>
+
+      <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_by" caption="Reassigned by"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+      cellTemplate="reassigned_byTemplate"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_to" caption="Reassigned to"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+      cellTemplate="reassigned_toTemplate"></dxi-column> -->
+
+      <div *dxTemplate="let data of 'reassigned_byTemplate'">
+        {{data.data.first_name}} {{data.data.second_name}}
+      </div>
+      <div *dxTemplate="let data of 'reassigned_toTemplate'">
+        {{data.data.first_name}} {{data.data.second_name}}
+      </div>
+      <dxo-summary>
+        <dxi-total-item column="compound_id" summaryType="count">
+        </dxi-total-item>
+      </dxo-summary>
+    </dx-data-grid>
+
+
+
+    <!-- <div class="row">
+    <div class="col-sm-12" *ngIf="dataSource">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <table mat-table [dataSource]="dataSource" matSort
+        class="table table-Section table-striped mat-table table-bordered">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="compound_id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Compound </th>
+          <td mat-cell *matCellDef="let element"> {{element.compound_id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="unit_type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit type </th>
+          <td mat-cell *matCellDef="let element"> {{element.unit_type}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="offering_type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Offering type </th>
+          <td mat-cell *matCellDef="let element"> {{element.offering_type}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="owner_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner name </th>
+          <td mat-cell *matCellDef="let element"> {{element.owner_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Details </th>
+          <td mat-cell *matCellDef="let element">bedrooms: {{element.bedrooms}}, bathrooms: {{element.bathrooms}}, floor
+            #: {{element.floor_num}}, unit #: {{element.unit_num}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="original_price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Original price </th>
+          <td mat-cell *matCellDef="let element"> {{element.original_price}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="final_price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Final price </th>
+          <td mat-cell *matCellDef="let element"> {{element.final_price}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="commission">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Commission </th>
+          <td mat-cell *matCellDef="let element"> {{element.commission_value}} ({{element.commission_percentage}}%)</td>
+        </ng-container>
+
+        <ng-container matColumnDef="unit_desc">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.unit_desc}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Created at </th>
+          <td mat-cell *matCellDef="let element">{{ element.created_at}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updated_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated at </th>
+          <td mat-cell *matCellDef="let element"> {{element.updated_at}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_by">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> created_by </th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.created_by"> {{element.created_by.first_name}}
+              {{element.created_by.second_name}} </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let element"> <a href="javascript:;" (click)="openToeditUnit(element)">Edit</a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div> -->
+  </div>
+  <div *ngIf="mainTabsSwitch == 'rent'">
+    <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="rentUnitsList" [showRowLines]="true"
+      [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+      [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+      <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+      <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+      <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-export [enabled]="true" fileName="Units" [allowExportSelectedData]="false"></dxo-export>
+      <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+      <dxo-column-chooser [enabled]="true" mode="select" [allowSearch]="true"></dxo-column-chooser>
+      <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+      <!--fixed Column-->
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="compound_id" caption="Compound"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+        cellTemplate="compound_idTemplate"></dxi-column>
+      <div *dxTemplate="let data of 'compound_idTemplate'">
+        {{traceCompoundName(data.data.compound_id)}}
+      </div>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_type" caption="Unit type"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="offering_type" caption="Offering type"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="original_price" caption="Original price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="market_price" caption="Market price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_price" caption="Owner price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="over_price" caption="Over price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="commission_percentage" caption="Commission (%)"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="commission_value" caption="Commission value"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="final_price" caption="Final price"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="original_downpayment" caption="Original downpayment"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="final_downpayment" caption="Final downpayment"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_num" caption="Details" [allowFiltering]="true"
+        [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="DetailsTemplate"></dxi-column>
+      <div *dxTemplate="let data of 'DetailsTemplate'">
+        Unit #: {{data.data.unit_num}}, Floor: {{data.data.floor_num}}, Bedrooms: {{data.data.bedrooms}}, Bathrooms:
+        {{data.data.bathrooms}},
+        Land area: {{data.data.land_area}}, Building area: {{data.data.building_area}}, Garden area:
+        {{data.data.garden_area}}
+      </div>
+
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_desc" caption="Describtion"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_view" caption="Unit view"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_name" caption="Owner name"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_phone" caption="Owner phone"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_email" caption="Owner email"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+      <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_facebook" caption="Owner facebook"
+        [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+
+      <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
+        caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+      </dxi-column>
+      <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
+        caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+      </dxi-column>
+
+      <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_by" caption="Reassigned by"
+            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+            cellTemplate="reassigned_byTemplate"></dxi-column>
+          <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_to" caption="Reassigned to"
+            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+            cellTemplate="reassigned_toTemplate"></dxi-column> -->
+
+      <div *dxTemplate="let data of 'reassigned_byTemplate'">
+        {{data.data.first_name}} {{data.data.second_name}}
+      </div>
+      <div *dxTemplate="let data of 'reassigned_toTemplate'">
+        {{data.data.first_name}} {{data.data.second_name}}
+      </div>
+      <dxo-summary>
+        <dxi-total-item column="compound_id" summaryType="count">
+        </dxi-total-item>
+      </dxo-summary>
+    </dx-data-grid>
+  </div>
+</div>
+
+
+<div class="modal fade" id="editUnitModal" tabindex="-1" role="dialog" aria-labelledby="editUnitModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUnitModalLabel">Edit: {{editUnit.unit_type}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-new-unit #edit [updateMode]="true" (afterSave)="afterSave($event)"></app-new-unit>
+        <!-- <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <mat-label>Compound</mat-label>
+                <mat-select autocomplete="off" [(value)]="editUnit.compound_id" required>
+                  <mat-option *ngFor="let compound of compoundsLookup" [value]="compound.id">
+                    {{compound.name}} - {{compound.area.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <mat-label>Unit type</mat-label>
+                <mat-select autocomplete="off" [(value)]="editUnit.unit_type" required>
+                  <mat-option value="Apartment">
+                    <mat-icon svgIcon="Apartment-icon"></mat-icon> Apartment
+                  </mat-option>
+                  <mat-option value="Standalone">
+                    <mat-icon svgIcon="Standalone-icon"></mat-icon> Standalone
+                  </mat-option>
+                  <mat-option value="Townhouse">
+                    <mat-icon svgIcon="Townhouse-icon"></mat-icon> Townhouse
+                  </mat-option>
+                  <mat-option value="Twin villa">
+                    <mat-icon svgIcon="TwinVilla-icon"></mat-icon> Twin villa
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <h2 class="sectionTitle">Unit Informtion</h2>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <mat-label>Offering type</mat-label>
+                <mat-select autocomplete="off" [(value)]="editUnit.offering_type" required>
+                  <mat-option value="Buy">
+                    Buy
+                  </mat-option>
+                  <mat-option value="Sale">
+                    Sale
+                  </mat-option>
+                  <mat-option value="Rent">
+                    Rent
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Unit number" [(value)]="editUnit.unit_num"
+                      (input)="editUnit.unit_num=$event.target.value" autocomplete="off" numbersOnly required>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Floor num" (input)="editUnit.floor_num=$event.target.value"
+                      [(value)]="editUnit.floor_num" autocomplete="off" numbersOnly required>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Unit view" (input)="editUnit.unit_view=$event.target.value"
+                  [(value)]="editUnit.unit_view" autocomplete="off" required>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Market price" (input)="editUnit.market_price=$event.target.value"
+                  [(value)]="editUnit.market_price" autocomplete="off" numbersOnly required>
+                <span matSuffix>&nbsp; EGP</span>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <h2 class="sectionTitle">Owner's Information</h2>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Owner_name" autocomplete="off"
+                  (input)="editUnit.owner_name=$event.target.value" [(value)]="editUnit.owner_name" required>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                   <mat-form-field class="example-full-width">
+                            <input type="tel" matInput #country_code maxlength="5" placeholder="Country code" autocomplete="off" placeholder="code" numbersOnly>
+                            <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
+                          </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #owner_phone maxlength="10" placeholder="Owner phone" autocomplete="off"
+                      (input)="editUnit.owner_phone=$event.target.value" numbersOnly [(value)]="editUnit.owner_phone"
+                      required>
+                    <mat-hint align="end">{{owner_phone.value.length}} / 10</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Owner email" autocomplete="off"
+                  (input)="editUnit.owner_email=$event.target.value" [(value)]="editUnit.owner_email">
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Owner facebook" autocomplete="off"
+                  (input)="editUnit.owner_facebook=$event.target.value" [(value)]="editUnit.owner_facebook">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <h2 class="sectionTitle">Unit Details</h2>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Land area" autocomplete="off"
+                      (input)="editUnit.land_area=$event.target.value" [(value)]="editUnit.land_area" required>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Building area" autocomplete="off"
+                      (input)="editUnit.building_area=$event.target.value" [(value)]="editUnit.building_area" required>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Garden area" autocomplete="off"
+                      (input)="editUnit.garden_area=$event.target.value" [(value)]="editUnit.garden_area" required>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Bedrooms" autocomplete="off"
+                      (input)="editUnit.bedrooms=$event.target.value" numbersOnly [(value)]="editUnit.bedrooms">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Bathrooms" autocomplete="off"
+                      (input)="editUnit.bathrooms=$event.target.value" numbersOnly [(value)]="editUnit.bathrooms">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-4">
+              </div>
+            </div>
+            <h2 class="sectionTitle">Unit Price</h2>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #original_price maxlength="12" placeholder="Original price"
+                      (input)="editUnit.original_price=$event.target.value" [(value)]="editUnit.original_price"
+                      autocomplete="off" numbersOnly required>
+                    <span matSuffix>&nbsp; EGP</span>
+                    <mat-hint align="end">{{original_price.value.length}} / 12</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #original_downpayment maxlength="12" placeholder="Original downpayment"
+                      (input)="editUnit.original_downpayment=$event.target.value"
+                      [(value)]="editUnit.original_downpayment" autocomplete="off" numbersOnly required>
+                    <span matSuffix>&nbsp; EGP</span>
+                    <mat-hint align="end">{{original_downpayment.value.length}} / 12</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #owner_price maxlength="12" placeholder="Owner price"
+                      (input)="editUnit.owner_price=$event.target.value" [(value)]="editUnit.owner_price"
+                      autocomplete="off" numbersOnly required>
+                    <span matSuffix>&nbsp; EGP</span>
+                    <mat-hint align="end">{{owner_price.value.length}} / 12</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #over_price maxlength="12" placeholder="Over price"
+                      (input)="editUnit.over_price=$event.target.value" [(value)]="editUnit.over_price"
+                      autocomplete="off" numbersOnly required>
+                    <span matSuffix>&nbsp; EGP</span>
+                    <mat-hint align="end">{{over_price.value.length}} / 12</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #commission_percentage maxlength="3" placeholder="Commission percentage"
+                      (input)="editUnit.commission_percentage=$event.target.value"
+                      [(value)]="editUnit.commission_percentage" autocomplete="off" numbersOnly required>
+                    <span matSuffix>&nbsp; %</span>
+                    <mat-hint align="end">{{commission_percentage.value.length}} / 3</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #commission_value maxlength="12" placeholder="Commission value"
+                      (input)="editUnit.commission_value=$event.target.value" [(value)]="editUnit.commission_value"
+                      autocomplete="off" numbersOnly required>
+                    <span matSuffix>&nbsp; EGP</span>
+                    <mat-hint align="end">{{commission_value.value.length}} / 12</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #final_price maxlength="12" placeholder="Final price"
+                      (input)="editUnit.final_price=$event.target.value" [(value)]="editUnit.final_price"
+                      autocomplete="off" numbersOnly required>
+                    <span matSuffix>&nbsp; EGP</span>
+                    <mat-hint align="end">{{final_price.value.length}} / 12</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <input matInput #final_downpayment maxlength="12" placeholder="Final downpayment"
+                      (input)="editUnit.final_downpayment=$event.target.value" [(value)]="editUnit.final_downpayment"
+                      autocomplete="off" numbersOnly required>
+                    <span matSuffix>&nbsp; EGP</span>
+                    <mat-hint align="end">{{final_downpayment.value.length}} / 12</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Description" (input)="editUnit.unit_desc=$event.target.value"
+                      [(value)]="editUnit.unit_desc" autocomplete="off" numbersOnly required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateUnit()">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>

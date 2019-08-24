@@ -1,0 +1,66 @@
+import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
+declare var $: any;
+@Component({
+  // tslint:disable-next-line:component-selector
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
+})
+export class SidebarComponent implements AfterViewInit {
+  // this is for the open close
+  isActive = true;
+  showMenu = '';
+  showSubMenu = '';
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon('icon-employees', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/employees.svg'));
+    iconRegistry.addSvgIcon('icon-clients', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/clients.svg'));
+    iconRegistry.addSvgIcon('icon-units', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/units.svg'));
+    iconRegistry.addSvgIcon('icon-statistics', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/statistics.svg'));
+    iconRegistry.addSvgIcon('icon-dashboard', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/dashboard.svg'));
+}
+  addExpandClass(element: any) {
+    if (element === this.showMenu) {
+      this.showMenu = '0';
+    } else {
+      this.showMenu = element;
+    }
+  }
+  addActiveClass(element: any) {
+    if (element === this.showSubMenu) {
+      this.showSubMenu = '0';
+    } else {
+      this.showSubMenu = element;
+    }
+  }
+  eventCalled() {
+    this.isActive = !this.isActive;
+  }
+  // End open close
+  ngAfterViewInit() {
+    $(function() {
+      $('.sidebartoggler').on('click', function() {
+        if ($('body').hasClass('mini-sidebar')) {
+          $('body').trigger('resize');
+          $('.scroll-sidebar, .slimScrollDiv')
+            .css('overflow', 'hidden')
+            .parent()
+            .css('overflow', 'visible');
+          $('body').removeClass('mini-sidebar');
+          $('.navbar-brand span').show();
+          // $(".sidebartoggler i").addClass("ti-menu");
+        } else {
+          $('body').trigger('resize');
+          $('.scroll-sidebar, .slimScrollDiv')
+            .css('overflow-x', 'visible')
+            .parent()
+            .css('overflow', 'visible');
+          $('body').addClass('mini-sidebar');
+          $('.navbar-brand span').hide();
+          // $(".sidebartoggler i").removeClass("ti-menu");
+        }
+      });
+    });
+  }
+}
