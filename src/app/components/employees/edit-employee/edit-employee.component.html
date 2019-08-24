@@ -1,0 +1,366 @@
+<div class="row">
+  <!-- Column -->
+  <div class="col-lg-4 col-xlg-3 col-md-5">
+    <div class="card">
+      <div class="card-block">
+        <div style="text-align: center;" class="m-t-30"> <img *ngIf="singleEmployee.employee" src="{{singleEmployee.employee.profile_picture}}" onerror="this.onerror=null;this.src='assets/images/profile-pic-placeholder.png';" class="img-circle" width="150" />
+          <img *ngIf="!singleEmployee.employee" src="assets/images/profile-pic-placeholder.png" class="img-circle" width="150" />
+          <h4 class="card-title m-t-10">{{singleEmployee.first_name}} {{singleEmployee.second_name}}</h4>
+          <h6 class="card-subtitle"><ng-container *ngIf="singleEmployee.employee">{{singleEmployee.employee.job_title}}</ng-container></h6>
+        </div>
+      </div>
+      <div>
+        <hr>
+      </div>
+      <div class="card-block">
+        <small class="text-muted">Email address </small><h6>{{singleEmployee.email}}</h6>
+        <small class="text-muted p-t-30 db">Phone</small><h6>{{singleEmployee.mobile}}</h6>
+        <!-- <small class="text-muted p-t-30 db">Address</small><h6>1234567891234567</h6> -->
+        <small class="text-muted p-t-30 db">National ID</small><h6 *ngIf="singleEmployee.employee">{{singleEmployee.employee.national_id}}</h6>
+      </div>
+    </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-8 col-xlg-9 col-md-7">
+
+    <div class="card">
+      <!-- Nav tabs -->
+      <mat-tab-group animationDuration="400ms">
+        <mat-tab label="Statistics">
+          <div class="py-4 px-4 no-shadow">
+            <div class="row">
+              <div class="col-12">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker1" placeholder="Change date" #DateDay>
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+                <span class="card-title ml-2">Viewing {{(DateDay.value + ' statistics') || 'Today statistics'}}</span>
+              </div>
+              <!-- Column -->
+              <div class="col-lg-4 col-md-6">
+                <div class="card">
+                  <div class="card-block">
+                    <div class="d-flex flex-row">
+                      <div class="round align-self-center round-success"><i class="fa  fa-bullseye"></i></div>
+                      <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0">EGP 2,000,000</h3>
+                        <h5 class="text-muted m-b-0">Sales</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              <!-- Column -->
+              <div class="col-lg-4 col-md-6">
+                <div class="card">
+                  <div class="card-block">
+                    <div class="d-flex flex-row">
+                      <div class="round align-self-center round-info"><i class="fa fa-calendar"></i></div>
+                      <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0">
+                          <ng-container *ngIf="singleEmployee.employee">{{singleEmployee.employee.joining_date}}</ng-container>
+                        </h3>
+                        <h5 class="text-muted m-b-0">Joining Date</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              <!-- Column -->
+              <div class="col-lg-4 col-md-6">
+                <div class="card">
+                  <div class="card-block">
+                    <div class="d-flex flex-row">
+                      <div class="round align-self-center round-danger"><i class="fa fa-users"></i></div>
+                      <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0">15</h3>
+                        <h5 class="text-muted m-b-0">New Leads</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="d-flex flex-row">
+                    <div class="p-10 bg-info">
+                      <h3 class="text-white box m-b-0 d-flex"><i class="fa fa-phone"></i></h3>
+                    </div>
+                    <div class="align-self-center m-l-20">
+                      <h3 class="m-b-0 text-info">50</h3>
+                      <h5 class="text-muted m-b-0">Total calls</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="d-flex flex-row">
+                    <div class="p-10 bg-success">
+                      <h3 class="text-white box m-b-0 d-flex">
+                        <mat-icon svgIcon="icon-happy"></mat-icon>
+                      </h3>
+                    </div>
+                    <div class="align-self-center m-l-20">
+                      <h3 class="m-b-0 text-success">10</h3>
+                      <h5 class="text-muted m-b-0 text-success">Won</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="d-flex flex-row">
+                    <div class="p-10 bg-primary">
+                      <h3 class="text-white box m-b-0 d-flex">
+                        <mat-icon svgIcon="icon-wink"></mat-icon>
+                      </h3>
+                    </div>
+                    <div class="align-self-center m-l-20">
+                      <h3 class="m-b-0">20</h3>
+                      <h5 class="text-muted m-b-0 text-primary">On Going</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="d-flex flex-row">
+                    <div class="p-10 bg-danger">
+                      <h3 class="text-white box m-b-0 d-flex">
+                        <mat-icon svgIcon="icon-sad"></mat-icon>
+                      </h3>
+                    </div>
+                    <div class="align-self-center m-l-20">
+                      <h3 class="m-b-0 text-danger">20</h3>
+                      <h5 class="text-muted m-b-0 text-danger">Lost</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-block">
+                    <div class="row">
+                      <div class="col-12">
+                        <h2 class="card-title">Target</h2>
+                      </div>
+                      <div class="col-12">
+                        <mat-tab-group animationDuration="400ms">
+                          <mat-tab label="In commission">
+                            <div class="py-2 px-3">
+                              <div class="row">
+                                <div class="col-12">
+                                  <h5 class="m-t-30">Monthly: 1,000,000 EGP <span class="pull-right">3,000,000</span>
+                                  </h5>
+                                  <div class="progress ">
+                                    <div class="progress-bar bg-danger wow animated progress-animated"
+                                      style="width: 33%; height:6px;" role="progressbar"> <span class="sr-only">60%
+                                        Complete</span> </div>
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                  <h5 class="m-t-30">Quarter: 4,000,000 EGP <span class="pull-right">8,000,000</span>
+                                  </h5>
+                                  <div class="progress">
+                                    <div class="progress-bar bg-info wow animated progress-animated"
+                                      style="width: 50%; height:6px;" role="progressbar"> <span class="sr-only">60%
+                                        Complete</span> </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-12">
+                                  <h5 class="m-t-30">Yearly: 32,000,000 EGP <span class="pull-right">32,000,000</span>
+                                  </h5>
+                                  <div class="progress">
+                                    <div class="progress-bar bg-success wow animated progress-animated"
+                                      style="width: 100%; height:6px;" role="progressbar"> <span class="sr-only">60%
+                                        Complete</span> </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="In total sales value">
+                            <div class="py-2 px-3">
+                              <div class="row">
+                                <div class="col-12">
+                                  <h5 class="m-t-30">Monthly: 1,000,000 EGP <span class="pull-right">3,000,000</span>
+                                  </h5>
+                                  <div class="progress ">
+                                    <div class="progress-bar bg-danger wow animated progress-animated"
+                                      style="width: 33%; height:6px;" role="progressbar"> <span class="sr-only">60%
+                                        Complete</span> </div>
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                  <h5 class="m-t-30">Quarter: 4,000,000 EGP <span class="pull-right">8,000,000</span>
+                                  </h5>
+                                  <div class="progress">
+                                    <div class="progress-bar bg-info wow animated progress-animated"
+                                      style="width: 50%; height:6px;" role="progressbar"> <span class="sr-only">60%
+                                        Complete</span> </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-12">
+                                  <h5 class="m-t-30">Yearly: 32,000,000 EGP <span class="pull-right">32,000,000</span>
+                                  </h5>
+                                  <div class="progress">
+                                    <div class="progress-bar bg-success wow animated progress-animated"
+                                      style="width: 100%; height:6px;" role="progressbar"> <span class="sr-only">60%
+                                        Complete</span> </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-tab>
+                        </mat-tab-group>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column -->
+            </div>
+          </div>
+
+
+        </mat-tab>
+        <mat-tab label="Client List">
+          <div class="table-responsive px-4 py-2">
+            <table class="table m-t-10 table-hover contact-list color-table info-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Mobile # </th>
+                  <th>Project</th>
+                  <th>Type</th>
+                  <th>Feedback</th>
+                  <th>Followup date / time </th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let i of [0,1,2,3]">
+                  <tr>
+                    <td>12-12-2018</td>
+                    <td>
+                      <a href="javascript:void(0)" #user>Genelia Deshmukh {{i}}</a>
+                    </td>
+                    <td>+201227172121</td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Compound" #message2 [value]="CompoundselectValue">
+                          <mat-option value="Il Mont Galala">Il Mont Galala</mat-option>
+                          <mat-option value="Mivida">Mivida</mat-option>
+                          <mat-option value="Villette">Villette</mat-option>
+                          <mat-option value="Amwaj">Amwaj</mat-option>
+                          <mat-option value="Marassi">Marassi</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Type" [value]="TypeselectValue">
+                          <mat-option value="Apartment">Apartment</mat-option>
+                          <mat-option value="Villa">Villa</mat-option>
+                          <mat-option value="Chalet">Chalet</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam dolorum, odit optio quas quia
+                      quidem quo rerum sequi soluta ut!</td>
+                    <td>
+                      <mat-form-field>
+                        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Status" [value]="StatusselectValue">
+                          <mat-option selected value="won">Won</mat-option>
+                          <mat-option value="lost">Lost</mat-option>
+                          <mat-option value="inprogress">In progress</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Settings">
+          <div class="card-block">
+            <!-- <form class="form-horizontal form-material"> -->
+              <div class="form-group">
+                <label class="col-md-12">Full Name</label>
+                <div class="col-md-12">
+                  <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="example-email" class="col-md-12">Email</label>
+                <div class="col-md-12">
+                  <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line"
+                    name="example-email" id="example-email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-12">Password</label>
+                <div class="col-md-12">
+                  <input type="password" value="password" class="form-control form-control-line">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-12">Phone No</label>
+                <div class="col-md-12">
+                  <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-12">Message</label>
+                <div class="col-md-12">
+                  <textarea rows="5" class="form-control form-control-line"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-12">Select Country</label>
+                <div class="col-sm-12">
+                  <select class="form-control form-control-line">
+                    <option>London</option>
+                    <option>India</option>
+                    <option>Usa</option>
+                    <option>Canada</option>
+                    <option>Thailand</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <button class="btn btn-success">Update Profile</button>
+                </div>
+              </div>
+            <!-- </form> -->
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+  <!-- Column -->
+</div>

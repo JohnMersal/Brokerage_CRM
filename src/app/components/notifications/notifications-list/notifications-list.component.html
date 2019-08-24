@@ -1,0 +1,34 @@
+<dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="notificationsList" [showRowLines]="false"
+  [showColumnLines]="false" [showBorders]="false" [rowAlternationEnabled]="false" [allowColumnReordering]="false"
+  [allowColumnResizing]="true" [showColumnHeaders]="false" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+  <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+  <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+  <dxo-search-panel [visible]="false" placeholder="Keyword to search..."></dxo-search-panel>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-export [enabled]="false" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+  <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+  <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+  <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+  <!--fixed Column-->
+  <dxi-column cssClass="grid-cell" dataType="Date" [customizeText]="getDateFormated" dataField="rem_date"
+    caption="Date" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="50">
+  </dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="rem_desc" caption="Describtion" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="100">
+  </dxi-column>
+  <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
+    caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+  </dxi-column>
+  <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
+    caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+  </dxi-column>
+
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="created_by" caption="Created by" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="false" [width]="'auto'" cellTemplate="created_byTemplate"></dxi-column>
+  <div *dxTemplate="let data of 'created_byTemplate'">
+    {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
+  </div>
+  <!-- <dxo-summary>
+    <dxi-total-item column="first_name" summaryType="count">
+    </dxi-total-item>
+  </dxo-summary> -->
+</dx-data-grid>

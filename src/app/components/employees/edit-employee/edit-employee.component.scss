@@ -1,0 +1,12 @@
+table{
+  font-size:14px;
+  /deep/ .mat-form-field-infix{
+    width:100px;
+  }
+  button{
+    margin-left: 0px;
+  }
+}
+.card-block{
+  &{padding: 15px;}
+}

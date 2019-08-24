@@ -1,0 +1,116 @@
+<fieldset>
+  <legend>All Activities</legend>
+  <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="activitiesList" [showRowLines]="true"
+    [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+    [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+    <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+    <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+    <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+    <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+    <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+    <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+    <!--fixed Column-->
+    <dxi-column cssClass="grid-cell" dataType="string" [customizeText]="getDateFormated" dataField="activity_date" caption="Activity date"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="activity_status" caption="Status"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="activity_type" caption="Type"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="feedback" caption="Feedback" [allowFiltering]="true"
+      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      
+    <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
+      caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+    </dxi-column>
+    <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
+      caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+    </dxi-column>
+
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="client_data" caption="Client"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+      cellTemplate="client_dataTemplate"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="created_by" caption="Created by"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+      cellTemplate="created_byTemplate"></dxi-column>
+
+    <div *dxTemplate="let data of 'client_dataTemplate'">
+      {{data.data.client_data.first_name}} {{data.data.client_data.second_name}}
+    </div>
+    <div *dxTemplate="let data of 'created_byTemplate'">
+      {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
+    </div>
+    <dxo-summary>
+      <dxi-total-item column="first_name" summaryType="count">
+      </dxi-total-item>
+    </dxo-summary>
+  </dx-data-grid>
+</fieldset>
+
+<div class="modal fade" id="editActivityModal" tabindex="-1" role="dialog" aria-labelledby="editActivityModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editActivityModalLabel">Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-new-activity #edit [updateMode]="true" (afterSave)="afterSave($event)"></app-new-activity>
+        <!-- <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" placeholder="lead name" [(value)]="editActivity.first_name"
+                  (input)="editActivity.first_name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" placeholder="lead name" [(value)]="editActivity.second_name"
+                  (input)="editActivity.second_name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" placeholder="project name" [(value)]="editActivity.project_name"
+                  (input)="editActivity.project_name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" #country_code maxlength="5" placeholder="country code"
+                  [(value)]="editActivity.country_code" (input)="editActivity.country_code=$event.target.value" numbersOnly
+                  required>
+                <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" #lead_phone maxlength="10" placeholder="lead phone"
+                  [(value)]="editActivity.lead_phone" (input)="editActivity.lead_phone=$event.target.value" numbersOnly
+                  required>
+                <mat-hint align="end">{{lead_phone.value.length}} / 10</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateActivity()">Save changes</button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>

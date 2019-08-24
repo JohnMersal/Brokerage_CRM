@@ -1,0 +1,19 @@
+<div #tabsElement class="HeaderTabsHolder">
+  <!-- <div class="navbar-header">
+    <button #navbar_button_toggle type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+      data-target="#HeaderTabsHolder" aria-expanded="false">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      {{currentTabName}}
+    </button>
+  </div> -->
+  <div #navbar_collapse class="_collapse navbar-collapse" id="HeaderTabsHolder" aria-expanded="false">
+    <ul id="HeaderTabs" class="HeaderTabs clearfix" style="position:relative;">
+      <ng-content>
+
+      </ng-content>
+    </ul>
+  </div>
+</div>

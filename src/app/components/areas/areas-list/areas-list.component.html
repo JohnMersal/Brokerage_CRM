@@ -1,0 +1,145 @@
+<fieldset>
+  <legend>All Areas</legend>
+<dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="areasList" [showRowLines]="true"
+  [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+  [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+  <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+  <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+  <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+  <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+  <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+  <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+  <!--fixed Column-->
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="name" caption="name" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="address" caption="Address"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+  
+  <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
+    caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+  <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
+    caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+  <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="user" caption="User"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+    cellTemplate="userTemplate"></dxi-column>
+  <div *dxTemplate="let data of 'userTemplate'">
+    {{data.data.user.first_name}} {{data.data.user.second_name}}
+  </div> -->
+
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="created_by" caption="Created by"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+    cellTemplate="created_byTemplate"></dxi-column>
+  <div *dxTemplate="let data of 'created_byTemplate'">
+    {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
+  </div>
+
+  <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Assgin lead" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="assginTemplate"></dxi-column>
+  <div *dxTemplate="let data of 'assginTemplate'">
+    <button type="button" mat-flat-button color="primary" class="mat-primary"
+      (click)="assginTo(data.data)">Assgin</button>
+  </div> -->
+
+  <dxo-summary>
+    <dxi-total-item column="first_name" summaryType="count">
+    </dxi-total-item>
+  </dxo-summary>
+</dx-data-grid>
+
+  <div class="row" *ngIf="dataSource">
+    <div class="col-sm-12">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <table mat-table [dataSource]="dataSource" matSort
+        class="table table-Section table-striped mat-table table-bordered">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Address </th>
+          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Created at </th>
+          <td mat-cell *matCellDef="let element">{{ element.created_at}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updated_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated at </th>
+          <td mat-cell *matCellDef="let element"> {{element.updated_at}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_by">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> created_by </th>
+          <td mat-cell *matCellDef="let element"><ng-container *ngIf="element.created_by"> {{element.created_by.first_name}} {{element.created_by.second_name}} </ng-container></td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let element"> <a href="javascript:;" (click)="openToEditArea(element)">Edit</a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</fieldset>
+
+<div class="modal fade" id="editAreaModal" tabindex="-1" role="dialog" aria-labelledby="editAreaModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editAreaModalLabel">Edit Lead: {{editArea.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="lead name" [(value)]="editArea.name"
+                  (input)="editArea.name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="project name" [(value)]="editArea.address"
+                  (input)="editArea.address=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateArea()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

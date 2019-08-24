@@ -1,0 +1,167 @@
+<fieldset>
+  <legend>All leads</legend>
+      <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="leadsList" [showRowLines]="true"
+    [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true" [allowColumnResizing]="true"
+        (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+        <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+        <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+        <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+        <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+        <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+        <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+        <!--fixed Column-->
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="first_name" caption="First name"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="second_name" caption="Second name"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="project_name" caption="Project name"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="country_code" caption="Country code"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="lead_phone" caption="Phone"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="lead_status" caption="Status"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at" caption="Created at"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at" caption="Updated at"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_by" caption="Reassigned by"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="reassigned_byTemplate"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_to" caption="Reassigned to"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="reassigned_toTemplate"></dxi-column>
+
+          <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Assgin lead"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="assginTemplate"></dxi-column>
+
+          <div *dxTemplate="let data of 'reassigned_byTemplate'">
+            {{data.data.reassigned_by.first_name}} {{data.data.reassigned_by.second_name}}
+          </div>
+          <div *dxTemplate="let data of 'reassigned_toTemplate'">
+            {{data.data.reassigned_to.first_name}} {{data.data.reassigned_to.second_name}}
+          </div>
+
+          <div *dxTemplate="let data of 'assginTemplate'">
+            <button type="button" mat-flat-button color="primary" class="mat-primary" (click)="assginTo(data.data)">Assgin</button>
+          </div>
+         <dxo-summary>
+          <dxi-total-item column="first_name" summaryType="count">
+          </dxi-total-item>
+        </dxo-summary> 
+      </dx-data-grid>
+</fieldset>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Lead: {{editLead.first_name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" placeholder="lead name" [(value)]="editLead.first_name"
+                  (input)="editLead.first_name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" placeholder="lead name" [(value)]="editLead.second_name"
+                  (input)="editLead.second_name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" placeholder="project name" [(value)]="editLead.project_name"
+                  (input)="editLead.project_name=$event.target.value" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" #country_code maxlength="5" placeholder="country code"
+                  [(value)]="editLead.country_code" (input)="editLead.country_code=$event.target.value" numbersOnly
+                  required>
+                <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input matInput autocomplete="off" #lead_phone maxlength="10" placeholder="lead phone"
+                  [(value)]="editLead.lead_phone" (input)="editLead.lead_phone=$event.target.value" numbersOnly
+                  required>
+                <mat-hint align="end">{{lead_phone.value.length}} / 10</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateLead()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="assginModal" tabindex="-1" role="dialog" aria-labelledby="assginModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="assginModalLabel">Assgin Lead: {{editLead.first_name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Lead name</label>
+              <dx-text-box [(value)]="editLead.first_name" [disabled]="true">
+              </dx-text-box>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Project name</label>
+              <dx-text-box [(value)]="editLead.project_name" [disabled]="true">
+              </dx-text-box>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Employees</label>
+              <dx-select-box [class.required]="true" [dataSource]="employeesLookup" [(value)]="assginToEmployee"
+                displayExpr="first_name" valueExpr="id" [searchEnabled]="true">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="Employee is required"></dxi-validation-rule>
+                </dx-validator>
+              </dx-select-box>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="assginLead()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

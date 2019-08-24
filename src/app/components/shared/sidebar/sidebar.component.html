@@ -1,0 +1,71 @@
+<aside class="left-sidebar">
+  <!-- <div class="layerColor"></div> -->
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- User profile -->
+        <div *ngIf="false" class="user-profile">
+            <!-- User profile image -->
+            <div class="profile-img mb-2"> <img src="assets/images/users/1.jpg" alt="user" /> </div>
+            <!-- User profile text-->
+            <div class="profile-text"> <a routerLink="" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button"
+                    aria-haspopup="true" aria-expanded="true">Abdel Fattah El CC <span class="caret"></span></a>
+                <div class="dropdown-menu animated flipInY">
+                    <a routerLink="" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+                    <a routerLink="" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
+                    <div class="dropdown-divider"></div>
+                    <a routerLink="" class="dropdown-item"><i class="ti-settings"></i>Account Setting</a>
+                    <div class="dropdown-divider"></div>
+                    <a routerLink="" class="dropdown-item"><i class="fa fa-power-off"></i>Logout</a>
+                </div>
+            </div>
+        </div>
+      <hr *ngIf="false">
+        <!--<mat-divider></mat-divider>-->
+        <!-- End User profile text-->
+        <!-- Sidebar navigation-->
+        <nav class="side-nav sideBar-custom">
+              <a *ngIf="false" mat-ripple routerLink="/homepage" (click)="addExpandClass('homepage')" [routerLinkActive]="['router-link-active']">
+                <mat-icon svgIcon="icon-dashboard"></mat-icon>
+                <span class="hide-menu">Dashboard Page</span>
+              </a>
+               <a *ngIf="false" mat-ripple routerLink="/statistics" (click)="addExpandClass('component')" [routerLinkActive]="['router-link-active']">
+                <mat-icon svgIcon="icon-statistics"></mat-icon>
+                <span class="hide-menu">Statistics</span>
+              </a>
+              <a mat-ripple routerLink="/units" (click)="addExpandClass('component')" [routerLinkActive]="['router-link-active']">
+                <mat-icon svgIcon="icon-units"></mat-icon>
+                <span class="hide-menu">Units</span>
+              </a>
+              <a mat-ripple routerLink="/clients" (click)="addExpandClass('component')" [routerLinkActive]="['router-link-active']">
+                <mat-icon svgIcon="icon-clients"></mat-icon>
+                <span class="hide-menu">Clients</span>
+              </a>
+              <a mat-ripple routerLink="/employees" (click)="addExpandClass('component')" [routerLinkActive]="['router-link-active']">
+                <mat-icon svgIcon="icon-employees"></mat-icon>
+                <span class="hide-menu">Employees</span>
+              </a>
+              <a mat-ripple routerLink="/gamifications" (click)="addExpandClass('component')" [routerLinkActive]="['router-link-active']">
+                <!--<mat-icon svgIcon="icon-clients"></mat-icon>-->
+                <div data-icon="C" class="linea-icon linea-basic"></div>
+                <span class="hide-menu">Gamification</span>
+              </a>
+              <a *ngIf="false" mat-ripple (click)="addExpandClass('component')" [routerLinkActive]="['router-link-active']">
+                <!--<mat-icon svgIcon="icon-clients"></mat-icon>-->
+                <div data-icon="f" class="linea-icon linea-basic"></div>
+                <span class="hide-menu">Requests</span>
+              </a>
+              <a *ngIf="false" mat-ripple routerLink="/email" (click)="addExpandClass('component')" [routerLinkActive]="['router-link-active']">
+                <!--<mat-icon svgIcon="icon-clients"></mat-icon>-->
+                <div data-icon=")" class="linea-icon linea-basic"></div>
+                <span class="hide-menu">Email</span>
+              </a>
+              <a mat-ripple routerLink="/admin" (click)="addExpandClass('component')" [routerLinkActive]="['router-link-active']">
+                <!--<mat-icon svgIcon="icon-clients"></mat-icon>-->
+                <div data-icon="P" class="linea-icon linea-basic"></div>
+                <span class="hide-menu">Admin</span>
+              </a>
+        </nav>
+
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>

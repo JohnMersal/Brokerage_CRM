@@ -1,0 +1,133 @@
+<fieldset>
+  <legend>New employee:</legend>
+  <dx-validation-group #DataValidator>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>First name</label>
+          <dx-text-box [(value)]="singleEmployee.first_name">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="First name type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Second name</label>
+          <dx-text-box [(value)]="singleEmployee.second_name">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Second name type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Email</label>
+          <dx-text-box [(value)]="singleEmployee.email">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Email type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Mobile</label>
+          <dx-number-box [class.required]="true" [(value)]="singleEmployee.mobile" [showSpinButtons]="false" [showClearButton]="false">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Mobile type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-number-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Password</label>
+          <dx-text-box [(value)]="singleEmployee.password">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Password type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Re-password</label>
+          <dx-text-box [(value)]="repassword">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Re-password type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+            <mat-label>Gender</mat-label>
+            <dx-select-box [class.required]="true" [dataSource]="[{name:'Male'},{name:'Female'}]"
+              [(value)]="singleEmployee.gender" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+              <dx-validator>
+                <dxi-validation-rule type="required" message="Gender is required"></dxi-validation-rule>
+              </dx-validator>
+            </dx-select-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Job title</label>
+          <dx-text-box [(value)]="singleEmployee.job_title">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Job title type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>National id</label>
+          <dx-text-box [(value)]="singleEmployee.national_id">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="National id type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Joining date</label>
+          <dx-date-box [class.required]="true" width="auto" [(value)]="singleEmployee.joining_date" [displayFormat]="DateFormat"
+            [max]="maxDate">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Joining Date is Required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-date-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Active</label>
+          <dx-select-box [class.required]="true" [dataSource]="[{name:'Active', value : 1},{name:'Un-active', value: 0}]" [(value)]="singleEmployee.active" displayExpr="name" valueExpr="value" [searchEnabled]="true">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Gender is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-select-box>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="singleFile">Upload file</label>
+          <dx-file-uploader #fileUploader selectButtonText="Select image" [uploadMode]="useButtons" [maxFileSize]="2000000" class="uploader avatarUploader" [multiple]="false" accept="image/*" [(value)]="files" (onValueChanged)="preview($event)"></dx-file-uploader>
+        </div>
+      </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <button type="button" (click)="saveEmployee()" mat-button class="mat-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </dx-validation-group>
+</fieldset>

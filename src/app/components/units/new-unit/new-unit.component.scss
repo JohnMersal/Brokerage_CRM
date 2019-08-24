@@ -1,0 +1,116 @@
+.typesOfBuildings{
+  display: flex;
+  padding:0 0 16px 0;
+  border: 0px solid;
+  .typeBlock{
+    padding:16px 24px;
+    font-size:14px;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:transparent;
+    border-left:0px solid;
+    margin-right:16px;
+    border-radius:5px;
+    width:150px;
+    -webkit-transition: all 0.2 linear;
+    -moz-transition: all 0.2 linear;
+    -ms-transition: all 0.2 linear;
+    -o-transition: all 0.2 linear;
+    transition: all 0.2 linear;
+    /deep/ .mat-button-toggle-label-content{
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      line-height: initial;
+      padding: 0;
+    }
+    &.mat-button-toggle-checked{
+      background:linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+      //border:1px solid white;
+      box-shadow: 0 8px 28px 0 rgba(0,0,0,0.07);
+    }
+    .mat-icon{
+      width:auto;
+      height:60px;
+      margin-bottom:10px;
+    }
+  }
+}
+
+.typesOfProjects{
+  /*display: flex;*/
+  padding:16px 0;
+  border: 0px solid;
+  /deep/ .mat-button-toggle-group {
+    border: 0px solid;
+    border-bottom: 0px solid #d7d8da;
+    border-radius: 0;
+    .mat-button-toggle{
+      background:transparent;
+      & + .mat-button-toggle{
+        border:0px solid;
+      }
+    }
+  }
+  /deep/ .mat-button-toggle-label-content{
+
+  }
+  .mat-button-toggle{
+    &.mat-button-toggle-checked{
+      background:linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+      color:white;
+      box-shadow: 0 8px 28px 0 rgba(0,0,0,0.07);
+      border-radius:5px;
+    }
+  }
+}
+
+.example-container{
+  & .mat-form-field {
+    width: 100%;
+  }
+}
+
+
+/deep/ {
+    .belowP .mat-form-field-flex{
+      &:before {
+        content: '';
+        width: 15px;
+        height: 15px;
+        background-color: #00c200;
+        position: absolute;
+        right: 22px;
+        top: calc(50% - 10px);
+        border-radius: 50%;
+      }
+    }
+    .withinP .mat-form-field-flex{
+      &:before {
+        content: '';
+        width: 15px;
+        height: 15px;
+        background-color: dodgerblue;
+        position: absolute;
+        right: 22px;
+        top: calc(50% - 10px);
+        border-radius: 50%;
+      }
+    }
+    .aboveP .mat-form-field-flex{
+      &:before {
+        content: '';
+        width: 15px;
+        height: 15px;
+        background-color: red;
+        position: absolute;
+        right: 22px;
+        top: calc(50% - 10px);
+        border-radius: 50%;
+      }
+    }
+}

@@ -1,0 +1,42 @@
+<fieldset>
+  <legend>New compound:</legend>
+  <form [formGroup]="compoundFormGroup" (ngSubmit)="saveCompound()">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" (input)="singleCompound.name=$event.target.value" formControlName="name"
+              required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>Area</mat-label>
+            <mat-select formControlName="area_id" [(value)]="singleCompound.area_id" required>
+              <mat-option *ngFor="let area of areasLookup" [value]="area.id">
+                {{area.name}} - {{area.address}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Address" (input)="singleCompound.address=$event.target.value"
+              formControlName="address" required>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <button type="submit" mat-flat-button color="primary" class="mat-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</fieldset>

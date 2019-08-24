@@ -1,0 +1,97 @@
+@import "variable.scss";
+$whiteColor: #fff;
+a{cursor: pointer;}
+.cdk-overlay-container{z-index: 1050 !important;}
+mat-form-field{
+    &.mat-form-field{display: block;}
+}
+.tabsHolder{
+    &{padding: 20px; background-color: $whiteColor;}
+}
+.sectionTitle {border-left: 5px solid #029fcd; padding-left: 10px; color: #029fcd;}
+fieldset{
+    &{border:1px solid #ddd; padding: 5px 20px; margin-bottom: 25px;}
+    legend{
+        &{font-size: 14px; font-weight: bold;}
+    }
+    label{font-size: 14px;}
+    .sectionTitle {font-size: 14px; line-height: 28px;}
+}
+.table {
+    &{}
+    thead, tbody{
+        &{}
+        td, th{vertical-align: middle; padding: 5px;}
+    }
+}
+.HeaderTabsHolder {
+  & {  }
+  .navbar-header {
+    & { }
+    .navbar-toggle {
+      & { }
+      &.collapsed { }
+    }
+  }
+  .navbar-collapse {padding: 5px 10px 0; @include borderRadius(2px, 2px, 0, 0); margin: 0 0 15px; border: 0 none; border-bottom: 1px solid rgba(0, 0, 0, 0.12); box-shadow: none; }
+  .HeaderTabs {
+    & { list-style: none; padding: 0; margin: 0; }
+    li {
+      & { float: left; border-bottom: 2px solid transparent; }
+      & > a {
+        & { display: block; padding: 10px 15px; color: #000; position: relative; }
+      }
+      & > span {
+        & { display: block; padding: 10px 15px 10px 35px; color: #fff; position: relative; color: #BBC7CE; }
+        & > [class^="icn-"], & > [class*=" icn-"], & > [class^="menu-icn-"], & > [class*=" menu-icn-"] {
+          & { position: absolute; left: 10px; top: 10px; z-index: 2; }
+          &:before { font-size: 20px; }
+        }
+      }
+      &.headTab {
+        & { display: block; padding: 10px; color: #fff; }
+        span { }
+      }
+      &.tabItem {
+        & { }
+        &:not(.active):hover {
+          & { }
+          a { /*background-color: #03A9F4;*/ }
+        }
+        &.active {
+          & { border-bottom-color: #673ab7; }
+          a {  }
+        }
+        &.viewTab {
+          & { position: relative; /*float:right;*/ padding-right: 60px; }
+          &:after { content: ""; clear: both; display: table; }
+          .optionViewTab {
+            & { position: absolute; right: 0; top: 0; bottom: 0; border-left: 1px solid #F5F6F8; width: 60px; padding: 0 5px; }
+            .goEditViewTab, .closeViewTab {
+              & { padding: 10px 5px; display: block; float: left; }
+              [class^="icn-"], [class*=" icn-"] { position: static; }
+            }
+          }
+        }
+      }
+    }
+    li.newActivitiesDropdown {
+      & { position: relative; }
+      & > a { padding: 0 0 0 35px; width: 24px; height: 24px; }
+      .sampleSelectBox .dropdown-trigger {
+        & { width: 24px; height: 24px; line-height: 20px; }
+        .icn-plus { color: #fff; font-size: 20px; }
+      }
+      .customDropdown-menu, .sampleSelectBox .sampleSelectBox-menu {
+        & { right: -3px; left: auto; top: 40px; }
+      }
+      .sampleSelectBox .sampleSelectBox-menu { min-width: 230px; }
+      .customDropdown-menu { min-width: 130px; }
+    }
+  }
+}
+.dataGrid{
+  &{max-width: unset !important; padding: 15px; background-color: #fff;}
+  .dx-gridbase-container{width: 100%;}
+  .dx-datagrid{}
+}
