@@ -4,18 +4,18 @@ Main sidebar
 ******************/
 
 .left-sidebar {
-    position: fixed;
-    width: 130px;
-    height: 100%;
-    top: 0px;
-    z-index: 20;
-    padding-top: 70px;
-    background: $sidebar;
-    /*box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);*/
+  position: absolute;
+  width: $sidebar-width;
+  height: 100%;
+  top: 0px;
+  z-index: 20;
+  padding-top: 70px;
+  background: $sidebar;
+  /*box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);*/
 }
 
 .fix-sidebar .left-sidebar{
-    position: fixed;
+  position: fixed;
 }
 /*******************
 use profile section
@@ -128,8 +128,8 @@ sidebar navigation
 ******************/
 
 .scroll-sidebar {
-    padding-bottom: 15px;
-    padding-top: 15px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 .collapse.in {
@@ -256,7 +256,7 @@ sidebar navigation
         }
         .left-sidebar, 
         .sidebar-footer {
-            left:-360px;
+            left:-$sidebar-width;
         }
         &.show-sidebar{
            .left-sidebar, 

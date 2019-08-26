@@ -1,7 +1,7 @@
 // Variables
-@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900');
-$bodyfont:'Rubik', sans-serif;
-$headingfont:'Rubik', sans-serif;
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+$bodyfont:'Roboto', sans-serif;
+$headingfont:'Roboto', sans-serif;
 
 
 
@@ -9,16 +9,21 @@ $gradientBlue: linear-gradient(to right, #0178bc 0%, #00bdda 100%);
 $gradientGreen: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
 $gradientMain: linear-gradient(135deg, #7f70ea 0%, #764ba2 100%);
 $gradientYellow: linear-gradient(to right, #f8811c 0%, #f9bd36 100%);
+$gradientLogoSecondary: linear-gradient(45deg, #263238 0%, #607D8B 100%);
 
+//Theme Identificaation
+$topbarbgColor: $gradientLogoSecondary;
+$sidebarbgColor: $gradientBlue;
 /*Theme Colors*/
 
 $topbar: #f3f3f3;
 $sidebar: #f3f3f3;
+$sidebar-width: 130px;
 $sidebar-white: #ffffff;
 $sidebar-alt:#e8eff0;
-$bodycolor: #F5F6F8;
+$bodycolor: #eaf0f7;
 $headingtext: #2c2b2e;
-$bodytext: #54667a;
+$bodytext: #666;
 $sidebar-text: #54667a;
 $sidebar-icons: #a6b7bf;
 
@@ -46,7 +51,7 @@ $light-warning: #fff8ec;
 $light-primary: #f1effd;
 $light-info: #cfecfe;
 $light-inverse: #f6f6f6;
-$light-megna: #e0f2f4; 
+$light-megna: #e0f2f4;
 
 
 
