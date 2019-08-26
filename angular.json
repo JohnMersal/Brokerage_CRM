@@ -32,8 +32,7 @@
               "src/assets/scss/colors/blue.scss",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/devextreme/dist/css/dx.common.css",
-              "node_modules/devextreme/dist/css/dx.light.css",
-              "node_modules/devextreme/dist/css/dx.generic.custom-scheme.css",
+              "node_modules/devextreme/dist/css/dx.material.blue.light.compact.css",
               "src/assets/scss/style.scss",
               "src/assets/scss/mainStyle.scss"
             ],
