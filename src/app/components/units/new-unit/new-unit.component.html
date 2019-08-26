@@ -1,5 +1,12 @@
 <fieldset>
   <legend>New unit:</legend>
+
+  <div class="todo">
+    We need to choose the AREA first, then it shows the COMPOUNDS listed inside that area ONLY.
+    <br>
+    PLEASE follow the UI
+    <a target="_blank" href="https://pensive-davinci-71a000.netlify.com/addunit">ADD unit PENSIVE link.</a>
+  </div>
   <!-- <form [formGroup]="unitFormGroup" (ngSubmit)="saveUnit()"> -->
   <dx-validation-group #DataValidator>
     <!-- <mat-tab-group dynamicHeight>
@@ -259,7 +266,7 @@
           <div class="col-sm-4">
             <div class="form-group">
               <label>Garden area</label>
-              <dx-text-box [(value)]="singleUnit.garden_area" 
+              <dx-text-box [(value)]="singleUnit.garden_area"
               [disabled]="(!singleUnit.unit_type || singleUnit.unit_type == 'Apartment' || singleUnit.unit_type == 'Standalone')">
                 <!-- <dx-validator>
                   <dxi-validation-rule type="required" message="Garden area is required"></dxi-validation-rule>
