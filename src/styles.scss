@@ -102,3 +102,16 @@ html, body{
   border-left: 1px solid grey;
   border-bottom: 1px solid grey;
 }
+
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+.todo{
+  display: block;
+  padding:16px 24px;
+  background-color:#fbf4e2;
+  border:2px solid black;
+  font-size:14px;
+  line-height: 1.65;
+  margin-bottom:20px;
+}
