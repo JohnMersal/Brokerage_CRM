@@ -23,12 +23,12 @@
  ============================================================== */
 
 @media(min-width:1024px) {
-    .page-wrapper{
-        margin-left:130px;
-    }  
-    .footer{
-        left: 360px;
-    } 
+  .page-wrapper{
+    margin-left:$sidebar-width;
+  }
+  .footer{
+    left: $sidebar-width;
+  }
 }
 
 @media(max-width:1023px) {
@@ -47,7 +47,7 @@
 
 @media(min-width:768px) {
     .navbar-header {
-        width: 130px;
+        width: $sidebar-width;
         flex-shrink:0;
         .navbar-brand {
             padding-top: 0px;
@@ -74,7 +74,7 @@
   .topbar{
     .top-navbar{
       .navbar-collapse{
-        box-shadow: 0 8px 28px 0 rgba(0, 0, 0, 0.07);
+        //box-shadow: 0 8px 28px 0 rgba(0, 0, 0, 0.07);
       }
     }
   }

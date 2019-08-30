@@ -1,4 +1,108 @@
+@import "dashboard-theme";
+@import "assets/scss/variable";
 /* You can add global styles to this file, and also import other style files */
+html, body{
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+}
+*{
+  outline: none !important;
+}
+.no-shadow{
+  .card{
+    box-shadow: 0 0px 0px 0 rgba(0,0,0,0.07);
+    border-radius: 5px;
+  }
+}
+.card{
+  box-shadow: 0 0 3px rgba(31,30,47,.05);
+  border-radius: 5px;
+}
+.card-block {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary{
+  border: 1px solid #008fc1;
+  box-shadow: 0 2px 6px 0 rgba(2, 152, 204, 0.54) !important;
+  padding: 0.175rem 0.85rem;
+}
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent{
+  background: $gradientYellow;
+}
+.mat-flat-button.primary2{
+  background: $gradientMain;
+  color:white;
+}
+.mat-icon.fa{
+  width:unset;
+  height:unset;
+}
+
+.sectionTitle{
+  h2{
+    border-left:8px solid #029fcd;
+    padding-left:8px;
+    color: #029fcd;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+}
+
+.topbar .top-navbar .navbar-header{
+  align-self: stretch;
+}
+
+
+
+.fineprint{
+  font-size:10px;
+  color:rgba(0,0,0,0.5);
+}
+
+.todothis {
+  background-color: rgba(222, 184, 135, 0.5411764705882353);
+  color: black;
+  padding: 16px 40px;
+  line-height: 1.65;
+  border: 4px solid #333a42;
+  list-style: decimal-leading-zero;
+}
+
+
+
+
+.gamificationAnnouncement{
+  text-align:center;
+  padding:0px 20px;
+  img{
+    width: 100%;
+    box-shadow:0 8px 28px 0 rgba(0, 0, 0, 0.07);
+    border-radius:8px;
+  }
+}
+
+
+.mat-dialog-container{
+  position: relative;
+}
+.closeModal{
+  position: absolute;
+  top: 0px;
+  right: 0;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-left: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 

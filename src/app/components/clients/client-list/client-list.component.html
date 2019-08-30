@@ -1,8 +1,15 @@
 <fieldset>
   <legend>All Clients</legend>
-  <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="clientList" [showRowLines]="true"
-    [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
-    [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+  <dx-data-grid #grid class="dataGrid" height="400"
+                [(dataSource)]="clientList"
+                [showRowLines]="true"
+                [showColumnLines]="true"
+                [showBorders]="true"
+                [rowAlternationEnabled]="true"
+                [allowColumnReordering]="true"
+                [allowColumnResizing]="true"
+                (onCellClick)="editRecord($event)"
+                [columnAutoWidth]="true">
     <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
     <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
     <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>

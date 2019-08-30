@@ -1,0 +1,220 @@
+// Import all the tools needed to customize the theme and extract parts of it
+@import '~@angular/material/theming';
+
+// Plus imports for other components in your app.
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family:  '"Roboto", Arial, sans-serif',
+  $display-4:     mat-typography-level(100px, 100px, bold),
+  $display-3:     mat-typography-level(50px, 50px, bold),
+  $display-2:     mat-typography-level(40px, 43px, bold),
+  $display-1:     mat-typography-level(30px, 36px, bold),
+  $headline:      mat-typography-level(30px, 28px, bold),
+  $title:         mat-typography-level(18px, 25px, bold),
+  $subheading-2:  mat-typography-level(16px, 19px, bold),
+  $subheading-1:  mat-typography-level(13px, 1.3, normal),
+  $body-2:        mat-typography-level(12px, 21px, normal),
+  $body-1:        mat-typography-level(12px, 18px, normal),
+  $caption:       mat-typography-level(10px, 18px, 400),
+  $button:        mat-typography-level(12px, 12px, bold)
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+/* For use in src/lib/core/theming/_palette.scss */
+$mat-du-primary: (
+  50 : #e0f3f9,
+  100 : #b3e0f0,
+  200 : #80cce6,
+  300 : #4db8db,
+  400 : #26a8d4,
+  500 : #0099cc,
+  600 : #0091c7,
+  700 : #0086c0,
+  800 : #007cb9,
+  900 : #006bad,
+  A100 : #d7edff,
+  A200 : #a4d7ff,
+  A400 : #71c0ff,
+  A700 : #58b5ff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$mat-du-primary2: (
+  50 : #f9e7f3,
+  100 : #f0c2e0,
+  200 : #e699cc,
+  300 : #db70b8,
+  400 : #d452a8,
+  500 : #cc3399,
+  600 : #c72e91,
+  700 : #c02786,
+  800 : #b9207c,
+  900 : #ad146b,
+  A100 : #ffe0f0,
+  A200 : #ffadd8,
+  A400 : #ff7ac0,
+  A700 : #ff60b4,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$mat-du-black: (
+  50 : #e0e0e0,
+  100 : #b3b3b3,
+  200 : #808080,
+  300 : #4d4d4d,
+  400 : #262626,
+  500 : #000000,
+  600 : #000000,
+  700 : #000000,
+  800 : #000000,
+  900 : #000000,
+  A100 : #a6a6a6,
+  A200 : #8c8c8c,
+  A400 : #737373,
+  A700 : #666666,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$mat-du-white: (
+  50 : #ffffff,
+  100 : #ffffff,
+  200 : #ffffff,
+  300 : #ffffff,
+  400 : #ffffff,
+  500 : #ffffff,
+  600 : #ffffff,
+  700 : #ffffff,
+  800 : #ffffff,
+  900 : #ffffff,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #ffffff,
+  A700 : #ffffff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+//Different Variables
+$loading-gradient: linear-gradient(to bottom left, #f7f7f7 0%, #f3f3f3 100%);
+$portalBG-Color: #F2F2F2;
+
+
+// Background palette for dark themes.
+$mat-light-theme-background: (
+  status-bar: $portalBG-Color,
+  app-bar:    $portalBG-Color,
+  background: $portalBG-Color,
+  hover:      rgba(white, 0.04),
+  card:       #fff,
+  dialog:     $portalBG-Color,
+  disabled-button: rgba(white, 0.12),
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $light-focused,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+);
+
+// Foreground palette for dark themes.
+$mat-light-theme-foreground: (
+  base:              black,
+  divider:           $dark-dividers,
+  dividers:          $dark-dividers,
+  disabled:          $light-disabled-text,
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     $light-disabled-text,
+  elevation:         black,
+  hint-text:         $light-disabled-text,
+  secondary-text:    black,
+  icon:              black,
+  icons:             black,
+  text:              black,
+  slider-min:        black,
+  slider-off:        rgba(black, 0.3),
+  slider-off-active: rgba(black, 0.3),
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+$du-light-theme: (
+  primary: mat-palette($mat-du-primary),
+  accent: mat-palette($mat-du-primary2),
+  warn: mat-palette($mat-red),
+  is-dark: false,
+  foreground: $mat-light-theme-foreground,
+  background: $mat-light-theme-background,
+);
+
+@include angular-material-theme($du-light-theme);
+
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core($custom-typography);

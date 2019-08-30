@@ -13,13 +13,7 @@ export class SidebarComponent implements AfterViewInit {
   isActive = true;
   showMenu = '';
   showSubMenu = '';
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon('icon-employees', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/employees.svg'));
-    iconRegistry.addSvgIcon('icon-clients', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/clients.svg'));
-    iconRegistry.addSvgIcon('icon-units', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/units.svg'));
-    iconRegistry.addSvgIcon('icon-statistics', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/statistics.svg'));
-    iconRegistry.addSvgIcon('icon-dashboard', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/dashboard.svg'));
-}
+
   addExpandClass(element: any) {
     if (element === this.showMenu) {
       this.showMenu = '0';
