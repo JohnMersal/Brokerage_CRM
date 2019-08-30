@@ -5,11 +5,13 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-spinner',
   template: `<div class="preloader" *ngIf="isSpinnerVisible">
-        <div class="spinner">
-          <div class="double-bounce1"></div>
-          <div class="double-bounce2"></div>
-        </div>
-    </div>`,
+    <div class="logo"><img src="../../assets/images/logo-2.svg"
+                           style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%) translateY(-120%);" alt=""></div>
+    <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+  </div>`,
   encapsulation: ViewEncapsulation.None
 })
 export class SpinnerComponent implements OnDestroy {

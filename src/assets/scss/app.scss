@@ -5,7 +5,7 @@ Global Styles
 * {
     outline: none; 
 }
-html, body{height: 100%;}
+//html, body{height: 100%;}
 body {
     background: $sidebar;
     font-family: $bodyfont;
@@ -2179,7 +2179,7 @@ ul.common li{
 }
 
 .pace .pace-progress {
-  background: $danger;
+  background-image: linear-gradient(to right, #0178bc 0%, #00bdda 100%);
   position: fixed;
   z-index: 2000;
   top: 0;

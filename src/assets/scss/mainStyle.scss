@@ -1,4 +1,5 @@
 @import "variable.scss";
+@import "../../dashboard-theme.scss";
 $whiteColor: #fff;
 a{cursor: pointer;}
 .cdk-overlay-container{z-index: 1050 !important;}
@@ -33,7 +34,7 @@ fieldset{
       &.collapsed { }
     }
   }
-  .navbar-collapse {padding: 5px 10px 0; @include borderRadius(2px, 2px, 0, 0); margin: 0 0 15px; border: 0 none; border-bottom: 1px solid rgba(0, 0, 0, 0.12); box-shadow: none; }
+  .navbar-collapse {padding: 5px 0px 0; @include borderRadius(2px, 2px, 0, 0); margin: 0 0 15px; border: 0 none; border-bottom: 1px solid rgba(0, 0, 0, 0.12); box-shadow: none; }
   .HeaderTabs {
     & { list-style: none; padding: 0; margin: 0; }
     li {
@@ -59,7 +60,7 @@ fieldset{
           a { /*background-color: #03A9F4;*/ }
         }
         &.active {
-          & { border-bottom-color: #673ab7; }
+          & { border-bottom-color: mat-color($mat-du-primary, 500); }
           a {  }
         }
         &.viewTab {

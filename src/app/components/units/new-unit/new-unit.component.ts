@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from "rxjs";
 import notify from 'devextreme/ui/notify';
 import { CompoundsService } from '../../compounds/compounds.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material';
 import { unitsList, UnitsModel } from "../units-model";
 import { UnitsService } from "../units.service";
 import { DxValidationGroupComponent } from 'devextreme-angular';
@@ -23,11 +21,9 @@ export class NewUnitComponent implements OnInit {
   compoundsLookup = [];
   subscription: Subscription = new Subscription();
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private unitsSrvice: UnitsService, private formBuilder: FormBuilder, private compoundService: CompoundsService) {
-    iconRegistry.addSvgIcon('Apartment-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Apartment.svg'));
-    iconRegistry.addSvgIcon('Standalone-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Standalone.svg'));
-    iconRegistry.addSvgIcon('Townhouse-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Townhouse.svg'));
-    iconRegistry.addSvgIcon('TwinVilla-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/TwinVilla.svg'));
+  constructor(private unitsSrvice: UnitsService,
+              private formBuilder: FormBuilder,
+              private compoundService: CompoundsService) {
     this.creatAreaForm();
     this.getCompoundsLookup();
   }
@@ -67,6 +63,10 @@ export class NewUnitComponent implements OnInit {
       }, error => {
         notify("error in loading areas list.." + error.meta.message, "error");
       }));
+  }
+
+  afterSaveCompound(event) {
+    this.getCompoundsLookup();
   }
   setTypeBlock(e) {
     this.singleUnit.unit_type = e.value;
