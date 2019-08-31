@@ -1,25 +1,42 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, ViewChild, Input, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs';
 import notify from 'devextreme/ui/notify';
 import { CompoundsService } from '../../compounds/compounds.service';
-import { unitsList, UnitsModel } from "../units-model";
-import { UnitsService } from "../units.service";
+import { unitsList, UnitsModel } from '../units-model';
+import { UnitsService } from '../units.service';
 import { DxValidationGroupComponent } from 'devextreme-angular';
+
+export interface UnitType {
+  name: string;
+  icon: string;
+}
 
 @Component({
   selector: 'app-new-unit',
   templateUrl: './new-unit.component.html',
   styleUrls: ['./new-unit.component.scss']
 })
-export class NewUnitComponent implements OnInit {
-  @Input() updateMode: boolean = false;
+export class NewUnitComponent implements OnInit, OnDestroy {
+  @Input() updateMode = false;
   @Output() afterSave = new EventEmitter();
   @ViewChild('DataValidator') DataValidator: DxValidationGroupComponent;
   unitFormGroup: FormGroup;
   singleUnit: UnitsModel = new UnitsModel();
   compoundsLookup = [];
   subscription: Subscription = new Subscription();
+  unitNotValidated = false;
+  compoundNotValidated = false;
+
+  // unitTypes List
+  unitTypes: UnitType[] = [
+    {name: 'Apartment', icon: 'icon-apartment'},
+    {name: 'Standalone', icon: 'icon-chalet'},
+    {name: 'Townhouse', icon: 'icon-townhouse'},
+    {name: 'Twin villa', icon: 'icon-twin-villa'},
+    {name: 'Other', icon: 'icon-twin-villa'},
+  ];
+
 
   constructor(private unitsSrvice: UnitsService,
               private formBuilder: FormBuilder,
@@ -29,31 +46,31 @@ export class NewUnitComponent implements OnInit {
   }
   creatAreaForm() {
     this.unitFormGroup = this.formBuilder.group({
-      compound_id: ['', Validators.required],
-      unit_type: ['', Validators.required],
-      unit_num: ['', Validators.required],
-      land_area: ['', Validators.required],
-      building_area: ['', Validators.required],
-      garden_area: ['', Validators.required],
-      offering_type: ['', Validators.required],
-      owner_name: ['', Validators.required],
-      owner_phone: ['', Validators.required],
+      owner_name: [''],
+      owner_phone: [''],
+      compound_id: [''],
+      unit_type: [''],
+      unit_num: [''],
+      land_area: [''],
+      building_area: [''],
+      garden_area: [''],
+      offering_type: [''],
       owner_email: [''],
       owner_facebook: [''],
-      bedrooms: ['', Validators.required],
-      bathrooms: ['', Validators.required],
-      floor_num: ['', Validators.required],
-      unit_view: ['', Validators.required],
-      unit_desc: ['', Validators.required],
-      original_price: ['', Validators.required],
-      market_price: ['', Validators.required],
-      owner_price: ['', Validators.required],
-      over_price: ['', Validators.required],
-      commission_percentage: ['', Validators.required],
-      commission_value: ['', Validators.required],
-      final_price: ['', Validators.required],
-      original_downpayment: ['', Validators.required],
-      final_downpayment: ['', Validators.required],
+      bedrooms: [''],
+      bathrooms: [''],
+      floor_num: [''],
+      unit_view: [''],
+      unit_desc: [''],
+      original_price: [''],
+      market_price: [''],
+      owner_price: [''],
+      over_price: [''],
+      commission_percentage: [''],
+      commission_value: [''],
+      final_price: [''],
+      original_downpayment: [''],
+      final_downpayment: [''],
     });
   }
 
@@ -61,13 +78,27 @@ export class NewUnitComponent implements OnInit {
     this.subscription.add(this.compoundService.getAllCompounds().subscribe(
       (value: any) => {
         this.compoundsLookup = value.data;
+        console.log(this.compoundsLookup);
       }, error => {
-        notify("error in loading areas list.." + error.meta.message, "error");
+        notify('error in loading areas list..' + error.meta.message, 'error');
       }));
+  }
+
+  // Changes unit Type FORM using top selectors
+  setunitType(btn: string) {
+    this.singleUnit.unit_type = btn;
+    this.unitNotValidated = false;
+  }
+  setcompName(name: number) {
+    this.singleUnit.compound_id = name;
+    this.compoundNotValidated = false;
   }
 
   afterSaveCompound(event) {
     this.getCompoundsLookup();
+  }
+  afterSaveArea(event){
+
   }
   setTypeBlock(e) {
     this.singleUnit.unit_type = e.value;
@@ -98,37 +129,47 @@ export class NewUnitComponent implements OnInit {
       'original_downpayment': this.singleUnit.original_downpayment,
       'final_downpayment': this.singleUnit.final_downpayment,
     });*/
-    //console.log(e.value, this.singleUnit.unit_type);
+    // console.log(e.value, this.singleUnit.unit_type);
   }
   saveUnit() {
-    console.log(this.singleUnit);
+    // ===========================
+    // Custom Validation for Unit and compound
+    if(!this.singleUnit.unit_type){
+      this.unitNotValidated = true;
+    }
+    if(!this.singleUnit.compound_id){
+      this.compoundNotValidated = true;
+    }
+    // End Custom Validation for Unit and Compound controllers
+    // ===========================
+    // console.log(this.singleUnit);
     if (this.DataValidator.instance.validate().isValid) {
       if (this.updateMode) {
       this.subscription.add(this.unitsSrvice.updateUnit(this.singleUnit).subscribe(
         (value: any) => {
           this.afterSave.emit({ id: value, data: this.singleUnit });
-          notify("Unit updated successfully", "success");
+          notify('Unit updated successfully', 'success');
           this.singleUnit = new UnitsModel();
-          //this.unitFormGroup.reset();
+          // this.unitFormGroup.reset();
         }, error => {
-          notify("error in saving.." + error.meta.message, "error");
+          notify('error in saving..' + error.meta.message, 'error');
         }));
 
       } else {
       this.subscription.add(this.unitsSrvice.saveUnit(this.singleUnit).subscribe(
         (value: any) => {
           this.afterSave.emit({ id: value, data: this.singleUnit });
-          notify("Unit saved successfully", "success");
+          notify('Unit saved successfully', 'success');
           this.singleUnit = new UnitsModel();
-          //this.unitFormGroup.reset();
+          // this.unitFormGroup.reset();
         }, error => {
-          notify("error in saving.." + error.meta.message, "error");
+          notify('error in saving..' + error.meta.message, 'error');
         }));
       }
     }
   }
   commissionChanged(whichField, e) {
-    //console.log(e.value);
+    // console.log(e.value);
     /*var originalPrice = this.singleUnit.original_price;
     var percent = this.singleUnit.commission_percentage;
     var amount = this.singleUnit.commission_value;*/
@@ -143,8 +184,8 @@ export class NewUnitComponent implements OnInit {
   }
   calculateOverPrice(e) {
     if (this.singleUnit.original_price && this.singleUnit.owner_price) {
-      let diff = this.singleUnit.original_price - this.singleUnit.owner_price;
-      if (diff > 0) this.singleUnit.over_price = diff;
+      const diff = this.singleUnit.original_price - this.singleUnit.owner_price;
+      if (diff > 0) this.singleUnit.over_price = diff
     }
   }
   ngOnInit() {

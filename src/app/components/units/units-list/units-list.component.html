@@ -10,16 +10,25 @@
   <div class="card-body">
     <div>
       <div *ngIf="mainTabsSwitch == 'sales'">
-        <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="saleUnitsList" [showRowLines]="true"
-                      [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
-                      [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+        <dx-data-grid #grid
+                      class="CustomDataTable dataGrid"
+                      [(dataSource)]="saleUnitsList"
+                      [showRowLines]="true"
+                      [showColumnLines]="false"
+                      [showBorders]="true"
+                      [rowAlternationEnabled]="true"
+                      [allowColumnReordering]="true"
+                      [allowColumnResizing]="true"
+                      [columnAutoWidth]="true"
+                      (onCellClick)="editRecord($event)" >
+
           <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
           <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
           <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
           <dxo-header-filter [visible]="true"></dxo-header-filter>
           <dxo-export [enabled]="true" fileName="Units" [allowExportSelectedData]="false"></dxo-export>
           <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
-          <dxo-column-chooser [enabled]="true" mode="select" [allowSearch]="true"></dxo-column-chooser>
+          <!--<dxo-column-chooser [enabled]="true" mode="select" [allowSearch]="true"></dxo-column-chooser>-->
           <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
           <!--fixed Column-->
           <dxi-column cssClass="grid-cell" dataType="string" dataField="compound_id" caption="Compound"
@@ -29,7 +38,16 @@
             {{traceCompoundName(data.data.compound_id)}}
           </div>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_type" caption="Unit type"
+                      cellTemplate="unitTypeTemplate"
+                      alignment="center"
                       [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+          <div *dxTemplate="let data of 'unitTypeTemplate'">
+            <mat-icon *ngIf="data.value === 'Apartment'" class="dataTableIcon" svgIcon="icon-apartment"></mat-icon>
+            <mat-icon *ngIf="data.value === 'Standalone'" class="dataTableIcon" svgIcon="icon-chalet"></mat-icon>
+            <mat-icon *ngIf="data.value === 'Townhouse'" class="dataTableIcon" svgIcon="icon-townhouse"></mat-icon>
+            <mat-icon *ngIf="data.value === 'Twin villa'" class="dataTableIcon" svgIcon="icon-twin-villa"></mat-icon>
+          </div>
+
           <dxi-column cssClass="grid-cell" dataType="string" dataField="offering_type" caption="Offering type"
                       [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="original_price" caption="Original price"
@@ -198,7 +216,7 @@
       </div> -->
       </div>
       <div *ngIf="mainTabsSwitch == 'rent'">
-        <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="rentUnitsList" [showRowLines]="true"
+        <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="rentUnitsList" [showRowLines]="true"
                       [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
                       [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
           <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>

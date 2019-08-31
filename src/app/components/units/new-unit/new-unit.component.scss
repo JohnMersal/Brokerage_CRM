@@ -1,8 +1,14 @@
 .typesOfBuildings{
   display: flex;
-  padding:0 0 16px 0;
+  flex-wrap: wrap;
+  padding:0;
   border: 0px solid;
   .typeBlock{
+    &.notValidated{
+      border:1px solid red;
+      box-shadow: 0px 8px 21px -14px red;
+    }
+    border:1px solid transparent;
     padding:16px 24px;
     font-size:14px;
     text-align: center;
@@ -13,6 +19,7 @@
     background-color:transparent;
     border-left:0px solid;
     margin-right:16px;
+    margin-bottom:16px;
     border-radius:5px;
     width:150px;
     -webkit-transition: all 0.2 linear;
@@ -29,7 +36,7 @@
       padding: 0;
     }
     &.mat-button-toggle-checked{
-      background:linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+      background-color:white;
       //border:1px solid white;
       box-shadow: 0 8px 28px 0 rgba(0,0,0,0.07);
     }
@@ -42,29 +49,31 @@
 }
 
 .typesOfProjects{
-  /*display: flex;*/
-  padding:16px 0;
+  display: flex;
+  padding:0;
   border: 0px solid;
-  /deep/ .mat-button-toggle-group {
-    border: 0px solid;
-    border-bottom: 0px solid #d7d8da;
-    border-radius: 0;
-    .mat-button-toggle{
-      background:transparent;
-      & + .mat-button-toggle{
-        border:0px solid;
-      }
-    }
-  }
-  /deep/ .mat-button-toggle-label-content{
 
+  &.notValidated{
+    border:1px solid red;
+    box-shadow: 0px 8px 21px -14px red;
+  }
+  border: 0px solid;
+  margin-bottom: 16px;
+  border-bottom: 0px solid #d7d8da;
+  border-radius: 0;
+  .mat-button-toggle{
+    background:transparent;
+    & + .mat-button-toggle{
+      border:0px solid;
+    }
   }
   .mat-button-toggle{
     &.mat-button-toggle-checked{
-      background:linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+      background:rgb(2, 152, 204);
       color:white;
-      box-shadow: 0 8px 28px 0 rgba(0,0,0,0.07);
       border-radius:5px;
+
+      box-shadow: 0 2px 6px 0 rgba(2, 152, 204, 0.54) !important;
     }
   }
 }

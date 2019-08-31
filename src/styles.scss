@@ -103,9 +103,6 @@ html, body{
   border-bottom: 1px solid grey;
 }
 
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-
 .todo{
   display: block;
   padding:16px 24px;
@@ -114,4 +111,32 @@ html, body{
   font-size:14px;
   line-height: 1.65;
   margin-bottom:20px;
+}
+
+
+
+
+//Custom Table Design
+.CustomDataTable.dataGrid{
+  .dx-datagrid-headers .dx-header-row {
+    background-color: mat-color($mat-du-primary, 500);
+    //color:white;
+    td{
+      .dx-datagrid-text-content{
+        color:white !important;
+      }
+      &:hover{
+        background-color:lighten(mat-color($mat-du-primary, 500), 5) !important;
+        .dx-datagrid-text-content{
+          color:white !important;
+        }
+      }
+    }
+    .dx-header-filter{
+      color:black;
+      &.dx-header-filter-empty{
+        color:white;
+      }
+    }
+  }
 }

@@ -164,7 +164,7 @@ $portalBG-Color: #F2F2F2;
 // Background palette for dark themes.
 $mat-light-theme-background: (
   status-bar: $portalBG-Color,
-  app-bar:    $portalBG-Color,
+  app-bar:    transparent,
   background: $portalBG-Color,
   hover:      rgba(white, 0.04),
   card:       #fff,
