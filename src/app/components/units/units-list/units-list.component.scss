@@ -1,9 +1,11 @@
 @import "dashboard-theme";
+@import "assets/scss/variable";
 
 .dataTableIcon{
   width: 80px;
   height: 40px;
 }
 
-
-
+.modal-content {
+  background-color:$bodycolor;
+}

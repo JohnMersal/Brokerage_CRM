@@ -6,7 +6,7 @@ export class UnitsModel {
     unit_num: number;
     floor_num: number;
     unit_view: string;
-    market_price: number;
+    market_price: string;
 
     owner_name: string;
     owner_phone: number;
@@ -47,7 +47,7 @@ export class unitsList {
     unit_view: number;
     unit_desc: string;
     original_price: number;
-    market_price: number;
+    market_price: string;
     owner_price: number;
     over_price: number;
     commission_percentage: number;

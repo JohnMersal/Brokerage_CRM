@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs';
 import { MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
-import { unitsList, UnitsModel } from "../units-model";
-import { UnitsService } from "../units.service";
-import { AppSettings } from "../../shared/app-settings";
-import { CompoundsList } from "../../compounds/compounds";
+import { unitsList, UnitsModel } from '../units-model';
+import { UnitsService } from '../units.service';
+import { AppSettings } from '../../shared/app-settings';
+import { CompoundsList } from '../../compounds/compounds';
 import { CompoundsService } from '../../compounds/compounds.service';
 import { formatDate } from '@angular/common';
-import { NewUnitComponent } from "../new-unit/new-unit.component";
+import { NewUnitComponent } from '../new-unit/new-unit.component';
 declare var jQuery: any;
 
 @Component({
@@ -22,17 +22,17 @@ export class UnitsListComponent implements OnInit {
   @ViewChild('edit') EditComponent: NewUnitComponent;
   editUnit: UnitsModel = new UnitsModel();
   unitList: unitsList[] = [];
-  rentUnitsList: unitsList[] = []
-  saleUnitsList: unitsList[] = []
+  rentUnitsList: unitsList[] = [];
+  saleUnitsList: unitsList[] = [];
   compoundsLookup: CompoundsList[] = [];
-  mainTabsSwitch: string = "sales";
-  mainTabsName: string = "For sale units";
+  mainTabsSwitch = 'sales';
+  mainTabsName = 'For sale units';
   dataSource;
-  displayedColumns: string[] = ['select', 'compound_id', 'unit_type', 'offering_type', 'owner_name', 'details', 'original_price', 'final_price', 'commission', 'unit_desc', 'created_at', 'updated_at', 'created_by', 'edit'];
+  // displayedColumns: string[] = ['select', 'compound_id', 'unit_type', 'offering_type', 'owner_name', 'details', 'original_price', 'final_price', 'commission', 'unit_desc', 'created_at', 'updated_at', 'created_by', 'edit'];
   @ViewChild(MatSort) sort: MatSort;
   selection = new SelectionModel<unitsList>(true, []);
   subscription: Subscription = new Subscription();
-  constructor(private unitsService: UnitsService, private snackBar: MatSnackBar, private compoundService: CompoundsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,) {
+  constructor(private unitsService: UnitsService, private snackBar: MatSnackBar, private compoundService: CompoundsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, ) {
     iconRegistry.addSvgIcon('Apartment-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Apartment.svg'));
     iconRegistry.addSvgIcon('Standalone-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Standalone.svg'));
     iconRegistry.addSvgIcon('Townhouse-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Townhouse.svg'));
@@ -45,11 +45,11 @@ export class UnitsListComponent implements OnInit {
   }
   changeMainTabs(targetMainTab: string) {
     switch (targetMainTab) {
-      case "rent":
-        this.mainTabsName = "For rent units";
+      case 'rent':
+        this.mainTabsName = 'For rent units';
         break;
-      case "sales":
-        this.mainTabsName = "For sale units";
+      case 'sales':
+        this.mainTabsName = 'For sale units';
         break;
     }
     this.mainTabsSwitch = targetMainTab;
@@ -78,7 +78,7 @@ export class UnitsListComponent implements OnInit {
       (value: any) => {
         this.compoundsLookup = value.data;
       }, error => {
-        this.snackBar.open("error in loading areas list.." + error.error, "", { duration: 2000, politeness: "polite" });
+        this.snackBar.open('error in loading areas list..' + error.error, '', { duration: 2000, politeness: 'polite' });
       }));
   }
   getAllUnits() {
@@ -87,8 +87,8 @@ export class UnitsListComponent implements OnInit {
         this.unitList = value.data;
         this.rentUnitsList = [];
         this.saleUnitsList = [];
-        for (let unit of value.data){
-          if (unit.offering_type == "Rent") {
+        for (const unit of value.data){
+          if (unit.offering_type == 'Rent') {
             this.rentUnitsList.push(unit);
           } else {
             this.saleUnitsList.push(unit);
@@ -97,19 +97,19 @@ export class UnitsListComponent implements OnInit {
         //this.dataSource = new MatTableDataSource(this.unitList);
         //this.dataSource.sort = this.sort;
       }, error => {
-        this.snackBar.open("error in loading compounds.." + error.error, "", { duration: 2000, politeness: "polite" });
+        this.snackBar.open('error in loading compounds..' + error.error, '', { duration: 2000, politeness: 'polite' });
       }));
   }
   updateUnit() {
     if (this.editUnit.compound_id != null && this.editUnit.unit_type != null) {
       this.subscription.add(this.unitsService.updateUnit(this.editUnit).subscribe(
         (value: any) => {
-          this.snackBar.open("Compound updated successfully", "OK", { duration: 2000, politeness: "polite" });
+          this.snackBar.open('Compound updated successfully', 'OK', { duration: 2000, politeness: 'polite' });
           this.getAllUnits();
-          (<any>jQuery('#editUnitModal')).modal('hide');
+          (jQuery('#editUnitModal') as any).modal('hide');
           this.editUnit = new UnitsModel();
         }, error => {
-          this.snackBar.open("error in saving.." + error.error, "", { duration: 2000, politeness: "polite" });
+          this.snackBar.open('error in saving..' + error.error, '', { duration: 2000, politeness: 'polite' });
         }));
     }
   }
@@ -142,7 +142,7 @@ export class UnitsListComponent implements OnInit {
       final_downpayment: unit.final_downpayment,
       unit_desc: unit.unit_desc,
     };
-    (<any>jQuery('#editUnitModal')).modal('show');
+    (jQuery('#editUnitModal') as any).modal('show');
   }
   editRecord(e: any) {
     //console.log(e.data);
@@ -175,25 +175,25 @@ export class UnitsListComponent implements OnInit {
       final_downpayment: e.data.final_downpayment,
       unit_desc: e.data.unit_desc,
     };*/
-    (<any>jQuery('#editUnitModal')).modal('show');
+    (jQuery('#editUnitModal') as any).modal('show');
   }
   afterSave() {
     this.getAllUnits();
-    (<any>jQuery('#editUnitModal')).modal('hide');
+    (jQuery('#editUnitModal') as any).modal('hide');
   }
   getDateFormated(x) {
-    let date = x.value;
-    let formatedDate = formatDate(date, 'yyyy-MM-dd', 'en-US');
+    const date = x.value;
+    const formatedDate = formatDate(date, 'yyyy-MM-dd', 'en-US');
     return formatedDate;
   }
   traceCompoundName(id) {
     if (this.compoundsLookup.length > 0 && id) {
-      let findIndex = this.compoundsLookup.findIndex(x => x.id == id);
+      const findIndex = this.compoundsLookup.findIndex(x => x.id == id);
       if (findIndex > -1) {
-        return this.compoundsLookup[findIndex].name + " - " + this.compoundsLookup[findIndex].area.name;
+        return this.compoundsLookup[findIndex].name + ' - ' + this.compoundsLookup[findIndex].area.name;
       }
     }
-    return "";
+    return '';
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

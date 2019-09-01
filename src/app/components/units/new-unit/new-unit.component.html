@@ -16,13 +16,14 @@
 <app-new-compounds (afterSave)="afterSaveCompound($event)"></app-new-compounds>
 <div class="row">
   <div class="col-12">
-    <mat-button-toggle-group class="typesOfBuildings">
+    <mat-button-toggle-group class="typesOfBuildings" [value]="singleUnit.unit_type">
       <mat-button-toggle *ngFor="let unitType of unitTypes;"
                          class="typeBlock"
+                         [value]="unitType?.name"
                          [class.notValidated]="unitNotValidated"
-                         (click)="setunitType(unitType.name)">
-        <mat-icon [svgIcon]="unitType.icon"></mat-icon>
-        <span>{{unitType.name}}</span>
+                         (click)="setunitType(unitType?.name)">
+        <mat-icon [svgIcon]="unitType?.icon"></mat-icon>
+        <span>{{unitType?.name}}</span>
       </mat-button-toggle>
     </mat-button-toggle-group>
     <p class="text-danger" *ngIf="unitNotValidated">
@@ -32,10 +33,10 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <mat-button-toggle-group class="typesOfProjects" [class.notValidated]="compoundNotValidated" name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle-group class="typesOfProjects" [class.notValidated]="compoundNotValidated" name="fontStyle" aria-label="Font Style" [value]="singleUnit.compound_id">
       <ng-container *ngFor="let comp of compoundsLookup">
         <mat-button-toggle (click)="setcompName(comp.id)"
-                           [value]="comp.name">
+                           [value]="comp.id">
           {{comp.name}}
         </mat-button-toggle>
       </ng-container>
@@ -48,7 +49,7 @@
 
       <dx-validation-group #DataValidator>
         <!--Hiding compound and unit type but keeping them in the form -->
-        <div style="display:none;" class="row">
+        <div class="row">
           <div class="col-sm-4">
             <div class="form-group">
               <label>Compound</label>
@@ -101,15 +102,25 @@
                   <div class="col-12">
                     <div class="form-group">
                       <label>Unit view</label>
-                      <dx-text-box [(value)]="singleUnit.unit_view"></dx-text-box>
+                      <!--Made Unit View as a STRING and select MENU-->
+                      <dx-select-box [class.required]="true"
+                                     [dataSource]="[ {name:'Good View'},{name:'No View'}]"
+                                     [(value)]="singleUnit.unit_view"
+                                     displayExpr="name"
+                                     valueExpr="name">
+                      </dx-select-box>
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="form-group">
                       <label>Market price</label>
-                      <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.market_price"
-                                     [showSpinButtons]="false" [showClearButton]="false">
-                      </dx-number-box>
+                      <!--Made Market price as a STRING and select MENU-->
+                      <dx-select-box [class.required]="true"
+                                     [dataSource]="[ {name:'Above Market Price'},{name:'Below Market Price'}, {name:'At Market Price'}]"
+                                     [(value)]="singleUnit.market_price"
+                                     displayExpr="name"
+                                     valueExpr="name">
+                      </dx-select-box>
                     </div>
                   </div>
 
