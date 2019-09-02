@@ -140,3 +140,53 @@ html, body{
     }
   }
 }
+
+
+
+.invoice{
+  .invoice-head {
+    border-bottom: 4px double #b6c2e4;
+  }
+  .invoice-head .contact-detail li {
+    border-left: 2px solid #b6c2e4;
+  }
+}
+
+
+
+
+@media print {
+  .left-sidebar,
+  .breadcrumb,
+  .footer,
+  .logo,
+  .page-title {
+    display: none;
+    margin: 0;
+    padding: 0
+  }
+  .left {
+    display: none
+  }
+  .content,
+  .page-content-wrapper,
+  .page-wrapper {
+    margin-top: 0;
+    padding-top: 0
+  }
+  .content-page {
+    margin-left: 0;
+    margin-top: 0
+  }
+  .footer,
+  .left-sidenav,
+  .report-btn,
+  .topbar {
+    display: none;
+    margin: 0;
+    padding: 0
+  }
+  .content-page>.content {
+    margin: 0
+  }
+}
