@@ -3,6 +3,7 @@ import { AppSettings } from "../shared/app-settings";
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, map, retry, tap } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { PermissionService } from "../permission/permission.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class LoginService {
   get LoggedIn(): boolean {
     return localStorage.getItem('loggedIn') !== null;
   };
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private permissionService: PermissionService) { }
   login(username: string, password: string) {
     const url = AppSettings.login_URL + '?email=' + username + "&password=" + password;
     return this.http.post(url, null).pipe(
@@ -25,6 +26,7 @@ export class LoginService {
           mobile: res.data.mobile
         }
         localStorage.setItem('loggedIn', JSON.stringify(userInfo));
+        this.permissionService.editPermission(res.data.id);
        }),
       //map(res => res),
       catchError(this.handleError));

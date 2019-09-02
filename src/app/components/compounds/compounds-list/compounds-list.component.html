@@ -27,7 +27,7 @@
       [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'" cellTemplate="created_byTemplate"></dxi-column>
   
     <div *dxTemplate="let data of 'areaTemplate'">
-      {{data.data.name}} {{data.data.address}}
+      {{data.data.area.name}} {{data.data.area.address}}
     </div>
     <div *dxTemplate="let data of 'created_byTemplate'">
       {{data.data.first_name}} {{data.data.second_name}}

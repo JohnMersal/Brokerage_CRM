@@ -8,6 +8,9 @@
   <li class="tabItem" [class.active]="mainTabsSwitch == 'employee'">
     <a (click)="changeMainTabs('employee')">New employee</a>
   </li>
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'permission'">
+    <a (click)="changeMainTabs('permission')">Permission</a>
+  </li>
 </app-tabs>
 <div class="tabsHolder">
   <div *ngIf="mainTabsSwitch == 'leads'">
@@ -139,5 +142,8 @@
   </div>
   <div *ngIf="mainTabsSwitch == 'employee'">
     <app-new-employee></app-new-employee>
+  </div>
+  <div *ngIf="mainTabsSwitch == 'permission'">
+    <app-permission-list></app-permission-list>
   </div>
 </div>

@@ -28,6 +28,9 @@ export class AdminComponent implements OnInit {
       case "employee":
         this.mainTabsName = "New employee";
         break;
+      case "permission":
+        this.mainTabsName = "New Permission";
+        break;
     }
     this.mainTabsSwitch = targetMainTab;
   }
