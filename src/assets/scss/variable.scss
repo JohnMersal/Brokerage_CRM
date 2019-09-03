@@ -1,11 +1,12 @@
 // Variables
+@import "dashboard-theme";
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
 $bodyfont:'Roboto', sans-serif;
 $headingfont:'Roboto', sans-serif;
 
 
 
-$gradientBlue: linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+$gradientBlue: linear-gradient(to right, darken(mat-color($mat-du-primary, 500), 10%) 0%, mat-color($mat-du-primary, 500) 100%);
 $gradientGreen: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
 $gradientMain: linear-gradient(135deg, #7f70ea 0%, #764ba2 100%);
 $gradientYellow: linear-gradient(to right, #f8811c 0%, #f9bd36 100%);

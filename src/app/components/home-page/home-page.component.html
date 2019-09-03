@@ -1,5 +1,45 @@
 <div class="row">
   <div class="col-sm-12">
+    <div class="page-title-box">
+      <h2 class="page-title mat-h1">Dashboard</h2>
+    </div><!--end page-title-box-->
+  </div>
+</div><!--end col-->
+
+<div class="row">
+  <div class="col-12">
+    <div class="competitionBlock">
+      <img src="assets/images/competition/wavecomp.svg" alt="" class="wave">
+      <div class="titleAndDate">
+        <img src="assets/images/competition/challengetitle.svg" alt="">
+        <div><b>Ends:</b> 12/12/2019 </div>
+        <div><b>Reward:</b> 5000 Points</div>
+      </div>
+      <img src="assets/images/competition/pacmanghost.svg" alt="" class="ghost">
+      <div class="progressTasks">
+        <p>
+          <b>Make 300 Calls (170/300)</b>
+          <br>
+          <ngb-progressbar type="success" [value]="80" height="20">20px</ngb-progressbar>
+        </p>
+        <p>
+          <b>Make 300 Calls (170/300)</b>
+          <br>
+          <ngb-progressbar type="warning" [value]="20" height="20">20px</ngb-progressbar>
+        </p>
+        <p>
+          <b>Make 300 Calls (170/300)</b>
+          <br>
+          <ngb-progressbar type="danger" [value]="100" height="20">20px</ngb-progressbar>
+        </p>
+      </div>
+      <img src="assets/images/competition/pacman.svg" alt="" class="pacman">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
     <div id="chart-demo">
       <div class="row">
         <div class="col-sm-4">

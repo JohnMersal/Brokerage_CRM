@@ -1,0 +1,66 @@
+@import 'dashboard-theme';
+@import 'assets/scss/variable';
+
+.competitionBlock{
+  padding:16px 26px;
+  border-radius:10px;
+  width: 100%;
+  background-image: linear-gradient(115deg, #0178BC 0%, #00BDDA 100%);
+  //background-image: $gradientBlue;
+  display: flex;
+  color:white;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom:20px;
+  animation: animate 2s linear infinite;
+  & > * {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
+  }
+  .wave{
+    position: absolute;
+    width: 80%;
+    top:0;
+    left:50%;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+  .titleAndDate{
+    img{
+      margin-bottom:10px;
+      max-width: 100%;
+    }
+  }
+  .ghost{
+    flex: 0 1 11%;
+  }
+  .progressTasks{
+    flex: 1 0 auto;
+    padding: 0 60px;
+  }
+  .pacman{
+    height: 140%;
+  }
+}
+
+
+
+@keyframes animate {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 189, 218, 0.7), 0 0 0 0 rgba(0, 189, 218, 0.7);
+  }
+
+  40% {
+    box-shadow: 0 0 0 15px rgba(0, 189, 218, 0), 0 0 0 0 rgba(0, 189, 218, 0.7);
+  }
+
+  80% {
+    box-shadow: 0 0 0 15px rgba(0, 189, 218, 0), 0 0 0 20px rgba(0, 189, 218, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 189, 218, 0), 0 0 0 20px rgba(0, 189, 218, 0);
+  }
+}

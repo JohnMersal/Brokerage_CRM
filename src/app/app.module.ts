@@ -11,6 +11,7 @@ import { DevExtremeModule, DxValidatorModule, DxValidationSummaryModule, DxDataG
 import { DxFormModule } from "devextreme-angular";
 import { DxSwitchModule } from "devextreme-angular"
 import { DxAccordionModule } from "devextreme-angular";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NumbersOnlyDirective } from "../app/components/shared/numbers-only-directive";
 import { MobileSidebarToggleDirective, RightSidebarToggleDirective } from "../app/components/shared/sidebar.directive";
@@ -75,6 +76,7 @@ import { PermissionListComponent } from './components/permission/permission-list
     BrowserAnimationsModule,
     AppRoutingModule,
     DxSwitchModule,
+    NgbModule,
     DxAccordionModule,
     DxFormModule,
     DevExtremeModule,
