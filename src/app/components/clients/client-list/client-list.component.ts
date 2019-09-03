@@ -17,6 +17,8 @@ export class ClientListComponent implements OnInit {
   editClient: ClientsModel = new ClientsModel();
   clientList: ClientsList[] = [];
   areasLookup = [];
+  mainTabsSwitch: string = "primary";
+  mainTabsName: string = "Primary";
   dataSource;
   displayedColumns: string[] = ['select', 'first_name', 'second_name', 'gender', 'active', 'type', 'mobile', 'created_at', 'updated_at', 'created_by', 'edit'];
   @ViewChild(MatSort) sort: MatSort;
@@ -25,7 +27,17 @@ export class ClientListComponent implements OnInit {
   constructor(private clientsService: ClientService, private snackBar: MatSnackBar) {
     this.getAllClients();
   }
-
+  changeMainTabs(targetMainTab: string) {
+    switch (targetMainTab) {
+      case "primary":
+        this.mainTabsName = "Primary";
+        break;
+      case "resale":
+        this.mainTabsName = "Resale";
+        break;
+    }
+    this.mainTabsSwitch = targetMainTab;
+  }
   ngOnInit() {
   }
   applyFilter(filterValue: string) {
@@ -85,24 +97,28 @@ export class ClientListComponent implements OnInit {
     (<any>jQuery('#editClientModal')).modal('show');
   }
   editRecord(e: any) {
-    console.log(e.data);
-    this.editClient = {
-      id: e.data.id,
-      first_name: e.data.first_name,
-      second_name: e.data.second_name,
-      gender: e.data.gender,
-      email: e.data.email,
-      mobile: e.data.mobile,
-      request_type: e.data.request_type,
-      budget_from: e.data.budget_from,
-      budget_to: e.data.budget_to
-    };
-    (<any>jQuery('#editClientModal')).modal('show');
+    if (e.rowType == "data" && e.column.cellTemplate != "changeStatusTemplate") {
+      this.editClient = {
+        id: e.data.id,
+        first_name: e.data.first_name,
+        second_name: e.data.second_name,
+        gender: e.data.gender,
+        email: e.data.email,
+        mobile: e.data.mobile,
+        request_type: e.data.request_type,
+        budget_from: e.data.budget_from,
+        budget_to: e.data.budget_to
+      };
+      (<any>jQuery('#editClientModal')).modal('show');
+    }
   }
   getDateFormated(x) {
     let date = x.value;
     let formatedDate = formatDate(date, 'yyyy-MM-dd', 'en-US');
     return formatedDate;
+  }
+  openChangeStatusModal(row: ClientsList) {
+    (<any>jQuery('#changeStatusModal')).modal('show');
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

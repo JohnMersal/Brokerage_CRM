@@ -96,3 +96,13 @@ fieldset{
   .dx-gridbase-container{width: 100%;}
   .dx-datagrid{}
 }
+.form-group{
+  &{position: relative;}
+  .extraFeature{
+    &{position: absolute; top: 0; right: 0; padding: 0 5px;}
+  .addNewRecord{
+    &{color: green; font-size: 12px;}
+  }
+
+  }
+}

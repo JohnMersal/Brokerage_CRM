@@ -2,10 +2,14 @@ import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angu
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from "rxjs";
 import notify from 'devextreme/ui/notify';
+import { CompoundsList } from "../../compounds/compounds";
 import { CompoundsService } from '../../compounds/compounds.service';
+import { AreasList } from "../../areas/areas-model";
+import { AreasService } from "../../areas/areas.service";
 import { unitsList, UnitsModel } from "../units-model";
 import { UnitsService } from "../units.service";
 import { DxValidationGroupComponent } from 'devextreme-angular';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-new-unit',
@@ -18,13 +22,17 @@ export class NewUnitComponent implements OnInit {
   @ViewChild('DataValidator') DataValidator: DxValidationGroupComponent;
   unitFormGroup: FormGroup;
   singleUnit: UnitsModel = new UnitsModel();
-  compoundsLookup = [];
+  compoundsLookup: CompoundsList[] = [];
+  compoundFilteredList: CompoundsList[] = [];
+  areasLookup: AreasList[] = []
   subscription: Subscription = new Subscription();
 
   constructor(private unitsSrvice: UnitsService,
               private formBuilder: FormBuilder,
-              private compoundService: CompoundsService) {
+              private compoundService: CompoundsService,
+              private areasService: AreasService) {
     this.creatAreaForm();
+    this.getAreasLookup();
     this.getCompoundsLookup();
   }
   creatAreaForm() {
@@ -56,49 +64,44 @@ export class NewUnitComponent implements OnInit {
       final_downpayment: ['', Validators.required],
     });
   }
-
   getCompoundsLookup() {
     this.subscription.add(this.compoundService.getAllCompounds().subscribe(
       (value: any) => {
         this.compoundsLookup = value.data;
       }, error => {
-        notify("error in loading areas list.." + error.meta.message, "error");
-      }));
+        notify("error in loading compounds list..", "error");
+    }));
   }
-
+  getAreasLookup() {
+    this.subscription.add(this.areasService.getAllAreas().subscribe(
+      (value: any) => {
+        this.areasLookup = value.data;
+      }, error => {
+        notify("error in loading areas list..", "error");
+    }));
+    
+  }
+  selectArea(e) {
+    this.compoundFilteredList = this.compoundsLookup.filter(x => x.area.id == e.value);
+    console.log(this.compoundFilteredList);
+  }
+  openAddNewModel(name: string) {
+    if (name == "area") {
+      (<any>jQuery('#addNewAreaModal')).modal('show');
+    } else if (name == "compound") {
+      (<any>jQuery('#addNewCompoundModal')).modal('show');
+    }
+  }
   afterSaveCompound(event) {
     this.getCompoundsLookup();
+    (<any>jQuery('#addNewCompoundModal')).modal('hide');
+  }
+  afterSaveArea(event) {
+    this.getAreasLookup();
+    (<any>jQuery('#addNewAreaModal')).modal('hide');
   }
   setTypeBlock(e) {
     this.singleUnit.unit_type = e.value;
-    /*this.unitFormGroup.setValue({
-      'compound_id': this.singleUnit.compound_id,
-      'unit_type': e.value,
-      'unit_num': this.singleUnit.unit_num,
-      'land_area': this.singleUnit.land_area,
-      'building_area': this.singleUnit.building_area,
-      'garden_area': this.singleUnit.garden_area,
-      'offering_type': this.singleUnit.offering_type,
-      'owner_name': this.singleUnit.owner_name,
-      'owner_phone': this.singleUnit.owner_phone,
-      'owner_email': this.singleUnit.owner_email,
-      'owner_facebook': this.singleUnit.owner_facebook,
-      'bedrooms': this.singleUnit.bedrooms,
-      'bathrooms': this.singleUnit.bathrooms,
-      'floor_num': this.singleUnit.floor_num,
-      'unit_view': this.singleUnit.unit_view,
-      'unit_desc': this.singleUnit.unit_desc,
-      'original_price': this.singleUnit.original_price,
-      'market_price': this.singleUnit.market_price,
-      'owner_price': this.singleUnit.owner_price,
-      'over_price': this.singleUnit.over_price,
-      'commission_percentage': this.singleUnit.commission_percentage,
-      'commission_value': this.singleUnit.commission_value,
-      'final_price': this.singleUnit.final_price,
-      'original_downpayment': this.singleUnit.original_downpayment,
-      'final_downpayment': this.singleUnit.final_downpayment,
-    });*/
-    //console.log(e.value, this.singleUnit.unit_type);
   }
   saveUnit() {
     console.log(this.singleUnit);

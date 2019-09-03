@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AreasListComponent } from "../areas/areas-list/areas-list.component";
 import { CompoundsListComponent } from "../compounds/compounds-list/compounds-list.component";
 import { LeadsListComponent } from "../leads/leads-list/leads-list.component";
+import { BrokersListComponent } from "../brokers/brokers-list/brokers-list.component";
 
 @Component({
   selector: 'app-admin',
@@ -16,6 +17,8 @@ export class AdminComponent implements OnInit {
   @ViewChild('areasListComponent') areasListComponent: AreasListComponent;
   @ViewChild('compoundsListComponent') compoundsListComponent: CompoundsListComponent;
   @ViewChild('LeadsListComponent') LeadsListComponent: LeadsListComponent;
+  @ViewChild('BrokersListComponent') BrokersListComponent: BrokersListComponent;
+
   constructor() { }
   changeMainTabs(targetMainTab: string) {
     switch (targetMainTab) {
@@ -27,6 +30,12 @@ export class AdminComponent implements OnInit {
         break;
       case "employee":
         this.mainTabsName = "New employee";
+        break;
+      case "permission":
+        this.mainTabsName = "New Permission";
+        break;
+      case "broker":
+        this.mainTabsName = "New Broker";
         break;
     }
     this.mainTabsSwitch = targetMainTab;
@@ -64,5 +73,8 @@ export class AdminComponent implements OnInit {
   }
   afterSaveLead(event) {
     this.LeadsListComponent.getAllLeads();
+  }
+  afterSaveBroker(event) {
+    this.BrokersListComponent.getAllUnits();
   }
 }

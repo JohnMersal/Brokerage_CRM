@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError as observableThrowError, Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { AppSettings } from '../shared/app-settings';
+import { Permissions, UserPermissions } from "./permission-model";
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,15 @@ export class PermissionService {
   //     map(res => res),
   //     catchError(this.handleError));
   // }
-  editPermission(permissionn: any) {
-    const url = AppSettings.permissions_URL + '/' + permissionn.id + '/edit';
+  editPermission(userID: any) {
+    const url = AppSettings.permissions_URL + '/' + userID + '/edit';
     //const formData = new FormData();
     //formData.append('', JSON.stringify(permissionn));
-    return this.http.post(url, JSON.stringify(permissionn), { headers: this.headers }).pipe(
-      map(res => res),
+    return this.http.get(url).pipe(
+      tap((res: any) =>{
+        AppSettings.loggedInUser.permissions = res.data.user_permissions;
+        //console.log("Permission of logged-in User", AppSettings.loggedInUser);
+      }),
       catchError(this.handleError));
   }
   uppdatePermission(permissionn: any) {

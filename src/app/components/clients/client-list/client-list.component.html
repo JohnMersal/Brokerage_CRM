@@ -1,15 +1,8 @@
 <fieldset>
   <legend>All Clients</legend>
-  <dx-data-grid #grid class="dataGrid" height="400"
-                [(dataSource)]="clientList"
-                [showRowLines]="true"
-                [showColumnLines]="true"
-                [showBorders]="true"
-                [rowAlternationEnabled]="true"
-                [allowColumnReordering]="true"
-                [allowColumnResizing]="true"
-                (onCellClick)="editRecord($event)"
-                [columnAutoWidth]="true">
+  <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="clientList" [showRowLines]="true"
+    [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+    [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
     <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
     <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
     <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
@@ -17,16 +10,17 @@
     <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
     <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
     <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
     <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
     <!--fixed Column-->
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="first_name" caption="First name" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="first_name" caption="First name"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
     <dxi-column cssClass="grid-cell" dataType="string" dataField="second_name" caption="Second name"
       [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="gender" caption="Gender"
-      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="email" caption="Email"
-      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="gender" caption="Gender" [allowFiltering]="true"
+      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="email" caption="Email" [allowFiltering]="true"
+      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
     <dxi-column cssClass="grid-cell" dataType="string" dataField="mobile" caption="Mobile" [allowFiltering]="true"
       [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
     <dxi-column cssClass="grid-cell" dataType="boolen" dataField="active" caption="active" [allowFiltering]="true"
@@ -36,111 +30,40 @@
 
     <dxi-column cssClass="grid-cell" dataType="string" dataField="client" caption="Request type" [allowFiltering]="true"
       [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="request_typeTemplate"></dxi-column>
-      <div *dxTemplate="let data of 'clientTemplate'">
-        {{data.data.client.request_type}}
-      </div>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="budget_from" caption="Budget from" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="budget_fromTemplate"></dxi-column>
-      <div *dxTemplate="let data of 'budget_fromTemplate'">
-        {{data.data.client.budget_from}}
-      </div>
+    <div *dxTemplate="let data of 'clientTemplate'">
+      {{data.data.client.request_type}}
+    </div>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="budget_from" caption="Budget from"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+      cellTemplate="budget_fromTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'budget_fromTemplate'">
+      {{data.data.client.budget_from}}
+    </div>
     <dxi-column cssClass="grid-cell" dataType="string" dataField="budget_to" caption="Budget to" [allowFiltering]="true"
       [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="budget_toTemplate"></dxi-column>
-      <div *dxTemplate="let data of 'budget_toTemplate'">
-        {{data.data.client.budget_to}}
-      </div>
+    <div *dxTemplate="let data of 'budget_toTemplate'">
+      {{data.data.client.budget_to}}
+    </div>
 
     <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
-      caption="Created at" [allowFiltering]="false" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      caption="Created at" [allowFiltering]="false" [allowEditing]="false" [visible]="true" [width]="'auto'">
+    </dxi-column>
     <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
-      caption="Updated at" [allowFiltering]="false" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      caption="Updated at" [allowFiltering]="false" [allowEditing]="false" [visible]="true" [width]="'auto'">
+    </dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Status" [allowFiltering]="true"
+      [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="changeStatusTemplate">
+    </dxi-column>
+    <div *dxTemplate="let data of 'changeStatusTemplate'">
+      <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
+        class="mat-primary">Change status</button>
+    </div>
 
     <dxo-summary>
       <dxi-total-item column="first_name" summaryType="count">
       </dxi-total-item>
     </dxo-summary>
   </dx-data-grid>
-
-
-
-  <!-- <div class="row">
-    <div class="col-sm-12" *ngIf="dataSource">
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-      <table mat-table [dataSource]="dataSource" matSort
-        class="table table-Section table-striped mat-table table-bordered">
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="first_name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> First name </th>
-          <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="second_name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Second name </th>
-          <td mat-cell *matCellDef="let element"> {{element.second_name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="gender">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
-          <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="active">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
-          <td mat-cell *matCellDef="let element"> {{element.active}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-          <td mat-cell *matCellDef="let element"> {{element.type}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="mobile">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile </th>
-          <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="created_at">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Created at </th>
-          <td mat-cell *matCellDef="let element">{{ element.created_at}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="updated_at">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated at </th>
-          <td mat-cell *matCellDef="let element"> {{element.updated_at}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="created_by">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> created_by </th>
-          <td mat-cell *matCellDef="let element">
-            <ng-container *ngIf="element.created_by"> {{element.created_by.first_name}}
-              {{element.created_by.second_name}} </ng-container>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-          <td mat-cell *matCellDef="let element"> <a href="javascript:;" (click)="openToeditClient(element)">Edit</a>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </div>
-  </div> -->
 </fieldset>
 
 <div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" aria-labelledby="editClientModalLabel"
@@ -190,36 +113,109 @@
           <div class="col-sm-6">
             <div class="form-group">
               <mat-form-field class="example-full-width">
-                <input matInput #mobile maxlength="10" placeholder="Mobile" (input)="editClient.mobile=$event.target.value" 
-                [(value)]="editClient.mobile" numbersOnly required>
+                <input matInput #mobile maxlength="10" placeholder="Mobile"
+                  (input)="editClient.mobile=$event.target.value" [(value)]="editClient.mobile" numbersOnly required>
                 <mat-hint align="end">{{mobile.value.length}} / 10</mat-hint>
               </mat-form-field>
             </div>
           </div>
-          <!-- <div class="col-sm-6">
-            <div class="form-group">
-              <mat-form-field class="example-full-width">
-                <mat-label>Area</mat-label>
-                <mat-select [(value)]="editClient.area_id" required>
-                  <mat-option *ngFor="let area of areasLookup" [value]="area.id">
-                    {{area.name}} - {{area.address}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div> 
-          <div class="col-sm-6">
-            <div class="form-group">
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="project name" [(value)]="editClient.address"
-                  (input)="editClient.address=$event.target.value" required>
-              </mat-form-field>
-            </div>
-          </div>-->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" (click)="updateClient()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changeStatusModalLabel">Status</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-tabs [currentTabName]="mainTabsName">
+          <li class="tabItem" [class.active]="mainTabsSwitch == 'primary'">
+            <a (click)="changeMainTabs('primary')">Primary</a>
+          </li>
+          <li class="tabItem" [class.active]="mainTabsSwitch == 'resale'">
+            <a (click)="changeMainTabs('resale')">Resale</a>
+          </li>
+        </app-tabs>
+        <div class="tabsHolder">
+          <div *ngIf="mainTabsSwitch == 'primary'">
+            <dx-validation-group #changeStatusValidator>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Unit price</label>
+                    <dx-text-box [class.required]="true">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" message="Unit price required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Unit Type</label>
+                    <dx-text-box [class.required]="true">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" message="Unit Type required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Unit size</label>
+                    <dx-text-box [class.required]="true">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" message="Unit size required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Region</label>
+                    <dx-text-box [class.required]="true">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" message="Region required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Project name</label>
+                    <dx-text-box [class.required]="true">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" message="Project name required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Developer name</label>
+                    <dx-text-box [class.required]="true"></dx-text-box>
+                  </div>
+                </div>
+              </div>
+            </dx-validation-group>
+          </div>
+          <div *ngIf="mainTabsSwitch == 'resale'">
+            resalse
+          </div>
+        </div>
+        <div>
+          <button type="button" mat-flat-button color="primary" class="mat-primary">Change status</button>
         </div>
       </div>
     </div>
