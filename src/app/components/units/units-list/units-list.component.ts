@@ -11,6 +11,9 @@ import { CompoundsList } from "../../compounds/compounds";
 import { CompoundsService } from '../../compounds/compounds.service';
 import { formatDate } from '@angular/common';
 import { NewUnitComponent } from "../new-unit/new-unit.component";
+import { BrokersList } from "../../brokers/broker-model";
+import { BrokersService } from "../../brokers/brokers.service";
+import { DxValidationGroupComponent } from 'devextreme-angular';
 declare var jQuery: any;
 
 @Component({
@@ -19,12 +22,43 @@ declare var jQuery: any;
   styleUrls: ['./units-list.component.scss']
 })
 export class UnitsListComponent implements OnInit {
+  @ViewChild('changeStatusValidator') changeStatusValidator: DxValidationGroupComponent;
   @ViewChild('edit') EditComponent: NewUnitComponent;
   editUnit: UnitsModel = new UnitsModel();
   unitList: unitsList[] = [];
   rentUnitsList: unitsList[] = []
-  saleUnitsList: unitsList[] = []
+  saleUnitsList: unitsList[] = [];
   compoundsLookup: CompoundsList[] = [];
+  brokersLookup: BrokersList[] = [];
+  statusOption = [
+    {
+      name: "For sale",
+      descr: "The unit is available for sale (will be visible in units list).",
+      selected:true
+    },
+    {
+      name: "Sold unknown",
+      descr: "The unit is sold (will be moved to archive).",
+      selected: false
+    },
+    {
+      name: "Not for sale now / Maybe later",
+      descr: "The owner has decided to postpone the sale for another time.",
+      selected: false
+    },
+    {
+      name: "Sold with an outside broker",
+      descr: "This means the transaction complete between you and a different company.",
+      selected: false
+    }
+  ];
+  DateFormat = AppSettings.DateDisplayFormat;
+  maxDate: Date = new Date();
+  selectedOption = {
+    name: null,
+    descr: null,
+    selected: false
+  };
   mainTabsSwitch: string = "sales";
   mainTabsName: string = "For sale units";
   dataSource;
@@ -32,7 +66,7 @@ export class UnitsListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   selection = new SelectionModel<unitsList>(true, []);
   subscription: Subscription = new Subscription();
-  constructor(private unitsService: UnitsService, private snackBar: MatSnackBar, private compoundService: CompoundsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,) {
+  constructor(private unitsService: UnitsService, private snackBar: MatSnackBar, private compoundService: CompoundsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private brokersService: BrokersService) {
     iconRegistry.addSvgIcon('Apartment-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Apartment.svg'));
     iconRegistry.addSvgIcon('Standalone-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Standalone.svg'));
     iconRegistry.addSvgIcon('Townhouse-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Townhouse.svg'));
@@ -79,6 +113,14 @@ export class UnitsListComponent implements OnInit {
         this.compoundsLookup = value.data;
       }, error => {
         this.snackBar.open("error in loading areas list.." + error.error, "", { duration: 2000, politeness: "polite" });
+      }));
+  }
+  getBrokersLookup() {
+    this.subscription.add(this.brokersService.getAllBroker().subscribe(
+      (value: any) => {
+        this.brokersLookup = value.data;
+      }, error => {
+        this.snackBar.open("error in loading brokers list.." + error.error, "", { duration: 2000, politeness: "polite" });
       }));
   }
   getAllUnits() {
@@ -146,36 +188,39 @@ export class UnitsListComponent implements OnInit {
   }
   editRecord(e: any) {
     //console.log(e.data);
-    Object.assign(this.EditComponent.singleUnit, e.data);
-    /*this.EditComponent.singleUnit = {
-      id: e.data.id,
-      compound_id: e.data.compound_id,
-      unit_type: e.data.unit_type,
-      offering_type: e.data.offering_type,
-      unit_num: e.data.unit_num,
-      floor_num: e.data.floor_num,
-      unit_view: e.data.unit_view,
-      land_area: e.data.land_area,
-      building_area: e.data.building_area,
-      garden_area: e.data.garden_area,
-      bedrooms: e.data.bedrooms,
-      bathrooms: e.data.bathrooms,
-      owner_name: e.data.owner_name,
-      owner_phone: e.data.owner_phone,
-      owner_email: e.data.owner_email,
-      owner_facebook: e.data.owner_facebook,
-      original_price: e.data.original_price,
-      market_price: e.data.market_price,
-      owner_price: e.data.owner_price,
-      over_price: e.data.over_price,
-      commission_percentage: e.data.commission_percentage,
-      commission_value: e.data.commission_value,
-      final_price: e.data.final_price,
-      original_downpayment: e.data.original_downpayment,
-      final_downpayment: e.data.final_downpayment,
-      unit_desc: e.data.unit_desc,
-    };*/
-    (<any>jQuery('#editUnitModal')).modal('show');
+    if (e.rowType == "data" && e.column.cellTemplate != "changeStatusTemplate") {
+      Object.assign(this.EditComponent.singleUnit, e.data);
+      (<any>jQuery('#editUnitModal')).modal('show');
+    }
+  }
+  openChangeStatusModal(row: UnitsModel) {
+    (<any>jQuery('#changeStatusModal')).modal('show');
+    this.getBrokersLookup();
+  }
+  onStatusChanged(e, option) {
+    for (let opt of this.statusOption){
+      if (opt.name != option.name) {
+        opt.selected = false;
+      } else {
+        //opt.selected = e.value;
+      }
+    }
+    this.selectedOption = option;
+  }
+  submitStatusChange() {
+    if (this.changeStatusValidator.instance.validate().isValid) {
+      /*let formatedDate = formatDate(this.singleActivity.activity_date, this.DateFormat, 'en-US');
+        this.singleActivity.activity_date = formatedDate;*/
+    }
+  }
+  openAddNewModel(name: string) {
+    if (name == "broker") {
+      (<any>jQuery('#addNewBrokerModal')).modal('show');
+    }
+  }
+  afterSaveBroker(e) {
+    (<any>jQuery('#addNewBrokerModal')).modal('hide');
+    
   }
   afterSave() {
     this.getAllUnits();

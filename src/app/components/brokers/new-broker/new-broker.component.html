@@ -1,0 +1,56 @@
+<dx-validation-group #DataValidator>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>First name</label>
+        <dx-text-box [class.required]="true" [(value)]="singleBroker.first_name">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="First name is Required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-text-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Second name</label>
+        <dx-text-box [class.required]="true" [(value)]="singleBroker.second_name">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="First name is Required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-text-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Gender</label>
+        <dx-select-box [class.required]="true" [dataSource]="[{name:'Male'},{name:'Female'}]"
+          [(value)]="singleBroker.gender" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+        </dx-select-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Mobile</label>
+        <dx-number-box [class.required]="true" [min]="0" [(value)]="singleBroker.mobile" [showSpinButtons]="false" [showClearButton]="false">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Mobile is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-number-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Email</label>
+        <dx-text-box [class.required]="true" [(value)]="singleBroker.email">
+        </dx-text-box>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <button type="button" (click)="saveBroker()" mat-flat-button color="primary" class="mat-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</dx-validation-group>

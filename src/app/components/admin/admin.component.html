@@ -11,6 +11,9 @@
   <li class="tabItem" [class.active]="mainTabsSwitch == 'permission'">
     <a (click)="changeMainTabs('permission')">Permission</a>
   </li>
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'broker'">
+    <a (click)="changeMainTabs('broker')">Brokers</a>
+  </li>
 </app-tabs>
 <div class="tabsHolder">
   <div *ngIf="mainTabsSwitch == 'leads'">
@@ -145,5 +148,9 @@
   </div>
   <div *ngIf="mainTabsSwitch == 'permission'">
     <app-permission-list></app-permission-list>
+  </div>
+  <div *ngIf="mainTabsSwitch == 'broker'">
+    <app-new-broker (afterSave)="afterSaveBroker($event)"></app-new-broker>
+    <app-brokers-list #BrokersListComponent></app-brokers-list>
   </div>
 </div>

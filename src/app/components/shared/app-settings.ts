@@ -18,7 +18,8 @@ export class AppSettings {
     static gamification_URL = AppSettings.API_Url + "backend/points";
     static login_URL = AppSettings.API_Url + "login";
     static logout_URL = AppSettings.API_Url + "logout";
-    static permissions_URL = AppSettings.API_Url + "backend/userPermissions"
+    static permissions_URL = AppSettings.API_Url + "backend/userPermissions";
+    static broker_URL = AppSettings.API_Url + "backend/brokers";
 
     static DateDisplayFormat = "yyyy-MM-dd";
     static DateTimeDisplayFormat = "yyyy-MM-dd HH:mm:ss";
