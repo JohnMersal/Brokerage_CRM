@@ -1,12 +1,38 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="page-title-box">
-      <h2 class="page-title mat-h1">Dashboard</h2>
+      <h2 class="page-title mat-h1">Employees</h2>
     </div><!--end page-title-box-->
   </div>
 </div><!--end col-->
 
-
+<div class="row el-element-overlay">
+  <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let employee of employeesList; let i of index">
+    <div class="card" (click)="CardEditRecord(employee.id)">
+      <div class="el-card-item">
+        <div class="el-card-avatar el-overlay-1">
+          <ng-container *ngIf="employee.profile_picture; else templateImages">
+            <img *ngIf="employee.gender === 'male'" [src]="employee.profile_picture" onerror="this.onerror=null;this.src='assets/images/defaultOther.svg';" alt="user" />
+          </ng-container>
+          <ng-template #templateImages>
+            <img *ngIf="employee.gender === 'Male'" src="assets/images/defaultMale.svg" alt="user" />
+            <img *ngIf="employee.gender === 'Female'" src="assets/images/defaultFemale.svg" alt="user" />
+            <img *ngIf="employee.gender === 'male'" src="assets/images/defaultOther.svg" alt="user" />
+          </ng-template>
+          <div class="el-overlay">
+            <ul class="el-info">
+              <li><a class="btn default btn-outline"><i class="icon-link"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="el-card-content">
+          <h3 class="box-title">{{employee.first_name}} {{employee.second_name}}</h3> <small>{{employee?.employee?.job_title}}</small>
+          <br/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row el-element-overlay">
   <div class="col-md-12">

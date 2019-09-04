@@ -15,18 +15,20 @@ export class EmployeesListComponent implements OnInit {
   constructor(private employeeService: EmployeesService, private router: Router) {
     this.getAllLeads();
    }
-  ngOnInit() {
-  }
+  ngOnInit() {}
   getAllLeads() {
     this.subscription.add(this.employeeService.getAllEmployees().subscribe(
-      (value: any) => {
-        this.employeesList = value.data;
+      (data: any) => {
+        this.employeesList = data.data;
       }, error => {
         console.log(error);
       }));
   }
   editRecord(e: any) {
     this.router.navigate(['employee/', e.data.id]);
+  }
+  CardEditRecord(employeeID: any) {
+    this.router.navigate(['employee/', employeeID]);
   }
   getDateFormated(x) {
     let date = x.value;
