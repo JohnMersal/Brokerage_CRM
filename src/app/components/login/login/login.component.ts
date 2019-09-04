@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
     }
   }
   ngOnInit() {
+    // If user is Logged in, he cannot see this page, he is redirected to home!
+    if (this.loginService.LoggedIn){
+      this.router.navigate(['home']);
+    }
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
