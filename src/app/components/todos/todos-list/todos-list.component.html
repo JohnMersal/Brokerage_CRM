@@ -1,6 +1,14 @@
 <fieldset>
   <legend>All to-do list</legend>
-  <div *ngIf="false">
+  <app-tabs [currentTabName]="mainTabsName">
+    <li class="tabItem" [class.active]="mainTabsSwitch == 'todo'">
+      <a (click)="changeMainTabs('todo')">As to-do list</a>
+    </li>
+    <li class="tabItem" [class.active]="mainTabsSwitch == 'calendar'">
+      <a (click)="changeMainTabs('calendar')">As calendar</a>
+    </li>
+  </app-tabs>
+  <div *ngIf="mainTabsSwitch == 'todo'">
     <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="todosList" [showRowLines]="true"
       [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
       [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
@@ -53,7 +61,7 @@
       </dxo-summary>
     </dx-data-grid>
   </div>
-  <div>
+  <div *ngIf="mainTabsSwitch == 'calendar'">
     <dx-scheduler [dataSource]="dataSource" [views]="['month']" currentView="month" [currentDate]="currentDate"
       [firstDayOfWeek]="1" [startDayHour]="8" [endDayHour]="18" [showAllDayPanel]="false" [height]="600"
        dataCellTemplate="dataCellTemplate">

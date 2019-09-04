@@ -27,7 +27,7 @@
       <li class="tabItem" [class.active]="subTabsSwitchLead == 'area'">
         <a (click)="changeSubTabsLead('area')">New area</a>
       </li>
-      <li class="tabItem" [class.active]="subTabsSwitchLead == 'activities'">
+      <li *ngIf="false" class="tabItem" [class.active]="subTabsSwitchLead == 'activities'">
         <a (click)="changeSubTabsLead('activities')">Activities</a>
       </li>
       <li class="tabItem" [class.active]="subTabsSwitchLead == 'todos'">

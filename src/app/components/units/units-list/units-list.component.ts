@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from "rxjs";
 import { MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -22,8 +22,14 @@ declare var jQuery: any;
   styleUrls: ['./units-list.component.scss']
 })
 export class UnitsListComponent implements OnInit {
+  @Input() displayMode: string = "";
+  /* 
+   * select: to make evry row in grid selective
+  */
+  @Output() selectedRow = new EventEmitter();
   @ViewChild('changeStatusValidator') changeStatusValidator: DxValidationGroupComponent;
   @ViewChild('edit') EditComponent: NewUnitComponent;
+
   editUnit: UnitsModel = new UnitsModel();
   unitList: unitsList[] = [];
   rentUnitsList: unitsList[] = []
@@ -187,15 +193,21 @@ export class UnitsListComponent implements OnInit {
     (<any>jQuery('#editUnitModal')).modal('show');
   }
   editRecord(e: any) {
-    //console.log(e.data);
-    if (e.rowType == "data" && e.column.cellTemplate != "changeStatusTemplate") {
+    console.log(this.displayMode);
+    if (e.rowType == "data" && this.displayMode !== 'select' && (e.column.cellTemplate != "changeStatusTemplate" && e.column.cellTemplate != "SelectUnitTemplate")) {
       Object.assign(this.EditComponent.singleUnit, e.data);
       (<any>jQuery('#editUnitModal')).modal('show');
     }
   }
-  openChangeStatusModal(row: UnitsModel) {
-    (<any>jQuery('#changeStatusModal')).modal('show');
-    this.getBrokersLookup();
+  selectedUnits = [];
+  openChangeStatusModal(row: unitsList) {
+    if (this.displayMode == "select") {
+      //if(!row._isSelected) row._isSelected = !row._isSelected;
+      this.selectedRow.emit(row);
+    } else {
+      (<any>jQuery('#changeStatusModal')).modal('show');
+      this.getBrokersLookup();
+    }
   }
   onStatusChanged(e, option) {
     for (let opt of this.statusOption){
@@ -219,6 +231,7 @@ export class UnitsListComponent implements OnInit {
     }
   }
   afterSaveBroker(e) {
+    this.getBrokersLookup();
     (<any>jQuery('#addNewBrokerModal')).modal('hide');
     
   }

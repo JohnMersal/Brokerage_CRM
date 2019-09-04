@@ -23,6 +23,7 @@ export class TargetPointUpdateModel {
     call_target_value: number;
     meeting_target_value: number;
     won_target_value: number;
+    showing_target_value: number;
     target_start: any;
     target_end: any;
     target_points: number;

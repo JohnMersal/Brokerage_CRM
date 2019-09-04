@@ -67,4 +67,5 @@ export class unitsList {
         name: string;
         address: string;
     }
+    _isSelected: boolean = false;
 }
