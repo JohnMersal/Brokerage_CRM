@@ -43,6 +43,11 @@
               "node_modules/jquery-slimscroll/jquery.slimscroll.min.js",
               "node_modules/pace-js/pace.min.js"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src"
+              ]
+            },
             "es5BrowserSupport": true
           },
           "configurations": {
