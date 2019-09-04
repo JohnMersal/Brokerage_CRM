@@ -11,6 +11,7 @@ import { DevExtremeModule, DxValidatorModule, DxValidationSummaryModule, DxDataG
 import { DxFormModule } from "devextreme-angular";
 import { DxSwitchModule } from "devextreme-angular"
 import { DxAccordionModule } from "devextreme-angular";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NumbersOnlyDirective } from "../app/components/shared/numbers-only-directive";
 import { MobileSidebarToggleDirective, RightSidebarToggleDirective } from "../app/components/shared/sidebar.directive";
@@ -84,6 +85,7 @@ import { BrokersListComponent } from './components/brokers/brokers-list/brokers-
     DxValidationSummaryModule,
     ReactiveFormsModule,
     FormsModule,
+    NgbModule,
     MatFileUploadModule,
     MatButtonModule, MatIconModule, MatListModule, MatProgressBarModule, MatSelectModule, MatSidenavModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatProgressSpinnerModule, MatDialogModule, MatSliderModule, MatSnackBarModule, MatTabsModule, MatInputModule, MatTableModule, MatCheckboxModule, MatButtonToggleModule, MatDatepickerModule, MatNativeDateModule, MatStepperModule, MatRadioModule
   ],
