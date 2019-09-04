@@ -12,7 +12,8 @@
       <div *ngIf="mainTabsSwitch == 'sales'">
         <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="saleUnitsList" [showRowLines]="true"
           [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
-          [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+          [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true" [selectedRowKeys]="selectedUnits">
+          <dxo-selection mode="single"></dxo-selection>
           <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
           <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
           <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
@@ -97,13 +98,14 @@
           <div *dxTemplate="let data of 'reassigned_toTemplate'">
             {{data.data.first_name}} {{data.data.second_name}}
           </div>
-          <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_by" caption="Status"
+          <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Action"
             [allowFiltering]="true" [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
             cellTemplate="changeStatusTemplate"></dxi-column>
           <div *dxTemplate="let data of 'changeStatusTemplate'">
-            <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
-              class="mat-primary">Change status</button>
+              <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
+                class="mat-primary">Change status</button>
           </div>
+
           <dxo-summary>
             <dxi-total-item column="compound_id" summaryType="count">
             </dxi-total-item>
@@ -293,12 +295,13 @@
           <div *dxTemplate="let data of 'reassigned_toTemplate'">
             {{data.data.first_name}} {{data.data.second_name}}
           </div>
-          <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_by" caption="Reassigned by"
+          <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Action"
             [allowFiltering]="true" [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
-            cellTemplate="changeStatusTemplate"></dxi-column>
+            cellTemplate="changeStatusTemplate">
+          </dxi-column>
           <div *dxTemplate="let data of 'changeStatusTemplate'">
-            <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
-              class="mat-primary">Change status</button>
+              <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
+                class="mat-primary">Change status</button>
           </div>
           <dxo-summary>
             <dxi-total-item column="compound_id" summaryType="count">
@@ -349,7 +352,7 @@
                   <div class="form-group">
                     <label>Remind Me in:</label>
                     <dx-date-box [class.required]="true" width="auto" [displayFormat]="DateFormat" [min]="maxDate"
-                    [disabled]="!(selectedOption.name == 'Not for sale now / Maybe later')">
+                      [disabled]="!(selectedOption.name == 'Not for sale now / Maybe later')">
                       <dx-validator>
                         <dxi-validation-rule type="required" message="Date is Required"></dxi-validation-rule>
                       </dx-validator>
@@ -359,15 +362,17 @@
               </div>
             </div>
             <div *ngIf="opt.name == 'Sold with an outside broker'">
-            <p>{{opt.descr}}</p>
+              <p>{{opt.descr}}</p>
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label>Broker:</label>
-                    <div class="extraFeature" *ngIf="selectedOption.name == 'Sold with an outside broker'"><a class="addNewRecord" (click)="openAddNewModel('broker')"><i class="fas fa-plus"></i> Add
+                    <div class="extraFeature" *ngIf="selectedOption.name == 'Sold with an outside broker'"><a
+                        class="addNewRecord" (click)="openAddNewModel('broker')"><i class="fas fa-plus"></i> Add
                         new</a></div>
-                    <dx-select-box [class.required]="true" [dataSource]="brokersLookup" displayExpr="name" valueExpr="name" [searchEnabled]="true" 
-                    [disabled]="!(selectedOption.name == 'Sold with an outside broker')">
+                    <dx-select-box [class.required]="true" [dataSource]="brokersLookup" displayExpr="name"
+                      valueExpr="name" [searchEnabled]="true"
+                      [disabled]="!(selectedOption.name == 'Sold with an outside broker')">
                       <dx-validator>
                         <dxi-validation-rule type="required" message="Broker is Required"></dxi-validation-rule>
                       </dx-validator>

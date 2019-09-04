@@ -22,7 +22,8 @@ export class TodosListComponent implements OnInit {
 
 
 
-
+  mainTabsSwitch: string = "todo";
+  mainTabsName: string = "For sale units";
   RowFilter: boolean = false;
   GroupFilter: boolean = false;
   editTodo: TodoModel = new TodoModel();
@@ -34,9 +35,20 @@ export class TodosListComponent implements OnInit {
     this.getEmployeesLookup();
 
     this.dataSource = new DataSource({
-      store: leadsService.getData()
+      store: this.todosList
     });
     this.resourcesDataSource = leadsService.getEmployees();
+  }
+  changeMainTabs(targetMainTab: string) {
+    switch (targetMainTab) {
+      case "todo":
+        this.mainTabsName = "For rent units";
+        break;
+      case "calendar":
+        this.mainTabsName = "For sale units";
+        break;
+    }
+    this.mainTabsSwitch = targetMainTab;
   }
   getEmployeesLookup() {
     this.subscription.add(this.employeesService.getAllEmployees().subscribe(

@@ -104,7 +104,7 @@ export class NewUnitComponent implements OnInit {
     this.singleUnit.unit_type = e.value;
   }
   saveUnit() {
-    console.log(this.singleUnit);
+    //console.log(this.singleUnit);
     if (this.DataValidator.instance.validate().isValid) {
       if (this.updateMode) {
       this.subscription.add(this.unitsSrvice.updateUnit(this.singleUnit).subscribe(
@@ -144,10 +144,16 @@ export class NewUnitComponent implements OnInit {
       this.singleUnit.final_price = this.singleUnit.original_price + this.singleUnit.commission_value;
     }
   }
+  /*
+    Over price = Original price - Owner price (even if mince)
+    Final downpayment = Original downpayment + Commission value + Over price
+    Final price = Original price  + Over price + Commission value
+  */
   calculateOverPrice(e) {
     if (this.singleUnit.original_price && this.singleUnit.owner_price) {
-      let diff = this.singleUnit.original_price - this.singleUnit.owner_price;
-      if (diff > 0) this.singleUnit.over_price = diff;
+      //let diff = this.singleUnit.original_price - this.singleUnit.owner_price;
+      //if (diff > 0) this.singleUnit.over_price = diff;
+      this.singleUnit.over_price = this.singleUnit.original_price - this.singleUnit.owner_price;
     }
   }
   ngOnInit() {

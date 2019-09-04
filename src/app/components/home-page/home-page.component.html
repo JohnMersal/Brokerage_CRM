@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="false">
   <div class="col-sm-12">
     <div id="chart-demo">
       <div class="row">
@@ -49,5 +49,39 @@
         </dxo-label>
       </dxo-argument-axis>
     </dx-chart>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="form-group">
+      <dx-linear-gauge id="gauge" [value]="4.3">
+        <dxo-scale [startValue]="0" [endValue]="5" [customTicks]="[0, 5]" [minorTickInterval]="0.625">
+        </dxo-scale>
+        <dxo-export [enabled]="false"></dxo-export>
+        <dxo-title text="Meetings">
+          <dxo-font [size]="20"></dxo-font>
+        </dxo-title>
+      </dx-linear-gauge>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <dx-linear-gauge id="gauge" [value]="3">
+        <dxo-scale [startValue]="0" [endValue]="5" [customTicks]="[0, 5]" [minorTickInterval]="0.625">
+        </dxo-scale>
+        <dxo-export [enabled]="false"></dxo-export>
+        <dxo-title text="Calls">
+          <dxo-font [size]="20"></dxo-font>
+        </dxo-title>
+      </dx-linear-gauge>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <app-leads-list></app-leads-list>
+  </div>
+  <div class="col-sm-6">
+    <app-todos-list></app-todos-list>
   </div>
 </div>
