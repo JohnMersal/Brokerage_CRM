@@ -78,6 +78,7 @@ import { BrokersListComponent } from './components/brokers/brokers-list/brokers-
     BrowserAnimationsModule,
     AppRoutingModule,
     DxSwitchModule,
+    NgbModule,
     DxAccordionModule,
     DxFormModule,
     DevExtremeModule,

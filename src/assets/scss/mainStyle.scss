@@ -10,14 +10,12 @@ mat-form-field{
 .tabsHolder{
     &{padding: 20px; background-color: $whiteColor;}
 }
-.sectionTitle {border-left: 5px solid #029fcd; padding-left: 10px; color: #029fcd;}
 fieldset{
     &{border:1px solid #ddd; padding: 5px 20px; margin-bottom: 25px;}
     legend{
         &{font-size: 14px; font-weight: bold;}
     }
     label{font-size: 14px;}
-    .sectionTitle {font-size: 14px; line-height: 28px;}
 }
 .table {
     &{}
@@ -93,7 +91,7 @@ fieldset{
   }
 }
 .dataGrid{
-  &{max-width: unset !important; padding: 15px; background-color: #fff;}
+  &{max-width: unset !important;}
   .dx-gridbase-container{width: 100%;}
   .dx-datagrid{}
   .dx-datagrid-rowsview{

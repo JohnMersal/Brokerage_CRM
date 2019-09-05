@@ -1,3 +1,9 @@
+<div class="todo">
+  <ol>
+    <li>When click on header, a Modal opens, this should be ONLY on the rest of the rows.</li>
+  </ol>
+</div>
+
 <app-tabs [currentTabName]="mainTabsName">
   <li class="tabItem" [class.active]="mainTabsSwitch == 'sales'">
     <a (click)="changeMainTabs('sales')">For sale units</a>
@@ -10,79 +16,108 @@
   <div class="card-body">
     <div>
       <div *ngIf="mainTabsSwitch == 'sales'">
-        <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="saleUnitsList" [showRowLines]="true"
-          [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
-          [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true" [selectedRowKeys]="selectedUnits">
+        <dx-data-grid #grid
+                      class="CustomDataTable dataGrid"
+                      [(dataSource)]="saleUnitsList"
+                      [showRowLines]="true"
+                      [showColumnLines]="false"
+                      [showBorders]="true"
+                      [rowAlternationEnabled]="false"
+                      [allowColumnReordering]="false"
+                      [allowColumnResizing]="false"
+                      [columnAutoWidth]="false"
+                      [selectedRowKeys]="selectedUnits"
+                      (onCellClick)="editRecord($event)" >
           <dxo-selection mode="single"></dxo-selection>
+
           <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
           <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
           <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
           <dxo-header-filter [visible]="true"></dxo-header-filter>
+
+          <!--XLS Exporter-->
           <dxo-export [enabled]="true" fileName="Units" [allowExportSelectedData]="false"></dxo-export>
           <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+          <!--Column show / hide chooser-->
           <dxo-column-chooser [enabled]="true" mode="select" [allowSearch]="true"></dxo-column-chooser>
           <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
           <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
           <!--fixed Column-->
           <dxi-column cssClass="grid-cell" dataType="string" dataField="compound_id" caption="Compound"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
-            cellTemplate="compound_idTemplate"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+                      cellTemplate="compound_idTemplate"></dxi-column>
           <div *dxTemplate="let data of 'compound_idTemplate'">
             {{traceCompoundName(data.data.compound_id)}}
           </div>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_type" caption="Unit type"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      cellTemplate="unitTypeTemplate"
+                      alignment="center"
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+          <div *dxTemplate="let data of 'unitTypeTemplate'">
+            <mat-icon *ngIf="data.value === 'Apartment'" class="dataTableIcon" svgIcon="icon-apartment"></mat-icon>
+            <mat-icon *ngIf="data.value === 'Standalone'" class="dataTableIcon" svgIcon="icon-chalet"></mat-icon>
+            <mat-icon *ngIf="data.value === 'Townhouse'" class="dataTableIcon" svgIcon="icon-townhouse"></mat-icon>
+            <mat-icon *ngIf="data.value === 'Twin villa'" class="dataTableIcon" svgIcon="icon-twin-villa"></mat-icon>
+          </div>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="offering_type" caption="Offering type"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="original_price" caption="Original price"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-          <dxi-column cssClass="grid-cell" dataType="string" dataField="market_price" caption="Market price"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_price" caption="Owner price"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="over_price" caption="Over price"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="commission_percentage" caption="Commission (%)"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="commission_value" caption="Commission value"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="final_price" caption="Final price"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-          <dxi-column cssClass="grid-cell" dataType="string" dataField="original_downpayment"
-            caption="Original downpayment" [allowFiltering]="true" [allowEditing]="false" [visible]="true"
-            [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+          <dxi-column cssClass="grid-cell" dataType="string" dataField="original_downpayment" caption="Original downpayment"
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="final_downpayment" caption="Final downpayment"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
 
-          <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_num" caption="Details"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
-            cellTemplate="DetailsTemplate"></dxi-column>
+          <dxi-column cssClass="grid-cell" dataType="string" caption="Land Area/GardenArea" [allowFiltering]="true"
+                      [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="DetailsTemplate"></dxi-column>
           <div *dxTemplate="let data of 'DetailsTemplate'">
-            Unit #: {{data.data.unit_num}}, Floor: {{data.data.floor_num}}, Bedrooms: {{data.data.bedrooms}}, Bathrooms:
-            {{data.data.bathrooms}},
-            Land area: {{data.data.land_area}}, Building area: {{data.data.building_area}}, Garden area:
-            {{data.data.garden_area}}
+            Building area: {{data.data.building_area}}
+            <br>
+            Garden area:{{data.data.garden_area}}
           </div>
 
           <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_desc" caption="Describtion"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
 
-          <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_view" caption="Unit view"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+          <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_view" caption="Unit view" cellTemplate="unitViewTemplate"
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" alignment="center"></dxi-column>
+          <div *dxTemplate="let data of 'unitViewTemplate'">
+            <mat-icon *ngIf="data.value === 'Good View'" >thumb_up</mat-icon>
+            <mat-icon *ngIf="data.value === 'No View'" >thumb_down</mat-icon>
+          </div>
+
+          <dxi-column cssClass="grid-cell" dataType="string" dataField="market_price" caption="Market Price" cellTemplate="marketPriceTemplate"
+                      [allowFiltering]="true" [visible]="true" [width]="'auto'"></dxi-column>
+          <div *dxTemplate="let data of 'marketPriceTemplate'">
+            <span *ngIf="data.value === 'Below Market Price'" class="badge badge-success">Below </span>
+            <span *ngIf="data.value === 'Above Market Price'" class="badge badge-danger">Above </span>
+            <span *ngIf="data.value === 'At Market Price'" class="badge badge-primary">At</span>
+          </div>
+
           <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_name" caption="Owner name"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_phone" caption="Owner phone"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_email" caption="Owner email"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="owner_facebook" caption="Owner facebook"
-            [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
+                      [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'"></dxi-column>
 
           <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
-            caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+                      caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
           </dxi-column>
           <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
-            caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+                      caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
           </dxi-column>
 
           <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_by" caption="Reassigned by"
@@ -99,13 +134,12 @@
             {{data.data.first_name}} {{data.data.second_name}}
           </div>
           <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Action"
-            [allowFiltering]="true" [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
-            cellTemplate="changeStatusTemplate"></dxi-column>
+                      [allowFiltering]="true" [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+                      cellTemplate="changeStatusTemplate"></dxi-column>
           <div *dxTemplate="let data of 'changeStatusTemplate'">
-              <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
-                class="mat-primary">Change status</button>
+            <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
+                    class="mat-primary">Change status</button>
           </div>
-
           <dxo-summary>
             <dxi-total-item column="compound_id" summaryType="count">
             </dxi-total-item>
@@ -114,7 +148,8 @@
 
 
 
-        <!-- <div class="col-sm-12" *ngIf="dataSource">
+        <!-- <div class="row">
+        <div class="col-sm-12" *ngIf="dataSource">
           <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
           </mat-form-field>
@@ -173,10 +208,6 @@
               <td mat-cell *matCellDef="let element"> {{element.commission_value}} ({{element.commission_percentage}}%)</td>
             </ng-container>
 
-            <ng-container matColumnDef="unit_desc">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
-              <td mat-cell *matCellDef="let element"> {{element.unit_desc}}</td>
-            </ng-container>
 
             <ng-container matColumnDef="created_at">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Created at </th>
@@ -283,11 +314,11 @@
           </dxi-column>
 
           <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_by" caption="Reassigned by"
-                [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
-                cellTemplate="reassigned_byTemplate"></dxi-column>
-              <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_to" caption="Reassigned to"
-                [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
-                cellTemplate="reassigned_toTemplate"></dxi-column> -->
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+          cellTemplate="reassigned_byTemplate"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_to" caption="Reassigned to"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+          cellTemplate="reassigned_toTemplate"></dxi-column> -->
 
           <div *dxTemplate="let data of 'reassigned_byTemplate'">
             {{data.data.first_name}} {{data.data.second_name}}
