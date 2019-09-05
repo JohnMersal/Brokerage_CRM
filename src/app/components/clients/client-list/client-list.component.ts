@@ -6,6 +6,8 @@ import { ClientsList, ClientsModel } from "../clients-model";
 import { ClientService } from "../client.service";
 import { AppSettings } from "../../shared/app-settings";
 import { formatDate } from '@angular/common';
+import { UnitsModel, unitsList } from '../../units/units-model';
+import { NewClientComponent } from "../new-client/new-client.component";
 declare var jQuery: any;
 
 @Component({
@@ -14,9 +16,17 @@ declare var jQuery: any;
   styleUrls: ['./client-list.component.scss']
 })
 export class ClientListComponent implements OnInit {
+  @ViewChild('editClientComponent') editClientComponent: NewClientComponent;
   editClient: ClientsModel = new ClientsModel();
   clientList: ClientsList[] = [];
   areasLookup = [];
+  mainTabsSwitch: string = "primary";
+  mainTabsName: string = "Primary";
+  resaleTypeOption = ['External SALE ( External Broker )', 'Internal SALE (Broker from within the company)'];
+  resaleTypeOptionObj = {
+    type: null,
+    selectedUnit: [],
+  };
   dataSource;
   displayedColumns: string[] = ['select', 'first_name', 'second_name', 'gender', 'active', 'type', 'mobile', 'created_at', 'updated_at', 'created_by', 'edit'];
   @ViewChild(MatSort) sort: MatSort;
@@ -25,7 +35,23 @@ export class ClientListComponent implements OnInit {
   constructor(private clientsService: ClientService, private snackBar: MatSnackBar) {
     this.getAllClients();
   }
-
+  changeMainTabs(targetMainTab: string) {
+    switch (targetMainTab) {
+      case "primary":
+        this.mainTabsName = "Primary";
+        break;
+      case "resale":
+        this.mainTabsName = "Resale";
+        break;
+    }
+    this.mainTabsSwitch = targetMainTab;
+  }
+  resaleTypeOptionChanged(e) {
+    console.log(e, this.resaleTypeOptionObj.type);
+  }
+  selectedUnit(row: unitsList) {
+    this.resaleTypeOptionObj.selectedUnit[0] = row;
+  }
   ngOnInit() {
   }
   applyFilter(filterValue: string) {
@@ -57,52 +83,26 @@ export class ClientListComponent implements OnInit {
         this.snackBar.open("error in loading clients.." + error.error, "", { duration: 2000, politeness: "polite" });
       }));
   }
-  updateClient() {
-    if (this.editClient.first_name != null && this.editClient.second_name != null) {
-      this.subscription.add(this.clientsService.updateClient(this.editClient).subscribe(
-        (value: any) => {
-          this.snackBar.open("Client updated successfully", "OK", { duration: 2000, politeness: "polite" });
-          this.getAllClients();
-          (<any>jQuery('#editClientModal')).modal('hide');
-          this.editClient = new ClientsModel();
-        }, error => {
-          this.snackBar.open("error in saving.." + error.error, "", { duration: 2000, politeness: "polite" });
-        }));
+  editRecord(e: any) {
+    if (e.rowType == "data" && e.column.cellTemplate != "changeStatusTemplate") {
+      Object.assign(this.editClientComponent.singleClient, e.data);
+      this.editClientComponent.singleClient.budget_from = e.data.client.budget_from;
+      this.editClientComponent.singleClient.budget_to = e.data.client.budget_to;
+      this.editClientComponent.singleClient.request_type = e.data.client.request_type;
+      (<any>jQuery('#editClientModal')).modal('show');
     }
   }
-  openToeditClient(client: ClientsModel) {
-    this.editClient = {
-      id: client.id,
-      first_name: client.first_name,
-      second_name: client.second_name,
-      gender: client.gender,
-      email: client.email,
-      mobile: client.mobile,
-      request_type: client.request_type,
-      budget_from: client.budget_from,
-      budget_to: client.budget_to
-    };
-    (<any>jQuery('#editClientModal')).modal('show');
-  }
-  editRecord(e: any) {
-    console.log(e.data);
-    this.editClient = {
-      id: e.data.id,
-      first_name: e.data.first_name,
-      second_name: e.data.second_name,
-      gender: e.data.gender,
-      email: e.data.email,
-      mobile: e.data.mobile,
-      request_type: e.data.request_type,
-      budget_from: e.data.budget_from,
-      budget_to: e.data.budget_to
-    };
-    (<any>jQuery('#editClientModal')).modal('show');
+  afterSaveClient(e) {
+    this.getAllClients();
+    (<any>jQuery('#editClientModal')).modal('hide');
   }
   getDateFormated(x) {
     let date = x.value;
     let formatedDate = formatDate(date, 'yyyy-MM-dd', 'en-US');
     return formatedDate;
+  }
+  openChangeStatusModal(row: ClientsList) {
+    (<any>jQuery('#changeStatusModal')).modal('show');
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

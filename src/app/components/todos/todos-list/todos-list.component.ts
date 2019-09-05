@@ -7,6 +7,7 @@ import { AppSettings } from "../../shared/app-settings";
 import { formatDate } from '@angular/common';
 import { EmployeesService } from '../../employees/employees.service';
 declare var jQuery: any;
+import DataSource from 'devextreme/data/data_source';
 
 @Component({
   selector: 'app-todos-list',
@@ -14,6 +15,15 @@ declare var jQuery: any;
   styleUrls: ['./todos-list.component.scss']
 })
 export class TodosListComponent implements OnInit {
+  dataSource: any;
+  currentDate: Date = new Date(2016, 7, 2, 11, 30);
+  resourcesDataSource = [];
+
+
+
+
+  mainTabsSwitch: string = "todo";
+  mainTabsName: string = "For sale units";
   RowFilter: boolean = false;
   GroupFilter: boolean = false;
   editTodo: TodoModel = new TodoModel();
@@ -23,6 +33,22 @@ export class TodosListComponent implements OnInit {
   constructor(private leadsService: TodosService, private employeesService: EmployeesService) {
     this.getAllTodos();
     this.getEmployeesLookup();
+
+    this.dataSource = new DataSource({
+      store: this.todosList
+    });
+    this.resourcesDataSource = leadsService.getEmployees();
+  }
+  changeMainTabs(targetMainTab: string) {
+    switch (targetMainTab) {
+      case "todo":
+        this.mainTabsName = "For rent units";
+        break;
+      case "calendar":
+        this.mainTabsName = "For sale units";
+        break;
+    }
+    this.mainTabsSwitch = targetMainTab;
   }
   getEmployeesLookup() {
     this.subscription.add(this.employeesService.getAllEmployees().subscribe(
@@ -87,4 +113,31 @@ export class TodosListComponent implements OnInit {
   ngOnInit() {
   }
 
+
+
+  markWeekEnd(cellData) {
+    function isWeekEnd(date) {
+      var day = date.getDay();
+      return day === 0 || day === 6;
+    }
+    var classObject = {};
+    //classObject["employee-" + cellData.groups.employeeID] = true;
+    //classObject['employee-weekend-' + cellData.groups.employeeID] = isWeekEnd(cellData.startDate)
+    return classObject;
+  }
+
+  markTraining(cellData) {
+    var classObject = {
+      "day-cell": true
+    }
+
+    //classObject[this.getCurrentTraining(cellData.startDate.getDate(), cellData.groups.employeeID)] = true;
+    return classObject;
+  }
+
+   getCurrentTraining(date, employeeID) {
+    //var result = (date + employeeID) % 3, currentTraining = "training-background-" + result;
+
+    //return currentTraining;
+  }
 }

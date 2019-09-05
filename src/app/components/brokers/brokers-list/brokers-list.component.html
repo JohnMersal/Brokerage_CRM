@@ -1,0 +1,49 @@
+<dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="brokerList" [showRowLines]="true"
+  [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+  [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+  <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+  <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+  <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-export [enabled]="true" fileName="Units" [allowExportSelectedData]="false"></dxo-export>
+  <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+  <dxo-column-chooser [enabled]="true" mode="select" [allowSearch]="true"></dxo-column-chooser>
+  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+  <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+  <!--fixed Column-->
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="first_name" caption="First name" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="second_name" caption="Second name"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="mobile" caption="Mobile"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="gender" caption="Gender"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="email" caption="Email"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+  <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
+    caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+  </dxi-column>
+  <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
+    caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="false" [width]="'auto'">
+  </dxi-column>
+
+  <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_by" caption="Reassigned by"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+          cellTemplate="reassigned_byTemplate"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="reassigned_to" caption="Reassigned to"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+          cellTemplate="reassigned_toTemplate"></dxi-column> -->
+
+  <div *dxTemplate="let data of 'reassigned_byTemplate'">
+    {{data.data.first_name}} {{data.data.second_name}}
+  </div>
+  <div *dxTemplate="let data of 'reassigned_toTemplate'">
+    {{data.data.first_name}} {{data.data.second_name}}
+  </div>
+  <dxo-summary>
+    <dxi-total-item column="first_name" summaryType="count">
+    </dxi-total-item>
+  </dxo-summary>
+</dx-data-grid>

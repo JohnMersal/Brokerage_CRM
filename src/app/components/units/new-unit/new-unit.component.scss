@@ -1,3 +1,5 @@
+@import "dashboard-theme";
+
 .typesOfBuildings{
   display: flex;
   flex-wrap: wrap;
@@ -50,17 +52,16 @@
 
 .typesOfProjects{
   display: flex;
+  flex-wrap: wrap;
   padding:0;
-  border: 0px solid;
-
-  &.notValidated{
-    border:1px solid red;
-    box-shadow: 0px 8px 21px -14px red;
-  }
   border: 0px solid;
   margin-bottom: 16px;
   border-bottom: 0px solid #d7d8da;
   border-radius: 0;
+  &.notValidated{
+    border:1px solid red;
+    box-shadow: 0px 8px 21px -14px red;
+  }
   .mat-button-toggle{
     background:transparent;
     & + .mat-button-toggle{
@@ -74,6 +75,38 @@
       border-radius:5px;
 
       box-shadow: 0 2px 6px 0 rgba(2, 152, 204, 0.54) !important;
+    }
+  }
+}
+.AreasListing{
+  display: flex;
+  flex-wrap: wrap;
+  padding:0;
+  //border: 0px solid;
+  margin-bottom: 16px;
+  border:1px solid transparent;
+  border-radius: 0;
+  &.notValidated{
+    border:1px solid red !important;
+    box-shadow: 0px 8px 21px -14px red;
+  }
+  .mat-button-toggle{
+    flex: 1 0 auto;
+    background:transparent;
+    border:0px solid;
+    border-left:0px solid;
+    //& + .mat-button-toggle{
+    //  border:0px solid;
+    //}
+  }
+  .mat-button-toggle{
+    border-bottom: 2px solid transparent;
+    &.mat-button-toggle-checked{
+      background: transparent;
+      color: #000000;
+      border-bottom: 2px solid mat-color($mat-du-primary, 500);
+      box-shadow: 0px 0px transparent !important;
+      border-radius: 0;
     }
   }
 }
@@ -123,3 +156,5 @@
       }
     }
 }
+
+

@@ -2,6 +2,7 @@
 @import "../../dashboard-theme.scss";
 $whiteColor: #fff;
 a{cursor: pointer;}
+/*.mat-flat-button{margin: 0 10px;}*/
 .cdk-overlay-container{z-index: 1050 !important;}
 mat-form-field{
     &.mat-form-field{display: block;}
@@ -93,4 +94,27 @@ fieldset{
   &{max-width: unset !important;}
   .dx-gridbase-container{width: 100%;}
   .dx-datagrid{}
+  .dx-datagrid-rowsview{
+    .dx-selection{
+      &{}
+      td{}
+    }
+  }
+}
+.form-group{
+  &{position: relative;}
+  .extraFeature{
+    &{position: absolute; top: 0; right: 0; padding: 0 5px;}
+  .addNewRecord{
+    &{color: green; font-size: 12px;}
+  }
+
+  }
+}
+.accordion{
+  & > .card{
+    .card-header{
+      &{background-color: #0099cc; padding: 10px; color: #fff;}
+    }
+  }
 }

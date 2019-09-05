@@ -62,7 +62,7 @@ export class CompitationComponent implements OnInit {
     }
   }
   editRecord(e: any) {
-    let call_target_value, meeting_target_value, won_target_value;
+    let call_target_value, meeting_target_value, won_target_value, showing_target_value;
     for (let record of this.targetPointsList) {
       if (record.action == "Call") {
         call_target_value = record.target_points;
@@ -70,6 +70,8 @@ export class CompitationComponent implements OnInit {
         meeting_target_value = record.target_points;
       } else if (record.action == "Won") {
         won_target_value = record.target_points;
+      } else if (record.action == "showing") {
+        showing_target_value = record.target_points;
       }
     }
     this.editTarget = {
@@ -77,6 +79,7 @@ export class CompitationComponent implements OnInit {
       call_target_value: call_target_value,
       meeting_target_value: meeting_target_value,
       won_target_value: won_target_value,
+      showing_target_value: showing_target_value,
       target_start: e.data.target_start,
       target_end: e.data.target_end,
       target_points: e.data.target_points

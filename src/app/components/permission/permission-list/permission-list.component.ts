@@ -33,7 +33,7 @@ export class PermissionListComponent implements OnInit {
       }));
   }
   editpermission() {
-    this.subscription.add(this.permissionService.editPermission({id : 1}).subscribe(
+    this.subscription.add(this.permissionService.editPermission(1).subscribe(
       (value: any) => {
         this.editTodo = value.data.user_permissions;
       }, error => {

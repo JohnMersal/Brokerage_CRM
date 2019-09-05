@@ -50,6 +50,8 @@ import { GamificationsComponent } from './components/gamifications/gamifications
 import { TargetPointsComponent } from './components/gamifications/target-points/target-points.component';
 import { LoginComponent } from './components/login/login/login.component';
 import { PermissionListComponent } from './components/permission/permission-list/permission-list.component';
+import { NewBrokerComponent } from './components/brokers/new-broker/new-broker.component';
+import { BrokersListComponent } from './components/brokers/brokers-list/brokers-list.component';
 
 @NgModule({
   declarations: [AppComponent
@@ -64,7 +66,7 @@ import { PermissionListComponent } from './components/permission/permission-list
     , NewUnitComponent
     , EmployeesListComponent
     , NewEmployeeComponent
-    , EditEmployeeComponent, AdminComponent, ToastComponent, AreasListComponent, NewAreasComponent, TabsComponent, CompoundsListComponent, NewCompoundsComponent, ClientListComponent, NewClientComponent, UnitsListComponent, TodosListComponent, NewTodoComponent, LeadsListComponent, ActivitiesListComponent, NewActivityComponent, NotificationsListComponent, NewLevelComponent, LevelsListComponent, CompitationComponent, HappyHourComponent, GamificationsComponent, TargetPointsComponent, LoginComponent, PermissionListComponent
+    , EditEmployeeComponent, AdminComponent, ToastComponent, AreasListComponent, NewAreasComponent, TabsComponent, CompoundsListComponent, NewCompoundsComponent, ClientListComponent, NewClientComponent, UnitsListComponent, TodosListComponent, NewTodoComponent, LeadsListComponent, ActivitiesListComponent, NewActivityComponent, NotificationsListComponent, NewLevelComponent, LevelsListComponent, CompitationComponent, HappyHourComponent, GamificationsComponent, TargetPointsComponent, LoginComponent, PermissionListComponent, NewBrokerComponent, BrokersListComponent
   ],
   imports: [
     HttpClientModule,
@@ -84,6 +86,7 @@ import { PermissionListComponent } from './components/permission/permission-list
     DxValidationSummaryModule,
     ReactiveFormsModule,
     FormsModule,
+    NgbModule,
     MatFileUploadModule,
     MatButtonModule, MatIconModule, MatListModule, MatProgressBarModule, MatSelectModule, MatSidenavModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatProgressSpinnerModule, MatDialogModule, MatSliderModule, MatSnackBarModule, MatTabsModule, MatInputModule, MatTableModule, MatCheckboxModule, MatButtonToggleModule, MatDatepickerModule, MatNativeDateModule, MatStepperModule, MatRadioModule
   ],

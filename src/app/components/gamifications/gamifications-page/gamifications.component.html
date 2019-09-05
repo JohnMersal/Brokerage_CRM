@@ -1,12 +1,12 @@
 <app-tabs [currentTabName]="mainTabsName">
-  <li class="tabItem" [class.active]="mainTabsSwitch == 'FixedPoints'">
+  <li *ngIf="false" class="tabItem" [class.active]="mainTabsSwitch == 'FixedPoints'">
     <a (click)="changeMainTabs('FixedPoints')">Fixed points</a>
   </li>
   <li class="tabItem" [class.active]="mainTabsSwitch == 'HappyHours'">
     <a (click)="changeMainTabs('HappyHours')">Happy hours</a>
   </li>
   <li class="tabItem" [class.active]="mainTabsSwitch == 'TargetPoints'">
-    <a (click)="changeMainTabs('TargetPoints')">Target points</a>
+    <a (click)="changeMainTabs('TargetPoints')">Competition</a>
   </li>
 </app-tabs>
 <div>

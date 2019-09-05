@@ -1,94 +1,92 @@
-<fieldset>
-  <legend>New client:</legend>
-  <form [formGroup]="clientFormGroup" (ngSubmit)="saveClient()">
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="First name" (input)="singleClient.first_name=$event.target.value" formControlName="first_name"
-              required>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Second name" (input)="singleClient.second_name=$event.target.value" formControlName="second_name"
-              required>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Mobile" (input)="singleClient.mobile=$event.target.value" formControlName="mobile"
-            numbersOnly required>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email" (input)="singleClient.email=$event.target.value" formControlName="email">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <mat-label>gender</mat-label>
-            <mat-select formControlName="gender" [(value)]="singleClient.gender" required>
-              <mat-option value="Male">
-                Male
-              </mat-option>
-              <mat-option value="Female">
-                Female
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <mat-label>Request type</mat-label>
-            <mat-select formControlName="request_type" [(value)]="singleClient.request_type" required>
-              <mat-option value="Buy">
-                Buy
-              </mat-option>
-              <mat-option value="Sale">
-                Sale
-              </mat-option>
-              <mat-option value="Rent">
-                Rent
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Budget from" (input)="singleClient.budget_from=$event.target.value" formControlName="budget_from"
-            numbersOnly required>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Budget to" (input)="singleClient.budget_to=$event.target.value" formControlName="budget_to"
-            numbersOnly required>
-          </mat-form-field>
-        </div>
+<dx-validation-group #DataValidator>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>First name</label>
+        <dx-text-box [(value)]="singleClient.first_name">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="First name is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-text-box>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="form-group">
-          <button type="submit" mat-flat-button color="primary" class="mat-primary">Save</button>
-        </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Second name</label>
+        <dx-text-box [(value)]="singleClient.second_name">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Second name is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-text-box>
       </div>
     </div>
-  </form>
-</fieldset>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Mobile</label>
+        <dx-number-box [class.required]="true" [(value)]="singleClient.mobile" [showSpinButtons]="false"
+          [showClearButton]="false">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Mobile is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-number-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Email</label>
+        <dx-text-box [(value)]="singleClient.email"></dx-text-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Gender</label>
+        <dx-select-box [class.required]="true" [dataSource]="[{name:'Male'},{name:'Female'}]"
+          [(value)]="singleClient.gender" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Request type type is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-select-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Request type</label>
+        <dx-select-box [class.required]="true" [dataSource]="[{name:'Buy'},{name:'Sale'}, {name:'Rent'}]"
+          [(value)]="singleClient.request_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Request type type is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-select-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Budget from</label>
+        <dx-number-box [class.required]="true" [(value)]="singleClient.budget_from" [showSpinButtons]="false"
+          [showClearButton]="false">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Budget from is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-number-box>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Budget to</label>
+        <dx-number-box [class.required]="true" [(value)]="singleClient.budget_to" [showSpinButtons]="false"
+          [showClearButton]="false">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Budget to is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-number-box>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <button type="button" (click)="saveClient()" mat-flat-button color="primary" class="mat-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</dx-validation-group>

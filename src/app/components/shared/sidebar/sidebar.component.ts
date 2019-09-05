@@ -13,7 +13,6 @@ export class SidebarComponent implements AfterViewInit {
   isActive = true;
   showMenu = '';
   showSubMenu = '';
-
   addExpandClass(element: any) {
     if (element === this.showMenu) {
       this.showMenu = '0';

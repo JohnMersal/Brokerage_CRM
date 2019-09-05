@@ -20,17 +20,32 @@
         <p>
           <b>Make 300 Calls (170/300)</b>
           <br>
-          <ngb-progressbar type="success" [value]="80" height="20">20px</ngb-progressbar>
+          <ngb-progressbar type="success"
+                           [value]="80"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
         </p>
         <p>
           <b>Make 300 Calls (170/300)</b>
           <br>
-          <ngb-progressbar type="warning" [value]="20" height="20">20px</ngb-progressbar>
+          <ngb-progressbar type="warning"
+                           [value]="20"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
         </p>
         <p>
           <b>Make 300 Calls (170/300)</b>
           <br>
-          <ngb-progressbar type="danger" [value]="100" height="20">20px</ngb-progressbar>
+          <ngb-progressbar type="danger"
+                           [value]="100"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
         </p>
       </div>
       <img src="assets/images/competition/pacman.svg" alt="" class="pacman">
@@ -38,7 +53,8 @@
   </div>
 </div>
 
-<div class="row">
+
+<div class="row" *ngIf="false">
   <div class="col-sm-12">
     <div id="chart-demo">
       <div class="row">
@@ -69,7 +85,7 @@
   </div>
   <div class="col-sm-6">
     <dx-pie-chart id="pie" title="Area of Countries" palette="bright" [dataSource]="areas"
-      (onPointClick)="pointClickHandler($event)" (onLegendClick)="legendClickHandler($event)">
+                  (onPointClick)="pointClickHandler($event)" (onLegendClick)="legendClickHandler($event)">
       <dxi-series argumentField="country" valueField="area">
         <dxo-label [visible]="true">
           <dxo-connector [visible]="true" [width]="1"></dxo-connector>
@@ -89,5 +105,39 @@
         </dxo-label>
       </dxo-argument-axis>
     </dx-chart>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="form-group">
+      <dx-linear-gauge id="gauge" [value]="4.3">
+        <dxo-scale [startValue]="0" [endValue]="5" [customTicks]="[0, 5]" [minorTickInterval]="0.625">
+        </dxo-scale>
+        <dxo-export [enabled]="false"></dxo-export>
+        <dxo-title text="Meetings">
+          <dxo-font [size]="20"></dxo-font>
+        </dxo-title>
+      </dx-linear-gauge>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <dx-linear-gauge id="gauge" [value]="3">
+        <dxo-scale [startValue]="0" [endValue]="5" [customTicks]="[0, 5]" [minorTickInterval]="0.625">
+        </dxo-scale>
+        <dxo-export [enabled]="false"></dxo-export>
+        <dxo-title text="Calls">
+          <dxo-font [size]="20"></dxo-font>
+        </dxo-title>
+      </dx-linear-gauge>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <app-leads-list></app-leads-list>
+  </div>
+  <div class="col-sm-6">
+    <app-todos-list></app-todos-list>
   </div>
 </div>
