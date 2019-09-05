@@ -1,5 +1,3 @@
-<fieldset>
-  <legend>All leads</legend>
       <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="leadsList" [showRowLines]="true"
     [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true" [allowColumnResizing]="true"
         (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
@@ -52,7 +50,6 @@
           </dxi-total-item>
         </dxo-summary> 
       </dx-data-grid>
-</fieldset>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">

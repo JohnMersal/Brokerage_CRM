@@ -52,6 +52,9 @@ import { LoginComponent } from './components/login/login/login.component';
 import { PermissionListComponent } from './components/permission/permission-list/permission-list.component';
 import { NewBrokerComponent } from './components/brokers/new-broker/new-broker.component';
 import { BrokersListComponent } from './components/brokers/brokers-list/brokers-list.component';
+import { CheckConflictComponent } from './components/requests/conflicts/check-conflict/check-conflict.component';
+import { SolveconflictsComponent } from './components/requests/conflicts/solveconflicts/solveconflicts.component';
+import { RequestsComponent } from './components/requests/requests.component';
 
 @NgModule({
   declarations: [AppComponent
@@ -66,7 +69,7 @@ import { BrokersListComponent } from './components/brokers/brokers-list/brokers-
     , NewUnitComponent
     , EmployeesListComponent
     , NewEmployeeComponent
-    , EditEmployeeComponent, AdminComponent, ToastComponent, AreasListComponent, NewAreasComponent, TabsComponent, CompoundsListComponent, NewCompoundsComponent, ClientListComponent, NewClientComponent, UnitsListComponent, TodosListComponent, NewTodoComponent, LeadsListComponent, ActivitiesListComponent, NewActivityComponent, NotificationsListComponent, NewLevelComponent, LevelsListComponent, CompitationComponent, HappyHourComponent, GamificationsComponent, TargetPointsComponent, LoginComponent, PermissionListComponent, NewBrokerComponent, BrokersListComponent
+    , EditEmployeeComponent, AdminComponent, ToastComponent, AreasListComponent, NewAreasComponent, TabsComponent, CompoundsListComponent, NewCompoundsComponent, ClientListComponent, NewClientComponent, UnitsListComponent, TodosListComponent, NewTodoComponent, LeadsListComponent, ActivitiesListComponent, NewActivityComponent, NotificationsListComponent, NewLevelComponent, LevelsListComponent, CompitationComponent, HappyHourComponent, GamificationsComponent, TargetPointsComponent, LoginComponent, PermissionListComponent, NewBrokerComponent, BrokersListComponent, CheckConflictComponent, SolveconflictsComponent, RequestsComponent
   ],
   imports: [
     HttpClientModule,

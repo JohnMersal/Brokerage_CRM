@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from "rxjs";
 import notify from 'devextreme/ui/notify';
 import { leadsList, LeadsModel } from "../leads-model";
@@ -14,16 +14,15 @@ declare var jQuery: any;
   styleUrls: ['./leads-list.component.scss']
 })
 export class LeadsListComponent implements OnInit {
+  @Input() customListMode: boolean = false;
   RowFilter: boolean = false;
   GroupFilter: boolean = false;
   editLead: LeadsModel = new LeadsModel();
-  leadsList: leadsList[] = [];
+  @Input() leadsList: leadsList[] = [];
   employeesLookup = [];
   assginToEmployee: number = null;
   subscription: Subscription = new Subscription();
-  constructor(private leadsService: LeadsService, private employeesService: EmployeesService) {
-    this.getAllLeads();
-   }
+  constructor(private leadsService: LeadsService, private employeesService: EmployeesService) { }
   getAllLeads() {
     this.subscription.add(this.leadsService.getAllLeads().subscribe(
       (value: any) => {
@@ -96,6 +95,9 @@ export class LeadsListComponent implements OnInit {
       }));
   }
   ngOnInit() {
+    if (!this.customListMode) {
+      this.getAllLeads();
+    }
   }
 
 }

@@ -1,0 +1,24 @@
+<div *ngIf="beforeCheck">
+  <button type="button" (click)="checkForLeadsConflicts()" mat-flat-button color="primary" class="mat-primary">Check for
+    leads conflicts</button>
+</div>
+<div class="row" *ngIf="isLeadsConflicts">
+  <div class="col-sm-12">
+    <h4>there is a duplicate for</h4>
+    <table class="table" style="background-color: white;">
+      <ng-container *ngFor="let lead of leadsConflictCount; let i = index">
+      <tr>
+        <td>
+          <p>Number: <b>{{lead.lead_phone}}</b> for <b>{{lead.numofdupphones}}</b> times </p>
+        </td>
+        <td>
+          <button type="button" (click)="openList(lead.lead_phone, i)" mat-flat-button color="primary" class="mat-primary">get list</button>
+        </td>
+      </tr>
+      <tr *ngIf="lead._isOpened">
+        <td colspan="2"><app-leads-list #leadListComponent [customListMode]="true" [leadsList]="lead._leadsConflictList"></app-leads-list></td>
+      </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>
