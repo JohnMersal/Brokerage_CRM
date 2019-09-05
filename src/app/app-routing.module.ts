@@ -16,6 +16,7 @@ import { GamificationsComponent } from "./components/gamifications/gamifications
 import { LoginComponent } from "./components/login/login/login.component";
 import { AdminGuard } from './admin.guard';
 import { PermissionListComponent } from './components/permission/permission-list/permission-list.component';
+import { RequestsComponent } from './components/requests/requests.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'addClient', component: NewClientComponent, canActivate: [AdminGuard] },
   { path: 'addTodo', component: NewTodoComponent, canActivate: [AdminGuard] },
   { path: 'gamifications', component: GamificationsComponent, canActivate: [AdminGuard] },
+  { path: 'requests', component: RequestsComponent, canActivate: [AdminGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'permission', component: PermissionListComponent },
   
