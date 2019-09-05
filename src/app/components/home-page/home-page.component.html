@@ -20,17 +20,32 @@
         <p>
           <b>Make 300 Calls (170/300)</b>
           <br>
-          <ngb-progressbar type="success" [value]="80" height="20">20px</ngb-progressbar>
+          <ngb-progressbar type="success"
+                           [value]="80"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
         </p>
         <p>
           <b>Make 300 Calls (170/300)</b>
           <br>
-          <ngb-progressbar type="warning" [value]="20" height="20">20px</ngb-progressbar>
+          <ngb-progressbar type="warning"
+                           [value]="20"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
         </p>
         <p>
           <b>Make 300 Calls (170/300)</b>
           <br>
-          <ngb-progressbar type="danger" [value]="100" height="20">20px</ngb-progressbar>
+          <ngb-progressbar type="danger"
+                           [value]="100"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
         </p>
       </div>
       <img src="assets/images/competition/pacman.svg" alt="" class="pacman">

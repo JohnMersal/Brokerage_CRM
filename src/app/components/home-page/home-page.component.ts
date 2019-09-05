@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HomePageService } from "./home-page.service";
-import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home-page',
@@ -13,16 +12,11 @@ export class HomePageComponent implements OnInit {
   areas: any[];
   populationData: any[];
   types: string[] = ["area", "stackedarea", "fullstackedarea"];
-  constructor(service: HomePageService,
-              config: NgbProgressbarConfig) {
+  constructor(service: HomePageService) {
     this.areas = service.getAreas();
     this.populationData = service.getPopulationData();
     this.population2Data = service.getPopulation2Data();
     // Progressbar configurations
-    config.max = 100;
-    config.striped = true;
-    config.animated = true;
-    config.type = 'success';
   }
 
   pointClickHandler(e) {
