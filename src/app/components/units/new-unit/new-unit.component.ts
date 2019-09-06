@@ -9,6 +9,7 @@ import { AreasService } from '../../areas/areas.service';
 import { unitsList, UnitsModel } from '../units-model';
 import { UnitsService } from "../units.service";
 import { DxValidationGroupComponent } from 'devextreme-angular';
+import { NotifierService } from 'angular-notifier';
 declare var jQuery: any;
 
 export interface UnitType {
@@ -22,6 +23,7 @@ export interface UnitType {
   styleUrls: ['./new-unit.component.scss']
 })
 export class NewUnitComponent implements OnInit, OnDestroy {
+  private notifier: NotifierService;
   @Input() updateMode = false;
   @Output() afterSave = new EventEmitter();
   @ViewChild('DataValidator') DataValidator: DxValidationGroupComponent;
@@ -46,11 +48,13 @@ export class NewUnitComponent implements OnInit, OnDestroy {
 
   constructor(private unitsSrvice: UnitsService,
               private formBuilder: FormBuilder,
+              notifier: NotifierService,
               private compoundService: CompoundsService,
               private areasService: AreasService) {
     this.creatAreaForm();
     this.getAreasLookup();
     this.getCompoundsLookup();
+    this.notifier = notifier;
   }
   creatAreaForm() {
     this.unitFormGroup = this.formBuilder.group({
@@ -139,11 +143,13 @@ export class NewUnitComponent implements OnInit, OnDestroy {
     // Custom Validation for Unit and compound
     if(!this.singleUnit.unit_type){
       this.unitNotValidated = true;
-      notify('error in validation, please check the form again and fix highlighted inputs');
+      this.notifier.notify('error', 'unittype error in validation, please check the form again and fix highlighted inputs');
+
+      // notify('error in validation, please check the form again and fix highlighted inputs');
     }
     if(!this.singleUnit.compound_id){
       this.compoundNotValidated = true;
-      notify('error in validation, please check the form again and fix highlighted inputs');
+      this.notifier.notify('error', 'area error in validation, please check the form again and fix highlighted inputs');
     }
     // End Custom Validation for Unit and Compound controllers
     // ===========================
@@ -161,15 +167,15 @@ export class NewUnitComponent implements OnInit, OnDestroy {
         }));
 
       } else {
-
-      this.subscription.add(this.unitsSrvice.saveUnit(this.singleUnit).subscribe(
+        this.subscription.add(this.unitsSrvice.saveUnit(this.singleUnit).subscribe(
         (value: any) => {
           this.afterSave.emit({ id: value, data: this.singleUnit });
           notify('Unit saved successfully', 'success');
           this.singleUnit = new UnitsModel();
           // this.unitFormGroup.reset();
         }, error => {
-          notify('error in saving..' + error.meta.message, 'error');
+            this.notifier.notify('error', 'error in validation,' + error.meta.message + 'please check the form again and fix highlighted inputs');
+            // notify('error in saving..' + error.meta.message, 'error');
         }));
       }
     }
