@@ -1,30 +1,24 @@
-<div class="todo">
-  We need to choose the AREA first, then it shows the COMPOUNDS listed inside that area ONLY.
-  <br>
-  PLEASE follow the UI
-  <a target="_blank" href="https://pensive-davinci-71a000.netlify.com/addunit">ADD unit PENSIVE link.</a>
-  <br>
-  <br>
-  Please AREA selection is mandatory!! (Which AREA)
-</div>
-
-<mat-toolbar>
-  <i class="fa fa-building mr-1"></i> Add new unit
-</mat-toolbar>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-title-box">
+      <h2 class="page-title mat-h1">Add new unit</h2>
+    </div><!--end page-title-box-->
+  </div>
+</div><!--end col-->
 
 <ng-container *ngIf="areasLookup.length != 0; else loadingAreas">
   <div class="row">
     <div class="sectionTitle col-12 d-flex justify-content-between align-content-center mb-2">
       <h2 class="mb-0">Select Area</h2>
-      <button type="button" (click)="openAddNewModel('area')"
+      <button type="button" (click)="openAddNewModel('area'); getAreasLookup()"
               mat-stroked-button color="accent">
         <i class="fas fa-plus"></i> Add new Area
       </button>
     </div>
     <div class="col-12">
-      <mat-button-toggle-group class="AreasListing" [class.notValidated]="compoundNotValidated && disableAreaValidationError">
+      <mat-button-toggle-group [(ngModel)]="selectedArea" class="AreasListing" [class.notValidated]="compoundNotValidated && disableAreaValidationError">
         <ng-container *ngFor="let area of areasLookup">
-          <mat-button-toggle (click)="selectArea2(area.id)">
+          <mat-button-toggle [value]='area.id' (click)="selectArea(area.id)">
             {{area.name}}
           </mat-button-toggle>
         </ng-container>
@@ -47,7 +41,7 @@
   <div class="row">
     <div class="sectionTitle col-12 d-flex justify-content-between align-content-center mb-2">
       <h2 class="mb-0">Select Compound</h2>
-      <button type="button" (click)="openAddNewModel('compound')"
+      <button type="button" (click)="openAddNewModel('compound');"
               mat-stroked-button color="accent">
         <i class="fas fa-plus"></i> Add new Compound
       </button>
@@ -467,9 +461,9 @@
   <div class="row">
     <div class="col align-self-end">
       <div class="form-group">
-        <button type="button" (click)="saveUnit()" mat-flat-button color="primary" class="mat-primary">Save</button>
+        <button type="button" (click)="saveUnit()" mat-flat-button color="primary">Save</button>
         &nbsp; &nbsp;
-        <!-- <button type="button" mat-flat-button color="accent" class="mat-primary">Save and add Another</button> -->
+        <button type="button" (click)="saveUnit(true)" mat-flat-button color="accent">Save and add Another</button>
       </div>
     </div>
   </div>
@@ -503,7 +497,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-new-compounds (afterSave)="afterSaveCompound($event)"></app-new-compounds>
+        <ng-container *ngIf="resetAreaSearch">
+          <app-new-compounds (afterSave)="afterSaveCompound($event); selectArea(selectedArea, true)"></app-new-compounds>
+        </ng-container>
       </div>
     </div>
   </div>

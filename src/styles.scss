@@ -1,5 +1,6 @@
 @import "dashboard";
 @import "assets/scss/variable";
+@import "~angular-notifier/styles";
 /* You can add global styles to this file, and also import other style files */
 html, body{
   font-family: "Roboto", Arial, sans-serif;
@@ -27,12 +28,14 @@ html, body{
 }
 
 .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary{
-  border: 1px solid #008fc1;
-  box-shadow: 0 2px 6px 0 rgba(2, 152, 204, 0.54) !important;
+  border: 1px solid darken(mat-color($mat-leads-blue, 500), 10%);
+  box-shadow: 0 2px 6px 0 opacify(mat-color($mat-leads-blue, 500), 0.5) !important;
   padding: 0.175rem 0.85rem;
 }
 .mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent{
-  background: $gradientYellow;
+  border: 1px solid darken(mat-color($mat-leads-orange, 500), 10%);
+  box-shadow: 0 2px 6px 0 opacify(mat-color($mat-leads-orange, 500), 0.5) !important;
+  padding: 0.175rem 0.85rem;
 }
 .mat-flat-button.primary2{
   background: $gradientMain;
@@ -45,9 +48,9 @@ html, body{
 
 .sectionTitle{
   h2{
-    border-left:8px solid #029fcd;
+    border-left:8px solid #597581;
     padding-left:8px;
-    color: #029fcd;
+    color: #597581;
     font-size: 14px;
     margin-bottom: 16px;
   }
@@ -119,14 +122,14 @@ html, body{
 //Custom Table Design
 .CustomDataTable.dataGrid{
   .dx-datagrid-headers .dx-header-row {
-    background-color: mat-color($mat-du-primary, 500);
+    background-color: mat-color($mat-leads-blue, 500);
     //color:white;
     td{
       .dx-datagrid-text-content{
         color:white !important;
       }
       &:hover{
-        background-color:lighten(mat-color($mat-du-primary, 500), 5) !important;
+        background-color:lighten(mat-color($mat-leads-blue, 500), 5) !important;
         .dx-datagrid-text-content{
           color:white !important;
         }
@@ -196,6 +199,6 @@ html, body{
   padding: 12px 0;
   .page-title {
     margin: 0;
-    color:mat-color($mat-du-primary, 500)
+    color:mat-color($mat-leads-blue, 500)
   }
 }
