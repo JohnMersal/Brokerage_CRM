@@ -18,7 +18,7 @@
     <div class="col-12">
       <mat-button-toggle-group [(ngModel)]="selectedArea" class="AreasListing" [class.notValidated]="compoundNotValidated && disableAreaValidationError">
         <ng-container *ngFor="let area of areasLookup">
-          <mat-button-toggle [value]='area.id' (click)="selectArea2(area.id)">
+          <mat-button-toggle [value]='area.id' (click)="selectArea(area.id)">
             {{area.name}}
           </mat-button-toggle>
         </ng-container>
@@ -498,7 +498,7 @@
       </div>
       <div class="modal-body">
         <ng-container *ngIf="resetAreaSearch">
-          <app-new-compounds (afterSave)="afterSaveCompound($event)"></app-new-compounds>
+          <app-new-compounds (afterSave)="afterSaveCompound($event); selectArea(selectedArea, true)"></app-new-compounds>
         </ng-container>
       </div>
     </div>

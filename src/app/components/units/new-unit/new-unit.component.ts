@@ -2,15 +2,15 @@ import {Component, OnInit, Output, EventEmitter, ViewChild, Input, OnDestroy} fr
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import notify from 'devextreme/ui/notify';
-import { CompoundsList } from "../../compounds/compounds";
+import { CompoundsList } from '../../compounds/compounds';
 import { CompoundsService } from '../../compounds/compounds.service';
-import { AreasList } from "../../areas/areas-model";
+import { AreasList } from '../../areas/areas-model';
 import { AreasService } from '../../areas/areas.service';
 import { unitsList, UnitsModel } from '../units-model';
-import { UnitsService } from "../units.service";
+import { UnitsService } from '../units.service';
 import { DxValidationGroupComponent } from 'devextreme-angular';
 import { NotifierService } from 'angular-notifier';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 declare var jQuery: any;
 
 export interface UnitType {
@@ -33,12 +33,12 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   singleUnit: UnitsModel = new UnitsModel();
   compoundsLookup: CompoundsList[] = [];
   compoundFilteredList: CompoundsList[] = [];
-  areasLookup: AreasList[] = []
+  areasLookup: AreasList[] = [];
   subscription: Subscription = new Subscription();
   unitNotValidated = false;
   compoundNotValidated = false;
   disableAreaValidationError = true;
-  selectedArea =  '';
+  selectedArea;
   resetAreaSearch = false;
 
   // unitTypes List
@@ -95,6 +95,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
     this.subscription.add(this.compoundService.getAllCompounds().subscribe(
       (value: any) => {
         this.compoundsLookup = value.data;
+        console.log('data arrived');
       }, error => {
         notify('error in loading compounds list..', 'error');
     }));
@@ -109,10 +110,16 @@ export class NewUnitComponent implements OnInit, OnDestroy {
     this.singleUnit.compound_id = name;
     this.compoundNotValidated = false;
   }
-  selectArea2(e) {
+  selectArea(e, timeout?) {
     this.compoundFilteredList = this.compoundsLookup.filter(x => x.area.id == e);
     this.selectedArea = e;
     this.disableAreaValidationError = false;
+    // For refreshing the compound LIST
+    setTimeout(() => {
+      if (timeout) {
+        this.compoundFilteredList = this.compoundsLookup.filter(x => x.area.id == e);
+      }
+    }, 1000);
   }
 
   getAreasLookup() {
@@ -120,28 +127,26 @@ export class NewUnitComponent implements OnInit, OnDestroy {
       (value: any) => {
         this.areasLookup = value.data;
       }, error => {
-        notify("error in loading areas list..", "error");
+        notify('error in loading areas list..', 'error');
     }));
 
   }
-  // selectArea(e) {
-  //   this.compoundFilteredList = this.compoundsLookup.filter(x => x.area.id == e.value);
-  // }
   openAddNewModel(name: string) {
-    if (name == "area") {
-      (<any>jQuery('#addNewAreaModal')).modal('show');
-    } else if (name == "compound") {
+    if (name == 'area') {
+      (jQuery('#addNewAreaModal') as any).modal('show');
+    } else if (name == 'compound') {
       this.resetAreaSearch = true;
-      (<any>jQuery('#addNewCompoundModal')).modal('show');
+      (jQuery('#addNewCompoundModal') as any).modal('show');
     }
   }
   afterSaveCompound(event) {
     this.getCompoundsLookup();
-    (<any>jQuery('#addNewCompoundModal')).modal('hide');
+    (jQuery('#addNewCompoundModal') as any).modal('hide');
+    this.resetAreaSearch = false;
   }
   afterSaveArea(event) {
     this.getAreasLookup();
-    (<any>jQuery('#addNewAreaModal')).modal('hide');
+    (jQuery('#addNewAreaModal') as any).modal('hide');
   }
   setTypeBlock(e) {
     this.singleUnit.unit_type = e.value;
@@ -151,12 +156,12 @@ export class NewUnitComponent implements OnInit, OnDestroy {
     // reset returns true or false value and is optional
     // ===========================
     // Custom Validation for Unit and compound
-    if(!this.singleUnit.unit_type){
+    if (!this.singleUnit.unit_type){
       this.unitNotValidated = true;
       this.notifier.notify('error', 'unittype error in validation, please check the form again and fix highlighted inputs');
       // notify('error in validation, please check the form again and fix highlighted inputs');
     }
-    if(!this.singleUnit.compound_id){
+    if (!this.singleUnit.compound_id){
       this.compoundNotValidated = true;
       this.notifier.notify('error', 'area error in validation, please check the form again and fix highlighted inputs');
     }
