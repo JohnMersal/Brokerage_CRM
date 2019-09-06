@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from "rxjs";
 import notify from 'devextreme/ui/notify';
@@ -14,6 +14,7 @@ import { AreasService } from '../../areas/areas.service';
 })
 export class NewCompoundsComponent implements OnInit {
   @Output() afterSave = new EventEmitter();
+  @Input() reset: boolean;
   compoundFormGroup: FormGroup;
   singleCompound: CompoundModel = new CompoundModel();
   areasLookup = [];
@@ -51,6 +52,9 @@ export class NewCompoundsComponent implements OnInit {
     }
   }
   ngOnInit() {
+    if (this.reset){
+      this.getAreasLookup();
+    }
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

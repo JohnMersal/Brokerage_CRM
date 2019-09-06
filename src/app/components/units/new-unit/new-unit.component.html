@@ -1,12 +1,16 @@
-<mat-toolbar class="row mb-3">
-  <i class="fa fa-building mr-1"></i> Add new unit
-</mat-toolbar>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-title-box">
+      <h2 class="page-title mat-h1">Add new unit</h2>
+    </div><!--end page-title-box-->
+  </div>
+</div><!--end col-->
 
 <ng-container *ngIf="areasLookup.length != 0; else loadingAreas">
   <div class="row">
     <div class="sectionTitle col-12 d-flex justify-content-between align-content-center mb-2">
       <h2 class="mb-0">Select Area</h2>
-      <button type="button" (click)="openAddNewModel('area')"
+      <button type="button" (click)="openAddNewModel('area'); getAreasLookup()"
               mat-stroked-button color="accent">
         <i class="fas fa-plus"></i> Add new Area
       </button>
@@ -37,7 +41,7 @@
   <div class="row">
     <div class="sectionTitle col-12 d-flex justify-content-between align-content-center mb-2">
       <h2 class="mb-0">Select Compound</h2>
-      <button type="button" (click)="openAddNewModel('compound')"
+      <button type="button" (click)="openAddNewModel('compound');"
               mat-stroked-button color="accent">
         <i class="fas fa-plus"></i> Add new Compound
       </button>
@@ -493,7 +497,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-new-compounds (afterSave)="afterSaveCompound($event)"></app-new-compounds>
+        <ng-container *ngIf="resetAreaSearch">
+          <app-new-compounds [reset]="true" (afterSave)="afterSaveCompound($event)"></app-new-compounds>
+        </ng-container>
       </div>
     </div>
   </div>

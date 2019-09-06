@@ -27,6 +27,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   private notifier: NotifierService;
   @Input() updateMode = false;
   @Output() afterSave = new EventEmitter();
+
   @ViewChild('DataValidator') DataValidator: DxValidationGroupComponent;
   unitFormGroup: FormGroup;
   singleUnit: UnitsModel = new UnitsModel();
@@ -38,6 +39,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   compoundNotValidated = false;
   disableAreaValidationError = true;
   selectedArea =  '';
+  resetAreaSearch = false;
 
   // unitTypes List
   unitTypes: UnitType[] = [
@@ -129,6 +131,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
     if (name == "area") {
       (<any>jQuery('#addNewAreaModal')).modal('show');
     } else if (name == "compound") {
+      this.resetAreaSearch = true;
       (<any>jQuery('#addNewCompoundModal')).modal('show');
     }
   }
@@ -142,15 +145,6 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   }
   setTypeBlock(e) {
     this.singleUnit.unit_type = e.value;
-  }
-
-  clktest(reset?){
-    if (reset) {
-      console.log('got true value');
-    } else {
-      console.log('got false value');
-    }
-    console.log(reset);
   }
 
   saveUnit(reset?) {
