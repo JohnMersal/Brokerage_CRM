@@ -139,9 +139,11 @@ export class NewUnitComponent implements OnInit, OnDestroy {
     // Custom Validation for Unit and compound
     if(!this.singleUnit.unit_type){
       this.unitNotValidated = true;
+      notify('error in validation, please check the form again and fix highlighted inputs');
     }
     if(!this.singleUnit.compound_id){
       this.compoundNotValidated = true;
+      notify('error in validation, please check the form again and fix highlighted inputs');
     }
     // End Custom Validation for Unit and Compound controllers
     // ===========================
@@ -159,6 +161,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
         }));
 
       } else {
+
       this.subscription.add(this.unitsSrvice.saveUnit(this.singleUnit).subscribe(
         (value: any) => {
           this.afterSave.emit({ id: value, data: this.singleUnit });
