@@ -5,7 +5,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
 /* For use in src/lib/core/theming/_palette.scss */
-$mat-du-primary: (
+$mat-leads-blue: (
   50 : #e0f3f9,
   100 : #b3e0f0,
   200 : #80cce6,
@@ -38,21 +38,54 @@ $mat-du-primary: (
   )
 );
 
-$mat-du-primary2: (
-  50 : #f9e7f3,
-  100 : #f0c2e0,
-  200 : #e699cc,
-  300 : #db70b8,
-  400 : #d452a8,
-  500 : #cc3399,
-  600 : #c72e91,
-  700 : #c02786,
-  800 : #b9207c,
-  900 : #ad146b,
-  A100 : #ffe0f0,
-  A200 : #ffadd8,
-  A400 : #ff7ac0,
-  A700 : #ff60b4,
+$mat-leads-orange: (
+  50 : #fcefe4,
+  100 : #f8d7bc,
+  200 : #f4bc8f,
+  300 : #efa162,
+  400 : #eb8c41,
+  500 : #e8781f,
+  600 : #e5701b,
+  700 : #e26517,
+  800 : #de5b12,
+  900 : #d8480a,
+  A100 : #ffffff,
+  A200 : #ffdccf,
+  A400 : #ffb59c,
+  A700 : #ffa283,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$mat-leads-grey: (
+  50 : #ebeef0,
+  100 : #cdd6d9,
+  200 : #acbac0,
+  300 : #8b9ea7,
+  400 : #728a94,
+  500 : #597581,
+  600 : #516d79,
+  700 : #48626e,
+  800 : #3e5864,
+  900 : #2e4551,
+  A100 : #9eddff,
+  A200 : #6bcbff,
+  A400 : #38b9ff,
+  A700 : #1fb0ff,
   contrast: (
     50 : #000000,
     100 : #000000,

@@ -70,11 +70,11 @@
   }
   .mat-button-toggle{
     &.mat-button-toggle-checked{
-      background:rgb(2, 152, 204);
+      background:mat-color($mat-leads-orange, 500);
       color:white;
       border-radius:5px;
-
-      box-shadow: 0 2px 6px 0 rgba(2, 152, 204, 0.54) !important;
+      //box-shadow: 0 2px 6px 0 rgba(2, 152, 204, 0.54) !important;
+      box-shadow: 0 2px 6px 0 opacify(mat-color($mat-leads-orange, 500), 0.5) !important;
     }
   }
 }
@@ -91,7 +91,7 @@
     box-shadow: 0px 8px 21px -14px red;
   }
   .mat-button-toggle{
-    flex: 1 0 auto;
+    flex: 0 0 auto;
     background:transparent;
     border:0px solid;
     border-left:0px solid;
@@ -103,8 +103,8 @@
     border-bottom: 2px solid transparent;
     &.mat-button-toggle-checked{
       background: transparent;
-      color: #000000;
-      border-bottom: 2px solid mat-color($mat-du-primary, 500);
+      color: mat-color($mat-leads-orange, 500);
+      border-bottom: 2px solid mat-color($mat-leads-orange, 500);
       box-shadow: 0px 0px transparent !important;
       border-radius: 0;
     }

@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar class="row mb-3">
   <i class="fa fa-building mr-1"></i> Add new unit
 </mat-toolbar>
 
@@ -12,9 +12,9 @@
       </button>
     </div>
     <div class="col-12">
-      <mat-button-toggle-group class="AreasListing" [class.notValidated]="compoundNotValidated && disableAreaValidationError">
+      <mat-button-toggle-group [(ngModel)]="selectedArea" class="AreasListing" [class.notValidated]="compoundNotValidated && disableAreaValidationError">
         <ng-container *ngFor="let area of areasLookup">
-          <mat-button-toggle (click)="selectArea2(area.id)">
+          <mat-button-toggle [value]='area.id' (click)="selectArea2(area.id)">
             {{area.name}}
           </mat-button-toggle>
         </ng-container>
@@ -457,9 +457,9 @@
   <div class="row">
     <div class="col align-self-end">
       <div class="form-group">
-        <button type="button" (click)="saveUnit()" mat-flat-button color="primary" class="mat-primary">Save</button>
+        <button type="button" (click)="saveUnit()" mat-flat-button color="primary">Save</button>
         &nbsp; &nbsp;
-        <!-- <button type="button" mat-flat-button color="accent" class="mat-primary">Save and add Another</button> -->
+        <button type="button" (click)="saveUnit(true)" mat-flat-button color="accent">Save and add Another</button>
       </div>
     </div>
   </div>

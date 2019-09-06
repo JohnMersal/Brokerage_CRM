@@ -10,6 +10,7 @@ import { unitsList, UnitsModel } from '../units-model';
 import { UnitsService } from "../units.service";
 import { DxValidationGroupComponent } from 'devextreme-angular';
 import { NotifierService } from 'angular-notifier';
+import {Router} from "@angular/router";
 declare var jQuery: any;
 
 export interface UnitType {
@@ -36,6 +37,8 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   unitNotValidated = false;
   compoundNotValidated = false;
   disableAreaValidationError = true;
+  selectedArea =  '';
+
   // unitTypes List
   unitTypes: UnitType[] = [
     {name: 'Apartment', icon: 'icon-apartment'},
@@ -49,6 +52,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   constructor(private unitsSrvice: UnitsService,
               private formBuilder: FormBuilder,
               notifier: NotifierService,
+              private router: Router,
               private compoundService: CompoundsService,
               private areasService: AreasService) {
     this.creatAreaForm();
@@ -105,6 +109,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   }
   selectArea2(e) {
     this.compoundFilteredList = this.compoundsLookup.filter(x => x.area.id == e);
+    this.selectedArea = e;
     this.disableAreaValidationError = false;
   }
 
@@ -138,13 +143,23 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   setTypeBlock(e) {
     this.singleUnit.unit_type = e.value;
   }
-  saveUnit() {
+
+  clktest(reset?){
+    if (reset) {
+      console.log('got true value');
+    } else {
+      console.log('got false value');
+    }
+    console.log(reset);
+  }
+
+  saveUnit(reset?) {
+    // reset returns true or false value and is optional
     // ===========================
     // Custom Validation for Unit and compound
     if(!this.singleUnit.unit_type){
       this.unitNotValidated = true;
       this.notifier.notify('error', 'unittype error in validation, please check the form again and fix highlighted inputs');
-
       // notify('error in validation, please check the form again and fix highlighted inputs');
     }
     if(!this.singleUnit.compound_id){
@@ -160,8 +175,16 @@ export class NewUnitComponent implements OnInit, OnDestroy {
         (value: any) => {
           this.afterSave.emit({ id: value, data: this.singleUnit });
           notify('Unit updated successfully', 'success');
-          this.singleUnit = new UnitsModel();
-          // this.unitFormGroup.reset();
+          if (reset) {
+            // resets units Module
+            this.singleUnit = new UnitsModel();
+            // resets Area toggle group
+            this.selectedArea = undefined;
+            // Scrolls window to top to refill the form
+            window.scroll({top: 0});
+          } else {
+            this.router.navigate(['units']);
+          }
         }, error => {
           notify('error in saving..' + error.meta.message, 'error');
         }));

@@ -60,9 +60,9 @@ $mat-light-theme-foreground: (
 // that you are using.
 
 
-$du-light-theme: (
-  primary: mat-palette($mat-du-primary),
-  accent: mat-palette($mat-du-primary2),
+$leads-light-theme: (
+  primary: mat-palette($mat-leads-blue),
+  accent: mat-palette($mat-leads-orange),
   warn: mat-palette($mat-red),
   is-dark: false,
   foreground: $mat-light-theme-foreground,
@@ -70,4 +70,4 @@ $du-light-theme: (
 );
 
 @include mat-core();                         // the required mat-core mixin
-@include angular-material-theme($du-light-theme);
+@include angular-material-theme($leads-light-theme);

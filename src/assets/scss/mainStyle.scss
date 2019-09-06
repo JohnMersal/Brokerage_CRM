@@ -59,7 +59,7 @@ fieldset{
           a { /*background-color: #03A9F4;*/ }
         }
         &.active {
-          & { border-bottom-color: mat-color($mat-du-primary, 500); }
+          & { border-bottom-color: mat-color($mat-leads-blue, 500); }
           a {  }
         }
         &.viewTab {
