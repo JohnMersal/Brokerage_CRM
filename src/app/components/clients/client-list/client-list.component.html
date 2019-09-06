@@ -175,19 +175,56 @@
             <div class="accordion" id="accordionExample">
               <div class="card">
                 <div class="card-header" id="headingOne">
-                  <label>1- Type of sale</label>
+                  <label>1- Activity Type</label>
                 </div>
 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                   data-parent="#accordionExample">
                   <div class="card-body">
-                    <div class="form-group">
-                      <dx-radio-group [items]="resaleTypeOption" (onValueChanged)="resaleTypeOptionChanged($event)" 
-                      [(value)]="resaleTypeOptionObj.type" layout="horizontal">
-                      </dx-radio-group>
-                    </div>
-                    <button [disabled]="!resaleTypeOptionObj.type" type="button" mat-flat-button color="primary" class="mat-primary" 
-                    data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <dx-validation-group #activityStatusValidator>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>Activity type</label>
+                            <dx-select-box [class.required]="true"
+                              [dataSource]="[{name:'Call'},{name:'Meeting'},{name:'Showing'}]"
+                              [(value)]="resaleTypeOptionObj.activity_type" displayExpr="name" valueExpr="name"
+                              [searchEnabled]="true">
+                              <dx-validator>
+                                <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                              </dx-validator>
+                            </dx-select-box>
+                            <!-- (onValueChanged)="fdfgdfg()" -->
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>Activity status</label>
+                            <dx-select-box [class.required]="true"
+                              [dataSource]="[{name:'Ongoing'},{name:'Won'},{name:'Lost'}]"
+                              [(value)]="resaleTypeOptionObj.activity_status" displayExpr="name" valueExpr="name"
+                              [searchEnabled]="true">
+                              <dx-validator>
+                                <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                              </dx-validator>
+                            </dx-select-box>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="form-group">
+                            <label>Feedback</label>
+                            <dx-text-area [class.required]="true" [autoResizeEnabled]="true"
+                              [(value)]="resaleTypeOptionObj.feedback" [height]="100">
+                              <dx-validator>
+                                <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                              </dx-validator>
+                            </dx-text-area>
+                          </div>
+                        </div>
+                      </div>
+                    </dx-validation-group>
+                    <!-- data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" -->
+                    <button (click)="goToStep(2)" type="button" mat-flat-button color="primary" class="mat-primary">
                       Next
                     </button>
                   </div>
@@ -195,9 +232,35 @@
               </div>
               <div class="card">
                 <div class="card-header" id="headingTwo">
-                  <label>2- Fill out your address</label>
+                  <label>2- Type of sale</label>
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <dx-validation-group #resaleTypeValidator>
+                    <div class="form-group">
+                      <dx-radio-group [items]="resaleTypeOption" (onValueChanged)="resaleTypeOptionChanged($event)"
+                        [(value)]="resaleTypeOptionObj.type" layout="horizontal">
+                        <dx-validator>
+                          <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                        </dx-validator>
+                      </dx-radio-group>
+                    </div>
+                    </dx-validation-group>
+                    <!-- <button type="button" mat-flat-button color="accent" class="mat-primary mr-2" (click)="backToStep(1)">
+                      return
+                     </button> -->
+                      <!--data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" -->
+                    <button type="button" (click)="goToStep(3)" mat-flat-button color="primary" class="mat-primary">
+                      Next </button>
+                    <!-- data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" -->
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <label>3- Unit information</label>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                   <div class="card-body">
                     <div *ngIf="resaleTypeOptionObj.type == resaleTypeOption[0]">
                       <dx-validation-group #changeStatusValidator>
@@ -207,7 +270,8 @@
                               <label>Unit price</label>
                               <dx-text-box [class.required]="true">
                                 <dx-validator>
-                                  <dxi-validation-rule type="required" message="Unit price required"></dxi-validation-rule>
+                                  <dxi-validation-rule type="required" message="Unit price required">
+                                  </dxi-validation-rule>
                                 </dx-validator>
                               </dx-text-box>
                             </div>
@@ -217,7 +281,8 @@
                               <label>Unit Type</label>
                               <dx-text-box [class.required]="true">
                                 <dx-validator>
-                                  <dxi-validation-rule type="required" message="Unit Type required"></dxi-validation-rule>
+                                  <dxi-validation-rule type="required" message="Unit Type required">
+                                  </dxi-validation-rule>
                                 </dx-validator>
                               </dx-text-box>
                             </div>
@@ -227,7 +292,8 @@
                               <label>Unit size</label>
                               <dx-text-box [class.required]="true">
                                 <dx-validator>
-                                  <dxi-validation-rule type="required" message="Unit size required"></dxi-validation-rule>
+                                  <dxi-validation-rule type="required" message="Unit size required">
+                                  </dxi-validation-rule>
                                 </dx-validator>
                               </dx-text-box>
                             </div>
@@ -247,7 +313,8 @@
                               <label>Project name</label>
                               <dx-text-box [class.required]="true">
                                 <dx-validator>
-                                  <dxi-validation-rule type="required" message="Project name required"></dxi-validation-rule>
+                                  <dxi-validation-rule type="required" message="Project name required">
+                                  </dxi-validation-rule>
                                 </dx-validator>
                               </dx-text-box>
                             </div>
@@ -264,28 +331,11 @@
                     <div *ngIf="resaleTypeOptionObj.type == resaleTypeOption[1]">
                       <app-units-list displayMode="select" (selectedRow)="selectedUnit($event)"></app-units-list>
                     </div>
-                    <button type="button" mat-flat-button color="accent" class="mat-primary mr-2" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                      aria-controls="collapseOne">
+                    <!-- <button type="button" mat-flat-button color="accent" class="mat-primary mr-2" data-toggle="collapse"
+                      data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                       return
-                    </button>
-                    <button type="button" mat-flat-button color="primary" class="mat-primary" data-toggle="collapse" data-target="#collapseThree"
-                      aria-expanded="false" aria-controls="collapseThree">
-                      Next
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingThree">
-                  <label>3- Done</label>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <button type="button" mat-flat-button color="accent" class="mat-primary mr-2" data-toggle="collapse" data-target="#collapseTwo"
-                      aria-expanded="false" aria-controls="collapseTwo">
-                      return
-                    </button>
-                    <button type="button" mat-flat-button color="primary" class="mat-primary">Submit</button>
+                    </button> -->
+                    <button type="button" (click)="submitActivity()" mat-flat-button color="primary" class="mat-primary">Submit</button>
                   </div>
                 </div>
               </div>

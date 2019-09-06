@@ -89,6 +89,7 @@ export class NewUnitComponent implements OnInit {
     if (name == "area") {
       (<any>jQuery('#addNewAreaModal')).modal('show');
     } else if (name == "compound") {
+      this.getAreasLookup();
       (<any>jQuery('#addNewCompoundModal')).modal('show');
     }
   }
