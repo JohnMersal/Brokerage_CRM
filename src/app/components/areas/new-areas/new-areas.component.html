@@ -1,3 +1,9 @@
+<!--<ng-container *ngIf="areasList | async; let area">-->
+  <!--<ng-container *ngFor="let a of area?.data">-->
+    <!--{{a.name}}-->
+  <!--</ng-container>-->
+<!--</ng-container>-->
+
 <fieldset>
   <legend>New Area:</legend>
   <form [formGroup]="areaFormGroup" (ngSubmit)="saveArea()">

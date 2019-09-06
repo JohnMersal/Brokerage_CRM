@@ -1,33 +1,317 @@
-<fieldset>
-  <legend>All Clients</legend>
-  <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="clientList" [showRowLines]="true"
-    [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
-    [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
-    <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
-    <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
-    <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
-    <dxo-header-filter [visible]="true"></dxo-header-filter>
-    <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
-    <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
-    <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
-    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
-    <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
-    <!--fixed Column-->
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="first_name" caption="First name"
-      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="second_name" caption="Second name"
-      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="gender" caption="Gender" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="email" caption="Email" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="mobile" caption="Mobile" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="boolen" dataField="active" caption="active" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="type" caption="Type" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+<!--TEMP here-->
+<div class="row">
+  <div class="col-lg-3">
+    <div class="card team-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h4 class="header-title mt-0 d-inline-block">Web Design Team</h4>
+        </div>
+        <div class="text-center">
+          <img src="assets/images/users/4.jpg" alt="" class="rounded-circle user-img img-thumbnail mb-2">
+          <h4 class="team-leader">Willie Miller</h4>
+          <p class="text-muted font-12">Team Leader</p>
+        </div>
+        <small class="float-right font-13 pt-2 text-muted">1 Lead , 7 Employees</small>
+        <div class="img-group">
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/1.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/2.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/3.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a href="" class="avatar-box thumb-xs align-self-center">
+            <span class="avatar-title bg-soft-info rounded-circle font-13">+4</span>
+          </a>
+        </div><!--end img-group-->
+      </div><!--end card-body-->
+    </div><!--end card-->
+  </div>
+  <div class="col-lg-3">
+    <div class="card team-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h4 class="header-title mt-0 d-inline-block">Web Design Team</h4>
+        </div>
+        <div class="text-center">
+          <img src="assets/images/users/4.jpg" alt="" class="rounded-circle user-img img-thumbnail mb-2">
+          <h4 class="team-leader">Willie Miller</h4>
+          <p class="text-muted font-12">Team Leader</p>
+        </div>
+        <small class="float-right font-13 pt-2 text-muted">1 Lead , 7 Employees</small>
+        <div class="img-group">
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/1.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/2.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/3.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a href="" class="avatar-box thumb-xs align-self-center">
+            <span class="avatar-title bg-soft-info rounded-circle font-13">+4</span>
+          </a>
+        </div><!--end img-group-->
+      </div><!--end card-body-->
+    </div><!--end card-->
+  </div>
+  <div class="col-lg-3">
+    <div class="card team-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h4 class="header-title mt-0 d-inline-block">Web Design Team</h4>
+        </div>
+        <div class="text-center">
+          <img src="assets/images/users/4.jpg" alt="" class="rounded-circle user-img img-thumbnail mb-2">
+          <h4 class="team-leader">Willie Miller</h4>
+          <p class="text-muted font-12">Team Leader</p>
+        </div>
+        <small class="float-right font-13 pt-2 text-muted">1 Lead , 7 Employees</small>
+        <div class="img-group">
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/1.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/2.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/3.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a href="" class="avatar-box thumb-xs align-self-center">
+            <span class="avatar-title bg-soft-info rounded-circle font-13">+4</span>
+          </a>
+        </div><!--end img-group-->
+      </div><!--end card-body-->
+    </div><!--end card-->
+  </div>
+  <div class="col-lg-3">
+    <div class="card team-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h4 class="header-title mt-0 d-inline-block">Web Design Team</h4>
+        </div>
+        <div class="text-center">
+          <img src="assets/images/users/4.jpg" alt="" class="rounded-circle user-img img-thumbnail mb-2">
+          <h4 class="team-leader">Willie Miller</h4>
+          <p class="text-muted font-12">Team Leader</p>
+        </div>
+        <small class="float-right font-13 pt-2 text-muted">1 Lead , 7 Employees</small>
+        <div class="img-group">
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/1.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/2.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a class="user-avatar user-avatar-group" href="#">
+            <img src="assets/images/users/3.jpg" alt="user" class="rounded-circle thumb-xs">
+          </a>
+          <a href="" class="avatar-box thumb-xs align-self-center">
+            <span class="avatar-title bg-soft-info rounded-circle font-13">+4</span>
+          </a>
+        </div><!--end img-group-->
+      </div><!--end card-body-->
+    </div><!--end card-->
+  </div>
+</div>
 
+
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    <div class="card invoice">
+      <div class="card-body invoice-head">
+        <div class="row">
+          <div class="col-md-4 align-self-center">
+            <img src="assets/images/logo-extended.svg" alt="logo-small" class="logo-sm mr-2" height="26">
+            <!--<img src="assets/images/logo-2-light.svg" alt="logo-large" class="logo-lg" height="16">-->
+            <p class="mt-2 mb-0 text-muted">If account is not paid within 7 days the credits details supplied as confirmation.</p>
+          </div><!--end col-->
+          <div class="col-md-8">
+            <ul class="list-inline mb-0 contact-detail float-right">
+              <li class="list-inline-item">
+                <div class="pl-3">
+                  <i class="mdi mdi-web"></i>
+                  <p class="text-muted mb-0">www.abcdefghijklmno.com</p>
+                  <p class="text-muted mb-0">www.qrstuvwxyz.com</p>
+                </div>
+              </li>
+              <li class="list-inline-item">
+                <div class="pl-3">
+                  <i class="mdi mdi-phone"></i>
+                  <p class="text-muted mb-0">+123 123456789</p>
+                  <p class="text-muted mb-0">+123 123456789</p>
+                </div>
+              </li>
+              <li class="list-inline-item">
+                <div class="pl-3">
+                  <i class="mdi mdi-map-marker"></i>
+                  <p class="text-muted mb-0">2821 Kensington Road,</p>
+                  <p class="text-muted mb-0">Avondale Estates, GA 30002 USA.</p>
+                </div>
+              </li>
+            </ul>
+          </div><!--end col-->
+        </div><!--end row-->
+      </div><!--end card-body-->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="">
+              <h6 class="mb-0"><b>Start Date :</b> 11/05/2019</h6>
+              <h6 class="mb-0"><b>End Date :</b> 10/06/2019</h6>
+            </div>
+          </div><!--end col-->
+          <div class="col-md-6">
+            <h6 class="mb-0"><b>Compny :</b> Hubland</h6>
+            <h6 class="mb-0"><b>Project Name :</b> Trading System</h6>
+            <h6 class="mb-0"><b>Invoice No :</b> #1240</h6>
+          </div><!--end col-->
+          <div class="col-md-3">
+            <div class="text-center bg-light p-3 mb-3">
+              <h5 class="bg-info mt-0 p-2 text-white d-sm-inline-block">Payment Methods</h5>
+              <h6 class="font-13">Paypal &amp; Cards Payments :</h6>
+              <p class="mb-0 text-muted">CompanyA/c.paypal@gmai.com</p>
+              <p class="mb-0 text-muted">Visa, Master Card, Chaque</p>
+            </div>
+          </div><!--end col-->
+        </div><!--end row-->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive project-invoice">
+              <table class="table table-bordered mb-0">
+                <thead class="thead-light">
+                <tr>
+                  <th>Project Breakdown</th>
+                  <th>Hours</th>
+                  <th>Rate</th>
+                  <th>Subtotal</th>
+                </tr><!--end tr-->
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <h5 class="mt-0 mb-1">Project Design</h5>
+                    <p class="mb-0 text-muted">It is a long established fact that a reader will be distracted.</p>
+                  </td>
+                  <td>60</td>
+                  <td>$50</td>
+                  <td>$3000.00</td>
+                </tr><!--end tr-->
+                <tr>
+                  <td>
+                    <h5 class="mt-0 mb-1">Development</h5>
+                    <p class="mb-0 text-muted">It is a long established fact that a reader will be distracted.</p>
+                  </td>
+                  <td>100</td>
+                  <td>$50</td>
+                  <td>$5000.00</td>
+                </tr><!--end tr-->
+                <tr>
+                  <td>
+                    <h5 class="mt-0 mb-1">Testing &amp; Bug Fixing</h5>
+                    <p class="mb-0 text-muted">It is a long established fact that a reader will be distracted.</p>
+                  </td>
+                  <td>10</td>
+                  <td>$20</td>
+                  <td>$200.00</td>
+                </tr><!--end tr-->
+                <tr>
+                  <td colspan="2" class="border-0"></td>
+                  <td class="border-0 font-14"><b>Sub Total</b></td>
+                  <td class="border-0 font-14"><b>$82,000.00</b></td>
+                </tr><!--end tr-->
+                <tr>
+                  <th colspan="2" class="border-0"></th>
+                  <td class="border-0 font-14"><b>Tax Rate</b></td>
+                  <td class="border-0 font-14"><b>$0.00%</b></td>
+                </tr><!--end tr-->
+                <tr class="bg-dark text-white">
+                  <th colspan="2" class="border-0"></th>
+                  <td class="border-0 font-14"><b>Total</b></td>
+                  <td class="border-0 font-14"><b>$82,000.00</b></td>
+                </tr><!--end tr-->
+                </tbody>
+              </table><!--end table-->
+            </div><!--end /div-->
+          </div><!--end col-->
+        </div><!--end row-->
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h5 class="mt-4">Terms And Condition :</h5>
+            <ul class="pl-3">
+              <li><small>All accounts are to be paid within 7 days from receipt of invoice.</small></li>
+              <li><small>To be paid by cheque or credit card or direct payment online.</small></li>
+              <li><small>If account is not paid within 7 days the credits details supplied as confirmation<br>of work undertaken will be charged the agreed quoted fee noted above.</small></li>
+            </ul>
+          </div><!--end col-->
+          <div class="col-lg-6 align-self-end">
+            <div class="w-25 float-right">
+              <small>Account Manager</small>
+              <img src="assets/images/signature.png" alt="" class="" height="48">
+              <p class="border-top">Signature</p>
+            </div>
+          </div><!--end col-->
+        </div><!--end row-->
+        <hr>
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-12 col-xl-4 ml-auto align-self-center">
+            <div class="text-center text-muted">
+              <small>Thank you very much for doing business with us. Thanks !</small>
+            </div>
+          </div><!--end col-->
+          <div class="col-lg-12 col-xl-4">
+            <div class="float-right d-print-none">
+              <a href="javascript:window.print()" class="btn btn-info"><i class="fa fa-print"></i></a>
+            </div>
+          </div><!--end col-->
+        </div><!--end row-->
+      </div><!--end card-body-->
+    </div><!--end card-->
+  </div><!--end col-->
+</div>
+
+<!--End Temp here-->
+
+<div class="card">
+  <div class="card-body">
+    <fieldset>
+      <legend>All Clients</legend>
+      <dx-data-grid #grid class="dataGrid" height="400"
+                    [(dataSource)]="clientList"
+                    [showRowLines]="true"
+                    [showColumnLines]="true"
+                    [showBorders]="true"
+                    [rowAlternationEnabled]="true"
+                    [allowColumnReordering]="true"
+                    [allowColumnResizing]="true"
+                    (onCellClick)="editRecord($event)"
+                    [columnAutoWidth]="true">
+        <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+        <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+        <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+        <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+        <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+        <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>        <!--fixed Column-->
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="first_name" caption="First name"
+                    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="second_name" caption="Second name"
+                    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="gender" caption="Gender" [allowFiltering]="true"
+                    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="email" caption="Email" [allowFiltering]="true"
+                    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="mobile" caption="Mobile" [allowFiltering]="true"
+                    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="boolen" dataField="active" caption="active" [allowFiltering]="true"
+                    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="type" caption="Type" [allowFiltering]="true"
+                    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
     <dxi-column cssClass="grid-cell" dataType="string" dataField="client" caption="Request type" [allowFiltering]="true"
       [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="request_typeTemplate"></dxi-column>
     <div *dxTemplate="let data of 'clientTemplate'">
@@ -59,12 +343,15 @@
         class="mat-primary">Change status</button>
     </div>
 
-    <dxo-summary>
-      <dxi-total-item column="first_name" summaryType="count">
-      </dxi-total-item>
-    </dxo-summary>
-  </dx-data-grid>
-</fieldset>
+        <dxo-summary>
+          <dxi-total-item column="first_name" summaryType="count">
+          </dxi-total-item>
+        </dxo-summary>
+      </dx-data-grid>
+    </fieldset>
+  </div>
+</div>
+
 
 <div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" aria-labelledby="editClientModalLabel"
   aria-hidden="true">

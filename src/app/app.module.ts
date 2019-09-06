@@ -11,6 +11,9 @@ import { DevExtremeModule, DxValidatorModule, DxValidationSummaryModule, DxDataG
 import { DxFormModule } from "devextreme-angular";
 import { DxSwitchModule } from "devextreme-angular"
 import { DxAccordionModule } from "devextreme-angular";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { NumbersOnlyDirective } from "../app/components/shared/numbers-only-directive";
 import { MobileSidebarToggleDirective, RightSidebarToggleDirective } from "../app/components/shared/sidebar.directive";
@@ -55,6 +58,19 @@ import { CheckConflictComponent } from './components/requests/conflicts/check-co
 import { SolveconflictsComponent } from './components/requests/conflicts/solveconflicts/solveconflicts.component';
 import { RequestsComponent } from './components/requests/requests.component';
 
+// Overriding Notifier Options
+const notifierDefaultOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'right'
+    }
+  },
+  theme: 'material',
+  behaviour: {
+    stacking: 5
+  },
+};
+
 @NgModule({
   declarations: [AppComponent
     , SpinnerComponent
@@ -68,7 +84,21 @@ import { RequestsComponent } from './components/requests/requests.component';
     , NewUnitComponent
     , EmployeesListComponent
     , NewEmployeeComponent
-    , EditEmployeeComponent, AdminComponent, ToastComponent, AreasListComponent, NewAreasComponent, TabsComponent, CompoundsListComponent, NewCompoundsComponent, ClientListComponent, NewClientComponent, UnitsListComponent, TodosListComponent, NewTodoComponent, LeadsListComponent, ActivitiesListComponent, NewActivityComponent, NotificationsListComponent, NewLevelComponent, LevelsListComponent, CompitationComponent, HappyHourComponent, GamificationsComponent, TargetPointsComponent, LoginComponent, PermissionListComponent, NewBrokerComponent, BrokersListComponent, CheckConflictComponent, SolveconflictsComponent, RequestsComponent
+    , EditEmployeeComponent, AdminComponent,
+    ToastComponent, AreasListComponent,
+    NewAreasComponent, TabsComponent,
+    CompoundsListComponent, NewCompoundsComponent,
+    ClientListComponent, NewClientComponent,
+    UnitsListComponent, TodosListComponent,
+    NewTodoComponent, LeadsListComponent,
+    ActivitiesListComponent, NewActivityComponent,
+    NotificationsListComponent, NewLevelComponent,
+    LevelsListComponent, CompitationComponent,
+    HappyHourComponent, GamificationsComponent,
+    TargetPointsComponent, LoginComponent,
+    PermissionListComponent, NewBrokerComponent,
+    BrokersListComponent, CheckConflictComponent,
+    SolveconflictsComponent, RequestsComponent
   ],
   imports: [
     HttpClientModule,
@@ -80,6 +110,8 @@ import { RequestsComponent } from './components/requests/requests.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     DxSwitchModule,
+    NgbModule,
+    TimeagoModule.forRoot(),
     DxAccordionModule,
     DxFormModule,
     DevExtremeModule,
@@ -87,13 +119,30 @@ import { RequestsComponent } from './components/requests/requests.component';
     DxValidationSummaryModule,
     ReactiveFormsModule,
     FormsModule,
+    NgbModule,
+    NotifierModule.withConfig( notifierDefaultOptions ),
     MatFileUploadModule,
-    MatButtonModule, MatIconModule, MatListModule, MatProgressBarModule, MatSelectModule, MatSidenavModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatProgressSpinnerModule, MatDialogModule, MatSliderModule, MatSnackBarModule, MatTabsModule, MatInputModule, MatTableModule, MatCheckboxModule, MatButtonToggleModule, MatDatepickerModule, MatNativeDateModule, MatStepperModule, MatRadioModule
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatDialogModule, MatSliderModule,
+    MatSnackBarModule, MatTabsModule,
+    MatInputModule, MatTableModule,
+    MatCheckboxModule, MatButtonToggleModule,
+    MatDatepickerModule, MatNativeDateModule,
+    MatStepperModule, MatRadioModule
   ],
   providers: [
     FormBuilder,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
-    //,{ provide: CookieOptions, useClass: BaseCookieOptions }
+    // ,{ provide: CookieOptions, useClass: BaseCookieOptions }
   ],
   bootstrap: [AppComponent]
 })

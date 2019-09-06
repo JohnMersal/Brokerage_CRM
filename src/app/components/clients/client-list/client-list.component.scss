@@ -1,0 +1,87 @@
+.header-title, .title-text {
+  margin-bottom: 8px;
+  text-transform: capitalize;
+  letter-spacing: .02em;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 0;
+  color: #50649c;
+  text-shadow: 0 0 1px rgba(239,242,249,.1);
+}
+.font-12 {
+  font-size: 12px!important;
+}
+.team-card .user-img {
+  height: 80px;
+}
+.team-card .team-leader {
+  font-size: 16px;
+  color: #50649c;
+}
+.team-card .online-circle {
+  position: absolute;
+  right: 0;
+  top: 118px;
+  left: 44px;
+}
+.img-group {
+  display: inline-block;
+}
+.img-group .user-avatar {
+  position: relative;
+  margin-bottom: 0;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}
+.img-group .user-avatar img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  -webkit-box-shadow: 0 0 0 2px #b6c2e4;
+  box-shadow: 0 0 0 2px #b6c2e4;
+}
+.thumb-xs {
+  height: 32px!important;
+  width: 32px!important;
+  font-size: 10px;
+  font-weight: 700;
+}
+.img-group .user-avatar+.user-avatar-group {
+  margin-left: -20px;
+}
+.img-group .user-avatar:focus, .img-group .user-avatar:hover {
+  z-index: 2;
+}
+
+.avatar-box {
+  position: relative;
+  display: inline-block;
+}
+.avatar-box .avatar-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  color: #f3f6f7;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.bg-soft-info {
+  background-color: rgba(155,167,202,.15)!important;
+  color: #9ba7ca!important;
+}
+
+
+
+
+
+

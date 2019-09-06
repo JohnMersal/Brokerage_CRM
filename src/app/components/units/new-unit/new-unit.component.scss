@@ -1,8 +1,16 @@
+@import "dashboard-theme";
+
 .typesOfBuildings{
   display: flex;
-  padding:0 0 16px 0;
+  flex-wrap: wrap;
+  padding:0;
   border: 0px solid;
   .typeBlock{
+    &.notValidated{
+      border:1px solid red;
+      box-shadow: 0px 8px 21px -14px red;
+    }
+    border:1px solid transparent;
     padding:16px 24px;
     font-size:14px;
     text-align: center;
@@ -13,6 +21,7 @@
     background-color:transparent;
     border-left:0px solid;
     margin-right:16px;
+    margin-bottom:16px;
     border-radius:5px;
     width:150px;
     -webkit-transition: all 0.2 linear;
@@ -29,7 +38,7 @@
       padding: 0;
     }
     &.mat-button-toggle-checked{
-      background:linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+      background-color:white;
       //border:1px solid white;
       box-shadow: 0 8px 28px 0 rgba(0,0,0,0.07);
     }
@@ -42,29 +51,62 @@
 }
 
 .typesOfProjects{
-  /*display: flex;*/
-  padding:16px 0;
+  display: flex;
+  flex-wrap: wrap;
+  padding:0;
   border: 0px solid;
-  /deep/ .mat-button-toggle-group {
-    border: 0px solid;
-    border-bottom: 0px solid #d7d8da;
-    border-radius: 0;
-    .mat-button-toggle{
-      background:transparent;
-      & + .mat-button-toggle{
-        border:0px solid;
-      }
-    }
+  margin-bottom: 16px;
+  border-bottom: 0px solid #d7d8da;
+  border-radius: 0;
+  &.notValidated{
+    border:1px solid red;
+    box-shadow: 0px 8px 21px -14px red;
   }
-  /deep/ .mat-button-toggle-label-content{
-
+  .mat-button-toggle{
+    background:transparent;
+    & + .mat-button-toggle{
+      border:0px solid;
+    }
   }
   .mat-button-toggle{
     &.mat-button-toggle-checked{
-      background:linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+      background:mat-color($mat-leads-orange, 500);
       color:white;
-      box-shadow: 0 8px 28px 0 rgba(0,0,0,0.07);
       border-radius:5px;
+      //box-shadow: 0 2px 6px 0 rgba(2, 152, 204, 0.54) !important;
+      box-shadow: 0 2px 6px 0 opacify(mat-color($mat-leads-orange, 500), 0.5) !important;
+    }
+  }
+}
+.AreasListing{
+  display: flex;
+  flex-wrap: wrap;
+  padding:0;
+  //border: 0px solid;
+  margin-bottom: 16px;
+  border:1px solid transparent;
+  border-radius: 0;
+  &.notValidated{
+    border:1px solid red !important;
+    box-shadow: 0px 8px 21px -14px red;
+  }
+  .mat-button-toggle{
+    flex: 0 0 auto;
+    background:transparent;
+    border:0px solid;
+    border-left:0px solid;
+    //& + .mat-button-toggle{
+    //  border:0px solid;
+    //}
+  }
+  .mat-button-toggle{
+    border-bottom: 2px solid transparent;
+    &.mat-button-toggle-checked{
+      background: transparent;
+      color: mat-color($mat-leads-orange, 500);
+      border-bottom: 2px solid mat-color($mat-leads-orange, 500);
+      box-shadow: 0px 0px transparent !important;
+      border-radius: 0;
     }
   }
 }
@@ -114,3 +156,5 @@
       }
     }
 }
+
+

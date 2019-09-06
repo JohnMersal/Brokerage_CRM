@@ -1,87 +1,448 @@
-<div class="row" *ngIf="false">
+<div class="row">
   <div class="col-sm-12">
-    <div id="chart-demo">
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="options">
-            <div class="caption">Options</div>
-            <div class="option">
-              <span>Series Type</span>
-              <dx-select-box [dataSource]="types" [(value)]="commonSeries.type">
-              </dx-select-box>
+    <div class="page-title-box">
+      <h2 class="page-title mat-h1">Dashboard</h2>
+    </div><!--end page-title-box-->
+  </div>
+</div><!--end col-->
+
+<!--Competition Section-->
+<div class="row">
+  <div class="col-12">
+    <div class="competitionBlock">
+      <img src="assets/images/competition/wavecomp.svg" alt="" class="wave">
+      <div class="titleAndDate">
+        <img src="assets/images/competition/challengetitle.svg" alt="">
+        <div><b>Ends:</b> 12/12/2019 </div>
+        <div><b>Reward:</b> 5000 Points</div>
+      </div>
+      <img src="assets/images/competition/pacmanghost.svg" alt="" class="ghost">
+      <div class="progressTasks">
+        <p>
+          <b>Make 300 Calls (170/300)</b>
+          <br>
+          <ngb-progressbar type="success"
+                           [value]="80"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
+        </p>
+        <p>
+          <b>Make 300 Calls (170/300)</b>
+          <br>
+          <ngb-progressbar type="warning"
+                           [value]="20"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
+        </p>
+        <p>
+          <b>Make 300 Calls (170/300)</b>
+          <br>
+          <ngb-progressbar type="danger"
+                           [value]="100"
+                           [max]="100"
+                           [animated]="true"
+                           [striped]="true"
+                           height="20">20px</ngb-progressbar>
+        </p>
+      </div>
+      <img src="assets/images/competition/pacman.svg" alt="" class="pacman">
+    </div>
+  </div>
+</div>
+<!--END Competition Section-->
+
+<!--Commission and sale value-->
+<div class="row">
+  <div class="col-12">
+    <mat-tab-group animationDuration="400ms">
+      <mat-tab label="In commission">
+        <div  class="py-4 px-4">
+          <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card card-inverse card-warning">
+                <div class="card-block">
+                  <h4 class="card-title">January Sales </h4>
+                  <div class="text-right">
+                    <h2 class="font-light text-light m-b-0"><i class="ti-arrow-up text-light"></i> EGP 120,000</h2>
+                  </div>
+                  <span class="text-light">60%</span>
+                  <div class="progress">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: 60%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Column -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card card-inverse card-success">
+                <div class="card-block">
+                  <h4 class="card-title">1st Quarter Sales </h4>
+                  <div class="text-right">
+                    <h2 class="font-light text-light m-b-0"><i class="ti-arrow-up text-light"></i> EGP 500,000</h2>
+                  </div>
+                  <span class="text-light">80%</span>
+                  <div class="progress">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: 80%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Column -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card card-inverse card-info">
+                <div class="card-block">
+                  <h4 class="card-title">Year to date sales</h4>
+                  <div class="text-right">
+                    <h2 class="font-light text-light m-b-0"><i class="ti-check text-light"></i> EGP 2,400,000</h2>
+                  </div>
+                  <span class="text-light">100%</span>
+                  <div class="progress">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+      </mat-tab>
+      <mat-tab label="In total sales value">
+        <div class="py-4 px-4">
+          <div class="row">
+            <!-- Column -->
+            <div class="col-12 col-lg-4 col-md-6">
+              <div class="card card-inverse card-warning">
+                <div class="card-block">
+                  <h4 class="card-title">January Sales</h4>
+                  <div class="text-right">
+                    <h2 class="font-light text-light m-b-0"><i class="ti-arrow-up text-light"></i> 5,000,000 / 10,000,000 EGP</h2>
+                  </div>
+                  <span class="text-light">50%</span>
+                  <div class="progress">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: 50%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Column -->
+            <div class="col-12 col-lg-4 col-md-6">
+              <div class="card card-inverse card-success">
+                <div class="card-block">
+                  <h4 class="card-title">1st Quarter Sales </h4>
+                  <div class="text-right">
+                    <h2 class="font-light text-light m-b-0"><i class="ti-arrow-up text-light"></i> 20,000,000 / 30,000,000 EGP</h2>
+                  </div>
+                  <span class="text-light">66%</span>
+                  <div class="progress">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: 66%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Column -->
+            <div class="col-12 col-lg-4 col-md-6">
+              <div class="card card-inverse card-info">
+                <div class="card-block">
+                  <h4 class="card-title">Year to date sales</h4>
+                  <div class="text-right">
+                    <h2 class="font-light text-light m-b-0"><i class="ti-arrow-up text-light"></i> 120,000,000 / 120,000,000 EGP</h2>
+                  </div>
+                  <span class="text-light">100%</span>
+                  <div class="progress">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+<!--end Commission and Sale value-->
+
+
+
+<div class="row align-content-stretch">
+  <!--new leads-->
+  <div class="col-12 col-md-6 col-lg-6 homePageAlignContent">
+    <!-- Card -->
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title"><i class="fa fa-rocket mr-2"></i>New Leads</h4>
+        <app-leads-list></app-leads-list>
       </div>
-      <dx-chart title="Population: Age Structure (2000)" palette="Harmony Light" [dataSource]="populationData">
-        <dxi-series valueField="y1564" name="15-64 years"></dxi-series>
-        <dxi-series valueField="y014" name="0-14 years"></dxi-series>
-        <dxi-series valueField="y65" name="65 years and older"></dxi-series>
-        <dxo-common-series-settings #commonSeries argumentField="country" [type]="types[0]">
-        </dxo-common-series-settings>
-        <dxo-margin [bottom]="20"></dxo-margin>
-        <dxo-argument-axis [valueMarginsEnabled]="false"></dxo-argument-axis>
-        <dxo-export [enabled]="true"></dxo-export>
-        <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-        </dxo-legend>
-      </dx-chart>
     </div>
   </div>
-  <div class="col-sm-6">
-    <dx-pie-chart id="pie" title="Area of Countries" palette="bright" [dataSource]="areas"
-      (onPointClick)="pointClickHandler($event)" (onLegendClick)="legendClickHandler($event)">
-      <dxi-series argumentField="country" valueField="area">
-        <dxo-label [visible]="true">
-          <dxo-connector [visible]="true" [width]="1"></dxo-connector>
-        </dxo-label>
-      </dxi-series>
-      <dxo-size [width]="500"></dxo-size>
-      <dxo-export [enabled]="true"></dxo-export>
-    </dx-pie-chart>
+  <!--monthly ranking-->
+  <div class="col-12 col-md-6 col-lg-3 homePageAlignContent">
+    <div class="card earning-widget">
+      <div class="card-block">
+        <div class="card-title">
+          <h4 class="card-title m-b-0"><i class="fa fa-bar-chart-o mr-2"></i>Monthly Ranking</h4>
+        </div>
+      </div>
+      <div class="card-block b-t">
+        <table class="table v-middle no-border">
+          <tbody>
+          <tr>
+            <td style="width:40px"><img src="../assets/images/users/1.jpg" width="50" class="img-circle" alt="logo"></td>
+            <td>
+              Michael Fekry
+              <div class="text-warning">
+                <mat-icon>star_rate</mat-icon>
+                <mat-icon>star_rate</mat-icon>
+                <mat-icon>star_rate</mat-icon>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><img src="../assets/images/users/2.jpg" width="50" class="img-circle" alt="logo"></td>
+            <td>
+              Mina Ezzat
+              <div class="text-warning">
+                <mat-icon>star_rate</mat-icon>
+                <mat-icon>star_rate</mat-icon>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><img src="../assets/images/users/3.jpg" width="50" class="img-circle" alt="logo"></td>
+            <td>
+              Silvia Boktor
+              <div class="text-warning">
+                <mat-icon>star_rate</mat-icon>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><img src="../assets/images/users/4.jpg" width="50" class="img-circle" alt="logo"></td>
+            <td>Ibrahim Mohamed</td>
+          </tr>
+          <tr>
+            <td><img src="../assets/images/users/5.jpg" width="50" class="img-circle" alt="logo"></td>
+            <td>Khaled Abdeldayem</td>
+          </tr>
+          <tr>
+            <td><img src="../assets/images/users/6.jpg" width="50" class="img-circle" alt="logo"></td>
+            <td>El Sweefy</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="col-sm-6">
-    <dx-chart id="chart" title="World Population by Decade" [dataSource]="population2Data">
-      <dxo-legend [visible]="false"></dxo-legend>
-      <dxi-series type="bar"></dxi-series>
-      <dxo-argument-axis [tickInterval]="10">
-        <dxo-label>
-          <dxo-format type="decimal"></dxo-format>
-        </dxo-label>
-      </dxo-argument-axis>
-    </dx-chart>
+  <!--todo-->
+  <div class="col-12 col-md-6 col-lg-3 homePageAlignContent">
+    <div class="card">
+      <div class="card-block">
+        <button class="pull-right btn btn-sm btn-rounded btn-success" data-toggle="modal" data-target="#myModal">Add Task</button>
+        <h4 class="card-title"><i class="fa fa-list mr-2"></i> To Do list</h4>
+        <app-todos-list></app-todos-list>
+        <!-- ============================================================== -->
+        <!-- To do list widgets -->
+        <!-- ============================================================== -->
+        <div class="to-do-widget m-t-20">
+          <!-- .modal for add task -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Add Task</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input type="text" class="form-control" placeholder="Enter Your Name">
+                    </div>
+                    <div class="form-group">
+                      <label>Email address</label>
+                      <input type="email" class="form-control" placeholder="Enter email">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
+          <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
+            <li class="list-group-item" data-role="task">
+              <div class="checkbox checkbox-info">
+                <input type="checkbox" id="inputSchedule" name="inputCheckboxesSchedule">
+                <label for="inputSchedule" class=""> <span>Schedule meeting with</span> </label>
+              </div>
+              <ul class="assignedto">
+                <li><img src="../assets/images/users/1.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Steave"></li>
+                <li><img src="../assets/images/users/2.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jessica"></li>
+                <li><img src="../assets/images/users/3.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
+                <li><img src="../assets/images/users/4.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
+              </ul>
+            </li>
+            <li class="list-group-item" data-role="task">
+              <div class="checkbox checkbox-info">
+                <input type="checkbox" id="inputBook" name="inputCheckboxesBook">
+                <label for="inputBook" class=""> <span>Book flight for holiday</span> </label>
+              </div>
+              <div class="item-date"> 26 jun 2017</div>
+            </li>
+            <li class="list-group-item" data-role="task">
+              <div class="checkbox checkbox-info">
+                <input type="checkbox" id="inputForward" name="inputCheckboxesForward">
+                <label for="inputForward" class=""> <span>Forward all tasks</span> <span class="label label-light-warning">2 weeks</span> </label>
+              </div>
+              <div class="item-date"> 26 jun 2017</div>
+            </li>
+            <li class="list-group-item" data-role="task">
+              <div class="checkbox checkbox-info">
+                <input type="checkbox" id="inputRecieve" name="inputCheckboxesRecieve">
+                <label for="inputRecieve" class=""> <span>Recieve shipment</span> </label>
+              </div>
+              <div class="item-date"> 26 jun 2017</div>
+            </li>
+            <li class="list-group-item" data-role="task">
+              <div class="checkbox checkbox-info">
+                <input type="checkbox" id="inputpayment" name="inputCheckboxespayment">
+                <label for="inputpayment" class=""> <span>Send payment today</span> </label>
+              </div>
+              <div class="item-date"> 26 jun 2017</div>
+            </li>
+            <li class="list-group-item" data-role="task">
+              <div class="checkbox checkbox-info">
+                <input type="checkbox" id="inputForward2" name="inputCheckboxesd">
+                <label for="inputForward2" class=""> <span>Important tasks</span> <span class="label label-light-success">2 weeks</span> </label>
+              </div>
+              <ul class="assignedto">
+                <li><img src="../assets/images/users/1.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Assign to Steave"></li>
+                <li><img src="../assets/images/users/2.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Assign to Jessica"></li>
+                <li><img src="../assets/images/users/4.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Assign to Selina"></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<!--Units-->
 <div class="row">
-  <div class="col-sm-4">
-    <div class="form-group">
-      <dx-linear-gauge id="gauge" [value]="4.3">
-        <dxo-scale [startValue]="0" [endValue]="5" [customTicks]="[0, 5]" [minorTickInterval]="0.625">
-        </dxo-scale>
-        <dxo-export [enabled]="false"></dxo-export>
-        <dxo-title text="Meetings">
-          <dxo-font [size]="20"></dxo-font>
-        </dxo-title>
-      </dx-linear-gauge>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="form-group">
-      <dx-linear-gauge id="gauge" [value]="3">
-        <dxo-scale [startValue]="0" [endValue]="5" [customTicks]="[0, 5]" [minorTickInterval]="0.625">
-        </dxo-scale>
-        <dxo-export [enabled]="false"></dxo-export>
-        <dxo-title text="Calls">
-          <dxo-font [size]="20"></dxo-font>
-        </dxo-title>
-      </dx-linear-gauge>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title"><i class="fa fa-building mr-1"></i> New Units</h4>
+        <app-units-list></app-units-list>
+        <!--<div class="table-responsive">-->
+          <!--<table class="table m-t-30 table-hover contact-list color-table info-table" id="mytable">-->
+            <!--<thead class="bg-light">-->
+            <!--<tr>-->
+              <!--<th scope="col" class="border-0">Compound</th>-->
+              <!--<th scope="col" class="border-0">Unit Type</th>-->
+              <!--<th scope="col" class="border-0">Unit #</th>-->
+              <!--<th scope="col" class="border-0">BUA</th>-->
+              <!--<th scope="col" class="border-0">Land Area / Garden</th>-->
+              <!--<th scope="col" class="border-0">Down Payment</th>-->
+              <!--<th scope="col" class="border-0">Total Price</th>-->
+              <!--<th scope="col" class="border-0">Status</th>-->
+              <!--<th scope="col" class="border-0">View</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr>-->
+              <!--<td>Mivida</td>-->
+              <!--<td>StandAlone Villa</td>-->
+              <!--<td>50</td>-->
+              <!--<td>160 sqm</td>-->
+              <!--<td>200 sqm</td>-->
+              <!--<td>6,000,000</td>-->
+              <!--<td>12,400,000</td>-->
+              <!--<td><span class="badge badge-primary">Market price</span></td>-->
+              <!--<td>Up</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+              <!--<td>Mivida</td>-->
+              <!--<td>StandAlone Villa</td>-->
+              <!--<td>50</td>-->
+              <!--<td>160 sqm</td>-->
+              <!--<td>200 sqm</td>-->
+              <!--<td>6,000,000</td>-->
+              <!--<td>12,400,000</td>-->
+              <!--<td><span class="badge badge-success">Below Market price </span></td>-->
+              <!--<td>Down</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+              <!--<td>Mivida</td>-->
+              <!--<td>StandAlone Villa</td>-->
+              <!--<td>50</td>-->
+              <!--<td>160 sqm</td>-->
+              <!--<td>200 sqm</td>-->
+              <!--<td>6,000,000</td>-->
+              <!--<td>12,400,000</td>-->
+              <!--<td><span class="badge badge-danger">above market price</span></td>-->
+              <!--<td>Up</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+      </div>
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-sm-6">
-    <app-leads-list></app-leads-list>
-  </div>
-  <div class="col-sm-6">
-    <app-todos-list></app-todos-list>
-  </div>
-</div>
+<!--End Units-->
+
+
+
+
+
+<!--<div class="row">-->
+  <!--<div class="col-sm-6">-->
+    <!--<app-leads-list></app-leads-list>-->
+  <!--</div>-->
+  <!--<div class="col-sm-6">-->
+    <!--<app-todos-list></app-todos-list>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+<!--<div class="row">-->
+  <!--<div class="col-sm-4">-->
+    <!--<div class="form-group">-->
+      <!--<dx-linear-gauge id="gauge" [value]="4.3">-->
+        <!--<dxo-scale [startValue]="0" [endValue]="5" [customTicks]="[0, 5]" [minorTickInterval]="0.625">-->
+        <!--</dxo-scale>-->
+        <!--<dxo-export [enabled]="false"></dxo-export>-->
+        <!--<dxo-title text="Meetings">-->
+          <!--<dxo-font [size]="20"></dxo-font>-->
+        <!--</dxo-title>-->
+      <!--</dx-linear-gauge>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="col-sm-4">-->
+    <!--<div class="form-group">-->
+      <!--<dx-linear-gauge id="gauge" [value]="3">-->
+        <!--<dxo-scale [startValue]="0" [endValue]="5" [customTicks]="[0, 5]" [minorTickInterval]="0.625">-->
+        <!--</dxo-scale>-->
+        <!--<dxo-export [enabled]="false"></dxo-export>-->
+        <!--<dxo-title text="Calls">-->
+          <!--<dxo-font [size]="20"></dxo-font>-->
+        <!--</dxo-title>-->
+      <!--</dx-linear-gauge>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
