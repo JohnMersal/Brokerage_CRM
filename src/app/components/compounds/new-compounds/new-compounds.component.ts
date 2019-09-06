@@ -14,7 +14,6 @@ import { AreasService } from '../../areas/areas.service';
 })
 export class NewCompoundsComponent implements OnInit {
   @Output() afterSave = new EventEmitter();
-  @Input() reset: boolean;
   compoundFormGroup: FormGroup;
   singleCompound: CompoundModel = new CompoundModel();
   areasLookup = [];
@@ -52,9 +51,6 @@ export class NewCompoundsComponent implements OnInit {
     }
   }
   ngOnInit() {
-    if (this.reset){
-      this.getAreasLookup();
-    }
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

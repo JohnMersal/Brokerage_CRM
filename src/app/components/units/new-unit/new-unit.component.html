@@ -498,7 +498,7 @@
       </div>
       <div class="modal-body">
         <ng-container *ngIf="resetAreaSearch">
-          <app-new-compounds [reset]="true" (afterSave)="afterSaveCompound($event)"></app-new-compounds>
+          <app-new-compounds (afterSave)="afterSaveCompound($event)"></app-new-compounds>
         </ng-container>
       </div>
     </div>
