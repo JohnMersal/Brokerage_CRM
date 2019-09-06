@@ -95,7 +95,6 @@ export class NewUnitComponent implements OnInit, OnDestroy {
     this.subscription.add(this.compoundService.getAllCompounds().subscribe(
       (value: any) => {
         this.compoundsLookup = value.data;
-        console.log('data arrived');
       }, error => {
         notify('error in loading compounds list..', 'error');
     }));

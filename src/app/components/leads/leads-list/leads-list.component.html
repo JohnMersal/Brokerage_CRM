@@ -1,4 +1,4 @@
-      <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="leadsList" [showRowLines]="true"
+      <dx-data-grid #grid class="dataGrid" [(dataSource)]="leadsList" [showRowLines]="true"
     [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true" [allowColumnResizing]="true"
         (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
         <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
@@ -37,6 +37,8 @@
 
           <div *dxTemplate="let data of 'reassigned_byTemplate'">
             {{data.data.reassigned_by.first_name}} {{data.data.reassigned_by.second_name}}
+
+            {{data.data.created_at | timeago:live}}
           </div>
           <div *dxTemplate="let data of 'reassigned_toTemplate'">
             {{data.data.reassigned_to.first_name}} {{data.data.reassigned_to.second_name}}

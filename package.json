@@ -44,6 +44,7 @@
     "moment": "^2.24.0",
     "ng-chartist": "^1.1.1",
     "ng2-completer": "^2.0.8",
+    "ngx-timeago": "^1.0.2",
     "pace-js": "^1.0.2",
     "popper": "^1.0.1",
     "popper.js": "^1.15.0",
