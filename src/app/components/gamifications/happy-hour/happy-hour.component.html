@@ -1,3 +1,68 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="sectionTitle col-12"><h2>Happy Hour</h2></div>
+      <div class="col-12">
+        <mat-radio-group>
+          <div class="row justify-content-sm-left">
+            <div class="col-sm-auto">
+              Multiplier:
+            </div>
+            <div class="col-sm-auto">
+              <mat-radio-button class="example-radio-button" value="2x">
+                2x
+              </mat-radio-button>
+            </div>
+            <div class="col-sm-auto">
+              <mat-radio-button class="example-radio-button" value="3x">
+                3x
+              </mat-radio-button>
+            </div>
+            <div class="col-sm-auto">
+              <mat-radio-button class="example-radio-button" value="4x">
+                4x
+              </mat-radio-button>
+            </div>
+            <div class="col-sm-auto">
+              <mat-radio-button class="example-radio-button" value="5x">
+                5x
+              </mat-radio-button>
+            </div>
+          </div>
+        </mat-radio-group>
+        <mat-radio-group>
+          <div class="row justify-content-sm-left">
+            <div class="col-sm-auto">
+              Duration:
+            </div>
+            <div class="col-sm-auto">
+              <mat-radio-button class="example-radio-button" value="1x">
+                1 hour
+              </mat-radio-button>
+            </div>
+            <div class="col-sm-auto">
+              <mat-radio-button class="example-radio-button" value="2x">
+                2 hours
+              </mat-radio-button>
+            </div>
+            <div class="col-sm-auto">
+              <mat-radio-button class="example-radio-button" value="3x">
+                3 hours
+              </mat-radio-button>
+            </div>
+            <div class="col-sm-auto">
+              <mat-radio-button class="example-radio-button" value="1day">
+                24 hours
+              </mat-radio-button>
+            </div>
+          </div>
+        </mat-radio-group>
+        <button mat-flat-button color="primary">Start Happy Hour</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <fieldset>
   <legend>All Happy hours</legend>
   <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="HappyHoursList" [showRowLines]="true"
