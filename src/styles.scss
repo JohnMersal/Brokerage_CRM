@@ -27,14 +27,24 @@ html, body{
   padding: 1.25rem;
 }
 
-.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary{
+.mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary{
   border: 1px solid darken(mat-color($mat-leads-blue, 500), 10%);
   box-shadow: 0 2px 6px 0 opacify(mat-color($mat-leads-blue, 500), 0.5) !important;
   padding: 0.175rem 0.85rem;
 }
-.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent{
+.mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent{
   border: 1px solid darken(mat-color($mat-leads-orange, 500), 10%);
   box-shadow: 0 2px 6px 0 opacify(mat-color($mat-leads-orange, 500), 0.5) !important;
+  padding: 0.175rem 0.85rem;
+}
+.mat-flat-button.mat-primary{
+  border: 1px solid darken(mat-color($mat-leads-blue, 500), 10%);
+  box-shadow: 0 0 0 transparent !important;
+  padding: 0.175rem 0.85rem;
+}
+.mat-flat-button.mat-accent{
+  border: 1px solid darken(mat-color($mat-leads-orange, 500), 10%);
+  box-shadow: 0 0 0 transparent !important;
   padding: 0.175rem 0.85rem;
 }
 .mat-flat-button.primary2{

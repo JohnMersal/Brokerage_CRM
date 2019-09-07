@@ -24,6 +24,10 @@ export class CompitationComponent implements OnInit {
   DateTimeFormat = AppSettings.DateTimeDisplayFormat;
   maxDate: Date = new Date();
   subscription: Subscription = new Subscription();
+
+  now: Date = new Date();
+  tomorrow = new Date();
+
   constructor(private gamificationsService: GamificationsService) {
     this.getAllCompitionsPoints();
     this.getAllTargetPoints();
@@ -96,6 +100,8 @@ export class CompitationComponent implements OnInit {
     (<any>jQuery('#editLevelModal')).modal('hide');
   }
   ngOnInit() {
+    this.tomorrow.setDate(this.now.getDate() + 1);
+    this.tomorrow.setHours(10, 0b0, 0b0, 0b0);
   }
 
 }

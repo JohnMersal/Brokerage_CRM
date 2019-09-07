@@ -1,0 +1,75 @@
+@import 'dashboard-theme';
+@import 'assets/scss/variable';
+
+.competitionBlock{
+  padding:26px;
+  position: relative;
+  border-radius:10px;
+  width: 100%;
+  background-image: linear-gradient(115deg, #0178BC 0%, #00BDDA 100%);
+  //background-image: $gradientBlue;
+  display: flex;
+  flex-direction: column;
+  color:white;
+  align-items: flex-start;
+  overflow: hidden;
+  margin-bottom:20px;
+  & > *:not(.wave) {
+    position: relative;
+    z-index: 1;
+    padding: 16px 0;
+  }
+  .wave{
+    position: absolute;
+    top:0;
+    left:50%;
+    //padding:0;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+  .titleAndDate{
+    img{
+      margin-bottom:10px;
+      max-width: 100%;
+    }
+  }
+  .ghost{
+    flex: 0 1 11%;
+  }
+  .formBg{
+    background-color: white;
+    padding: 16px 16px 8px;
+    color: black;
+    border-radius: 5px;
+    margin-bottom:16px;
+    //border: 5px solid #096d8e;
+    .fb-60{
+      flex: 0 0 60%;
+    }
+    .fb-100{
+      flex: 1 0 100%;
+    }
+  }
+  .title{
+    font-weight: bold;
+    font-size: 23px;
+    padding-bottom: 0px;
+  }
+
+  //Form Related Style
+  /deep/ .dx-texteditor.dx-editor-underlined {
+    background-color: white;
+    padding: 8px;
+    border-radius: 5px;
+  }
+  .mat-stroked-button{
+    border:1px solid rgba(255,255,255,0.5) !important;
+  }
+  .pacman{
+    position: absolute;
+    top: -20px;
+    right: -50px;
+    width: 40%;
+    z-index: auto;
+  }
+}

@@ -39,6 +39,16 @@
   .progressTasks{
     flex: 1 0 auto;
     padding: 0 60px;
+    /deep/ .progress {
+      height: auto;
+      min-height: 6px;
+      /* border-radius: 20px; */
+      border: 3px solid white;
+      border-radius: 50px;
+      .progress-bar{
+        border-radius: 50px;
+      }
+    }
   }
   .pacman{
     height: 140%;
