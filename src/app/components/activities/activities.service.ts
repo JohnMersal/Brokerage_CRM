@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AppSettings } from '../shared/app-settings';
-import { AtivitiesListModel, ActivityModel } from "./ativities-model";
+import { AtivitiesListModel, ActivityModel, ActivityClient } from "./ativities-model";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,17 @@ export class ActivitiesService {
     return this.http.post(url, JSON.stringify(activity), { headers: this.headers }).pipe(
       map(res => res),
       catchError(this.handleError));
+  }
+  submitActivity(activity: ActivityClient) {
+    const url = AppSettings.activities_URL + '/store/won';
+    return this.http.post(url, JSON.stringify(activity), { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+  }
+  getWonActivities() {
+    const url = `${AppSettings.activities_URL}/getAllWonStatuses`;
+    return this.http.get(url).pipe(
+      map(res => res), catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {
     //console.error(JSON.stringify(error));

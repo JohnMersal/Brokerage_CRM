@@ -85,8 +85,15 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
-        <button type="button" (click)="saveClient()" mat-flat-button color="primary" class="mat-primary">Save</button>
+        <button type="button" (click)="saveClient()" mat-flat-button color="primary" class="mat-primary">Save client</button>
       </div>
     </div>
   </div>
 </dx-validation-group>
+<div *ngIf="singleClient.id">
+  <fieldset>
+    <legend>Add activity to this client:</legend>
+    <app-new-activity [clientId]="singleClient.id" (afterSave)="reloadActivities($event)"></app-new-activity>
+    <app-activities-list #activitiesListComponent [filterByClient]="singleClient.id"></app-activities-list>
+  </fieldset>
+</div>

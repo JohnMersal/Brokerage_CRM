@@ -2,21 +2,23 @@
   <div class="col-sm-12">
     <div class="page-title-box">
       <h2 class="page-title mat-h1">Add new unit</h2>
-    </div><!--end page-title-box-->
+    </div>
+    <!--end page-title-box-->
   </div>
-</div><!--end col-->
+</div>
+<!--end col-->
 
 <ng-container *ngIf="areasLookup.length != 0; else loadingAreas">
   <div class="row">
     <div class="sectionTitle col-12 d-flex justify-content-between align-content-center mb-2">
       <h2 class="mb-0">Select Area</h2>
-      <button type="button" (click)="openAddNewModel('area'); getAreasLookup()"
-              mat-stroked-button color="accent">
+      <button type="button" (click)="openAddNewModel('area'); getAreasLookup()" mat-stroked-button color="accent">
         <i class="fas fa-plus"></i> Add new Area
       </button>
     </div>
     <div class="col-12">
-      <mat-button-toggle-group [(ngModel)]="selectedArea" class="AreasListing" [class.notValidated]="compoundNotValidated && disableAreaValidationError">
+      <mat-button-toggle-group [(ngModel)]="selectedArea" class="AreasListing"
+        [class.notValidated]="compoundNotValidated && disableAreaValidationError">
         <ng-container *ngFor="let area of areasLookup">
           <mat-button-toggle [value]='area.id' (click)="selectArea(area.id)">
             {{area.name}}
@@ -37,40 +39,38 @@
   </mat-button-toggle-group>
 </ng-template>
 
+<ng-container>
   <div class="row">
     <div class="sectionTitle col-12 d-flex justify-content-between align-content-center mb-2">
       <h2 class="mb-0">Select Compound</h2>
-      <button type="button" (click)="openAddNewModel('compound');"
-              mat-stroked-button color="accent">
+      <button type="button" (click)="openAddNewModel('compound');" mat-stroked-button color="accent">
         <i class="fas fa-plus"></i> Add new Compound
       </button>
     </div>
-    <ng-container *ngIf="compoundFilteredList.length != 0;">
-      <div class="col-12">
-        <mat-button-toggle-group class="typesOfProjects" [class.notValidated]="compoundNotValidated" [value]="singleUnit.compound_id">
-          <ng-container *ngFor="let comp of compoundFilteredList">
-            <mat-button-toggle (click)="setcompName(comp.id)" [value]="comp.id">
-              {{comp.name}}
-            </mat-button-toggle>
-          </ng-container>
-        </mat-button-toggle-group>
-        <p class="text-danger" *ngIf="compoundNotValidated">
-          You must choose a compound, If you are not sure, please select other.
-        </p>
-      </div>
-    </ng-container>
-
+    <div class="col-12" *ngIf="compoundFilteredList.length != 0; else loadingComps">
+      <mat-button-toggle-group class="typesOfProjects" [class.notValidated]="compoundNotValidated"
+        [value]="singleUnit.compound_id">
+        <ng-container *ngFor="let comp of compoundFilteredList">
+          <mat-button-toggle (click)="setcompName(comp.id)" [value]="comp.id">
+            {{comp.name}}
+          </mat-button-toggle>
+        </ng-container>
+      </mat-button-toggle-group>
+      <p class="text-danger" *ngIf="compoundNotValidated">
+        You must choose a compound, If you are not sure, please select other.
+      </p>
+    </div>
   </div>
+</ng-container>
 
 <div class="row">
-  <div class="sectionTitle col-12"><h2>Select Unit Type</h2></div>
+  <div class="sectionTitle col-12">
+    <h2>Select Unit Type</h2>
+  </div>
   <div class="col-12">
     <mat-button-toggle-group class="typesOfBuildings" [value]="singleUnit.unit_type">
-      <mat-button-toggle *ngFor="let unitType of unitTypes;"
-                         class="typeBlock"
-                         [value]="unitType?.name"
-                         [class.notValidated]="unitNotValidated"
-                         (click)="setunitType(unitType?.name)">
+      <mat-button-toggle *ngFor="let unitType of unitTypes;" class="typeBlock" [value]="unitType?.name"
+        [class.notValidated]="unitNotValidated" (click)="setunitType(unitType?.name)">
         <mat-icon [svgIcon]="unitType?.icon"></mat-icon>
         <span>{{unitType?.name}}</span>
       </mat-button-toggle>
@@ -87,12 +87,8 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label>Compound</label>
-        <dx-select-box [class.required]="true"
-                       [dataSource]="compoundsLookup"
-                       [(value)]="singleUnit.compound_id"
-                       displayExpr="name"
-                       valueExpr="id"
-                       [searchEnabled]="true">
+        <dx-select-box [class.required]="true" [dataSource]="compoundsLookup" [(value)]="singleUnit.compound_id"
+          displayExpr="name" valueExpr="id" [searchEnabled]="true">
         </dx-select-box>
       </div>
     </div>
@@ -100,11 +96,8 @@
       <div class="form-group">
         <label>Unit type</label>
         <dx-select-box [class.required]="true"
-                       [dataSource]="[ {name:'Apartment'},{name:'Standalone'}, {name:'Townhouse'}, {name:'Twin villa'}]"
-                       [(value)]="singleUnit.unit_type"
-                       displayExpr="name"
-                       valueExpr="name"
-                       [searchEnabled]="true">
+          [dataSource]="[ {name:'Apartment'},{name:'Standalone'}, {name:'Townhouse'}, {name:'Twin villa'}]"
+          [(value)]="singleUnit.unit_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
 
         </dx-select-box>
       </div>
@@ -112,10 +105,9 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label>Area</label>
-        <div class="extraFeature"><a class="addNewRecord" (click)="openAddNewModel('area')"><i
-          class="fas fa-plus"></i> Add new</a></div>
-        <dx-select-box [dataSource]="areasLookup"
-                       displayExpr="name" valueExpr="id" [searchEnabled]="true">
+        <div class="extraFeature"><a class="addNewRecord" (click)="openAddNewModel('area')"><i class="fas fa-plus"></i>
+            Add new</a></div>
+        <dx-select-box [dataSource]="areasLookup" displayExpr="name" valueExpr="id" [searchEnabled]="true">
         </dx-select-box>
       </div>
     </div>
@@ -128,12 +120,14 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="sectionTitle col-12"><h2>Unit Informtion</h2></div>
+            <div class="sectionTitle col-12">
+              <h2>Unit Informtion</h2>
+            </div>
             <div class="col-12">
               <div class="form-group">
                 <label>Offering type</label>
                 <dx-select-box [class.required]="true" [dataSource]="[{name:'Buy'},{name:'Sale'}, {name:'Rent'}]"
-                               [(value)]="singleUnit.offering_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+                  [(value)]="singleUnit.offering_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
                 </dx-select-box>
               </div>
             </div>
@@ -147,11 +141,8 @@
               <div class="form-group">
                 <label>Unit view</label>
                 <!--Made Unit View as a STRING and select MENU-->
-                <dx-select-box [class.required]="true"
-                               [dataSource]="[ {name:'Good View'},{name:'No View'}]"
-                               [(value)]="singleUnit.unit_view"
-                               displayExpr="name"
-                               valueExpr="name">
+                <dx-select-box [class.required]="true" [dataSource]="[ {name:'Good View'},{name:'No View'}]"
+                  [(value)]="singleUnit.unit_view" displayExpr="name" valueExpr="name">
                 </dx-select-box>
               </div>
             </div>
@@ -160,15 +151,15 @@
                 <label>Market price</label>
                 <!--Made Market price as a STRING and select MENU-->
                 <dx-select-box [class.required]="true"
-                               [dataSource]="[ {name:'Above Market Price'},{name:'Below Market Price'}, {name:'At Market Price'}]"
-                               [(value)]="singleUnit.market_price"
-                               displayExpr="name"
-                               valueExpr="name">
+                  [dataSource]="[ {name:'Above Market Price'},{name:'Below Market Price'}, {name:'At Market Price'}]"
+                  [(value)]="singleUnit.market_price" displayExpr="name" valueExpr="name">
                 </dx-select-box>
               </div>
             </div>
 
-            <div class="sectionTitle col-12"><h2>Owner's Information</h2></div>
+            <div class="sectionTitle col-12">
+              <h2>Owner's Information</h2>
+            </div>
             <div class="col-12">
               <div class="form-group">
                 <label>Owner name</label>
@@ -183,9 +174,10 @@
               <div class="form-group">
                 <label>Owner phone</label>
                 <dx-number-box [class.required]="true" [(value)]="singleUnit.owner_phone" [showSpinButtons]="false"
-                               [showClearButton]="false">
+                  [showClearButton]="false">
                   <dx-validator>
-                    <dxi-validation-rule type="required" [min]="11" [max]="11" message="Owner phone must be at least 11 characters"></dxi-validation-rule>
+                    <dxi-validation-rule type="required" [min]="11" [max]="11"
+                      message="Owner phone must be at least 11 characters"></dxi-validation-rule>
                   </dx-validator>
                 </dx-number-box>
               </div>
@@ -206,8 +198,7 @@
               <div class="form-group">
                 <div class="todo">TO BE ADDED TO THE API!</div>
                 <label>Owner's Notes</label>
-                <dx-text-area [class.required]="true" [autoResizeEnabled]="true"
-                              [height]="130">
+                <dx-text-area [class.required]="true" [autoResizeEnabled]="true" [height]="130">
                 </dx-text-area>
               </div>
             </div>
@@ -226,14 +217,16 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="sectionTitle col-12"><h2>Unit Details</h2></div>
+            <div class="sectionTitle col-12">
+              <h2>Unit Details</h2>
+            </div>
           </div>
           <div class="row">
             <div class="col-sm-4">
               <div class="form-group">
                 <label>Floor num</label>
                 <dx-number-box [class.required]="true" [(value)]="singleUnit.floor_num" [showSpinButtons]="true"
-                               [showClearButton]="false">
+                  [showClearButton]="false">
                 </dx-number-box>
               </div>
             </div>
@@ -254,7 +247,7 @@
               <div class="form-group">
                 <label>Garden area</label>
                 <dx-text-box [(value)]="singleUnit.garden_area"
-                             [disabled]="(!singleUnit.unit_type || singleUnit.unit_type == 'Apartment' || singleUnit.unit_type == 'Standalone')">
+                  [disabled]="(!singleUnit.unit_type || singleUnit.unit_type == 'Apartment' || singleUnit.unit_type == 'Standalone')">
                   <!-- <dx-validator>
                     <dxi-validation-rule type="required" message="Garden area is required"></dxi-validation-rule>
                   </dx-validator> -->
@@ -280,8 +273,8 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label>Bedrooms</label>
-                <dx-number-box [class.required]="true" [min]="0" [(value)]="singleUnit.bedrooms" [showSpinButtons]="false"
-                               [showClearButton]="false">
+                <dx-number-box [class.required]="true" [min]="0" [(value)]="singleUnit.bedrooms"
+                  [showSpinButtons]="false" [showClearButton]="false">
 
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
@@ -294,7 +287,7 @@
               <div class="form-group">
                 <label>Bathrooms</label>
                 <dx-number-box [class.required]="true" [min]="0" [(value)]="singleUnit.bathrooms"
-                               [showSpinButtons]="false" [showClearButton]="false">
+                  [showSpinButtons]="false" [showClearButton]="false">
 
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
@@ -307,7 +300,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="sectionTitle col-12"><h2>Unit Price</h2></div>
+            <div class="sectionTitle col-12">
+              <h2>Unit Price</h2>
+            </div>
           </div>
           <div class="row">
             <div class="col-sm-6">
@@ -330,7 +325,7 @@
               <div class="form-group">
                 <label>Original downpayment</label>
                 <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
-                               [(value)]="singleUnit.original_downpayment"
+                  [(value)]="singleUnit.original_downpayment"
                                (onValueChanged)="calculateFinalDownPayment($event)"
                                [showSpinButtons]="false" [showClearButton]="false">
                 </dx-number-box>
@@ -346,7 +341,8 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Over price</label>
-                <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.over_price"
+                <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
+                  [(value)]="singleUnit.over_price"
                                (onValueChanged)="calculateAskingPriceByOwner($event); calculateFinalDownPayment($event)"
                                [showSpinButtons]="false" [showClearButton]="false">
                 </dx-number-box>
@@ -443,7 +439,7 @@
               <div class="form-group">
                 <label>Description</label>
                 <dx-text-area [class.required]="true" [autoResizeEnabled]="true" [(value)]="singleUnit.unit_desc"
-                              [height]="130">
+                  [height]="130">
                 </dx-text-area>
                 <!-- <mat-form-field class="example-full-width">
                   <textarea matInput placeholder="Description" (input)="singleUnit.unit_desc=$event.target.value"
@@ -472,7 +468,7 @@
 </dx-validation-group>
 
 <div class="modal fade" id="addNewAreaModal" tabindex="-1" role="dialog" aria-labelledby="addNewAreaModalLabel"
-     aria-hidden="true">
+  aria-hidden="true">
   <div class="modal-dialog _modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -488,7 +484,7 @@
   </div>
 </div>
 <div class="modal fade" id="addNewCompoundModal" tabindex="-1" role="dialog" aria-labelledby="addNewCompoundModalLabel"
-     aria-hidden="true">
+  aria-hidden="true">
   <div class="modal-dialog _modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -499,7 +495,8 @@
       </div>
       <div class="modal-body">
         <ng-container *ngIf="resetAreaSearch">
-          <app-new-compounds (afterSave)="afterSaveCompound($event); selectArea(selectedArea, true)"></app-new-compounds>
+          <app-new-compounds (afterSave)="afterSaveCompound($event); selectArea(selectedArea, true)">
+          </app-new-compounds>
         </ng-container>
       </div>
     </div>

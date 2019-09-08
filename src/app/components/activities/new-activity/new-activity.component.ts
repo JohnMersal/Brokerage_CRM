@@ -15,6 +15,15 @@ import { formatDate } from '@angular/common';
 })
 export class NewActivityComponent implements OnInit {
   @Input() updateMode: boolean = false;
+  _clientId: number;
+  @Input()
+  set clientId(value){
+    this.singleActivity.id = value;
+    this._clientId = value;
+  };
+  get clientId() {
+    return this._clientId;
+  }
   @Output() afterSave = new EventEmitter();
   @ViewChild('DataValidator') DataValidator: DxValidationGroupComponent;
   singleActivity: ActivityModel = new ActivityModel();
@@ -23,7 +32,7 @@ export class NewActivityComponent implements OnInit {
   maxDate: Date = new Date();
   subscription: Subscription = new Subscription();
   constructor(private clientsService: ClientService, private activitiesService: ActivitiesService) {
-    this.getClientsLookup();
+    if (!this.clientId) this.getClientsLookup();
   }
   getClientsLookup() {
     this.subscription.add(this.clientsService.getAllClients().subscribe(

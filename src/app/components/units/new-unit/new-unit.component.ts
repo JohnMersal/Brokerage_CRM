@@ -136,6 +136,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
       (jQuery('#addNewAreaModal') as any).modal('show');
     } else if (name == 'compound') {
       this.resetAreaSearch = true;
+      this.getAreasLookup();
       (jQuery('#addNewCompoundModal') as any).modal('show');
     }
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Subscription } from "rxjs";
 import notify from 'devextreme/ui/notify';
 import { AtivitiesListModel, ActivityModel } from "../ativities-model";
@@ -14,6 +14,7 @@ declare var jQuery: any;
   styleUrls: ['./activities-list.component.scss']
 })
 export class ActivitiesListComponent implements OnInit {
+  @Input() filterByClient: number = null;
   @ViewChild('edit') EditComponent: NewActivityComponent;
   RowFilter: boolean = false;
   GroupFilter: boolean = false;
@@ -26,7 +27,11 @@ export class ActivitiesListComponent implements OnInit {
   getAllActivities() {
     this.subscription.add(this.activityService.getAllActivities().subscribe(
       (value: any) => {
-        this.activitiesList = value.data;
+        if (this.filterByClient) {
+          this.activitiesList = value.data.filter(x => x.id == this.filterByClient);
+        } else {
+          this.activitiesList = value.data;
+        }
       }, error => {
         console.log(error);
       }));
