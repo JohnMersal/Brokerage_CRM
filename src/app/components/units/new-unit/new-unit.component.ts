@@ -40,6 +40,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
   disableAreaValidationError = true;
   selectedArea;
   resetAreaSearch = false;
+  commissionValueConstant = '';
 
   // unitTypes List
   unitTypes: UnitType[] = [
@@ -201,34 +202,69 @@ export class NewUnitComponent implements OnInit, OnDestroy {
       }
     }
   }
-  commissionChanged(whichField, e) {
-    // console.log(e.value);
-    /*var originalPrice = this.singleUnit.original_price;
-    var percent = this.singleUnit.commission_percentage;
-    var amount = this.singleUnit.commission_value;*/
-    if (this.singleUnit.commission_percentage > 0 && this.singleUnit.original_price > 0) {
-      if (whichField == '%') {
-        this.singleUnit.commission_value = this.singleUnit.commission_percentage * this.singleUnit.original_price;
-      } else if (whichField == '#') {
-        this.singleUnit.commission_percentage = this.singleUnit.commission_value / this.singleUnit.original_price;
+
+
+  // Calculator Functions
+  updateCommissionValue(e){
+    // Updates commission inputs if the asking price by owner is updated
+    if (this.singleUnit.commission_percentage > 0 && this.singleUnit.commission_value > 0) {
+      // this commission value constant determines if the user used the # or % inputs to make it constant and change the other
+      if (this.commissionValueConstant === '#') {
+        this.singleUnit.commission_value =
+          this.singleUnit.commission_percentage *
+          this.singleUnit.owner_price;
+      } else if (this.commissionValueConstant === '%') {
+        this.singleUnit.commission_percentage =
+          this.singleUnit.commission_value /
+          this.singleUnit.owner_price;
       }
-      this.singleUnit.final_price = this.singleUnit.original_price + this.singleUnit.commission_value;
     }
   }
-  /*
-    Over price = Original price - Owner price (even if mince)
-    Final downpayment = Original downpayment + Commission value + Over price
-    Final price = Original price  + Over price + Commission value
-  */
-  calculateOverPrice(e) {
-    if (this.singleUnit.original_price && this.singleUnit.owner_price) {
-      //let diff = this.singleUnit.original_price - this.singleUnit.owner_price;
-      //if (diff > 0) this.singleUnit.over_price = diff;
-      this.singleUnit.over_price = this.singleUnit.original_price - this.singleUnit.owner_price;
+  commissionChanged(whichField, e) {
+    // asking price by owner * commission percentage
+    if (this.singleUnit.commission_percentage > 0 && this.singleUnit.owner_price > 0) {
+      if (whichField == '%') {
+        this.commissionValueConstant = '%';
+        this.singleUnit.commission_value =
+          this.singleUnit.commission_percentage *
+          this.singleUnit.owner_price;
+      } else if (whichField == '#') {
+        this.commissionValueConstant = '#';
+        this.singleUnit.commission_percentage =
+          this.singleUnit.commission_value /
+          this.singleUnit.owner_price;
+      }
     }
   }
-  ngOnInit() {
+
+  calculateAskingPriceByOwner(e){
+    if (this.singleUnit.original_price && this.singleUnit.over_price) {
+      // OriginalPrice + OverPrice
+      this.singleUnit.owner_price =
+        this.singleUnit.original_price +
+        this.singleUnit.over_price;
+    }
   }
+  calculateFinalPrice(e){
+    if (this.singleUnit.owner_price && this.singleUnit.commission_value) {
+      // Asking price by Owner + commission value
+      this.singleUnit.final_price =
+        this.singleUnit.owner_price +
+        this.singleUnit.commission_value;
+    }
+  }
+  calculateFinalDownPayment(e){
+    if (this.singleUnit.original_downpayment && this.singleUnit.over_price && this.singleUnit.commission_value) {
+      // original downpayment + overprice + commission value
+      this.singleUnit.final_downpayment =
+        this.singleUnit.original_downpayment +
+        this.singleUnit.over_price +
+        this.singleUnit.commission_value ;
+    }
+  }
+
+
+  ngOnInit() {}
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
