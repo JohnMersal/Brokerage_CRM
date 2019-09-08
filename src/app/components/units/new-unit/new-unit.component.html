@@ -309,9 +309,8 @@
               <div class="form-group">
                 <label>Original price</label>
                 <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
-                  (onValueChanged)="calculateOverPrice($event)" [(value)]="singleUnit.original_price"
-                  [showSpinButtons]="false" [showClearButton]="false">
-
+                               (onValueChanged)="calculateAskingPriceByOwner($event)"
+                               [(value)]="singleUnit.original_price" [showSpinButtons]="false" [showClearButton]="false">
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
                   <input matInput #original_price maxlength="12" placeholder="Original price"
@@ -326,8 +325,9 @@
               <div class="form-group">
                 <label>Original downpayment</label>
                 <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
-                  [(value)]="singleUnit.original_downpayment" [showSpinButtons]="false" [showClearButton]="false">
-
+                  [(value)]="singleUnit.original_downpayment"
+                               (onValueChanged)="calculateFinalDownPayment($event)"
+                               [showSpinButtons]="false" [showClearButton]="false">
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
                   <input matInput #original_downpayment maxlength="12" placeholder="Original downpayment"
@@ -340,11 +340,11 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Owner price</label>
+                <label>Over price</label>
                 <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
-                  [(value)]="singleUnit.owner_price" [showSpinButtons]="false" [showClearButton]="false"
-                  (onValueChanged)="calculateOverPrice($event)">
-
+                  [(value)]="singleUnit.over_price"
+                               (onValueChanged)="calculateAskingPriceByOwner($event); calculateFinalDownPayment($event)"
+                               [showSpinButtons]="false" [showClearButton]="false">
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
                   <input matInput #owner_price maxlength="12" placeholder="Owner price"
@@ -357,10 +357,11 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Over price</label>
-                <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.over_price"
-                  [showSpinButtons]="false" [showClearButton]="false">
-
+                <label>Asking price by Owner <span class="text-info">Over price + Original price</span></label>
+                <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.owner_price"
+                               [showSpinButtons]="false" [showClearButton]="false"
+                               (onValueChanged)="calculateFinalPrice($event); updateCommissionValue($event)"
+                               readOnly="true" disabled tabIndex="-1">
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
                   <input matInput #over_price maxlength="12" placeholder="Over price"
@@ -373,11 +374,11 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Commission percentage</label>
-                <dx-number-box [class.required]="true" format="#0 %" [min]="0"
-                  (onValueChanged)="commissionChanged('%', $event)" [(value)]="singleUnit.commission_percentage"
-                  [showSpinButtons]="false" [showClearButton]="false">
-
+                <label>Commission percentage <span class="text-info">asking price by owner / commission value</span></label>
+                <dx-number-box format="#0.########## %" [min]="0"
+                               (onValueChanged)="commissionChanged('%', $event)"
+                               [(value)]="singleUnit.commission_percentage"
+                               [showSpinButtons]="false" [showClearButton]="false">
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
                   <input matInput #commission_percentage maxlength="3" placeholder="Commission percentage"
@@ -390,11 +391,10 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Commission value</label>
-                <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
-                  (onValueChanged)="commissionChanged('#', $event)" [(value)]="singleUnit.commission_value"
-                  [showSpinButtons]="false" [showClearButton]="false">
-
+                <label>Commission value <span class="text-info">asking price by owner * commission percentage</span></label>
+                <dx-number-box format="#,##0.## EGP"
+                               (onValueChanged)="commissionChanged('#', $event); calculateFinalPrice($event); calculateFinalDownPayment($event)"
+                               [(value)]="singleUnit.commission_value" [showSpinButtons]="false" [showClearButton]="false">
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
                   <input matInput #commission_value maxlength="12" placeholder="Commission value"
@@ -407,10 +407,9 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Final price</label>
-                <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
-                  [(value)]="singleUnit.final_price" [showSpinButtons]="false" [showClearButton]="false">
-
+                <label>Final price <span class="text-info">asking price by owner + Commission value</span></label>
+                <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="singleUnit.final_price"
+                               [showSpinButtons]="false" [showClearButton]="false" readOnly="true">
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
                   <input matInput #final_price maxlength="12" placeholder="Final price"
@@ -423,10 +422,9 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Final downpayment</label>
+                <label>Final downpayment <span class="text-info">original downpayment + overprice + commission value</span></label>
                 <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
-                  [(value)]="singleUnit.final_downpayment" [showSpinButtons]="false" [showClearButton]="false">
-
+                               [(value)]="singleUnit.final_downpayment" [showSpinButtons]="false" [showClearButton]="false" readOnly="true">
                 </dx-number-box>
                 <!-- <mat-form-field class="example-full-width">
                   <input matInput #final_downpayment maxlength="12" placeholder="Final downpayment"
@@ -442,7 +440,6 @@
                 <label>Description</label>
                 <dx-text-area [class.required]="true" [autoResizeEnabled]="true" [(value)]="singleUnit.unit_desc"
                   [height]="130">
-
                 </dx-text-area>
                 <!-- <mat-form-field class="example-full-width">
                   <textarea matInput placeholder="Description" (input)="singleUnit.unit_desc=$event.target.value"
