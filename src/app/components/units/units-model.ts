@@ -1,3 +1,9 @@
+export enum UnitStatusEnum {
+    For_sale = 1,
+    Sold_unknown = 2,
+    Not_for_sale = 3,
+    Sold_outside_broker = 4
+}
 export class UnitsModel {
     id: number;
     compound_id: number;
@@ -27,6 +33,10 @@ export class UnitsModel {
     original_downpayment: number;
     final_downpayment: number;
     unit_desc: string;
+    unit_code: string;
+    sold_by: number;
+    sold_to: number;
+    type_of_sale: string;
 }
 export class unitsList {
     id: number;

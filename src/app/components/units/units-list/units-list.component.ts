@@ -4,7 +4,7 @@ import { MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
-import { unitsList, UnitsModel } from '../units-model';
+import { unitsList, UnitsModel, UnitStatusEnum } from '../units-model';
 import { UnitsService } from '../units.service';
 import { AppSettings } from '../../shared/app-settings';
 import { CompoundsList } from '../../compounds/compounds';
@@ -30,29 +30,35 @@ export class UnitsListComponent implements OnInit {
   @ViewChild('changeStatusValidator') changeStatusValidator: DxValidationGroupComponent;
   @ViewChild('edit') EditComponent: NewUnitComponent;
 
+  selectedUnits = [];
   editUnit: UnitsModel = new UnitsModel();
   unitList: unitsList[] = [];
   rentUnitsList: unitsList[] = []
   saleUnitsList: unitsList[] = [];
   compoundsLookup: CompoundsList[] = [];
   brokersLookup: BrokersList[] = [];
+  unitStatusEnum = UnitStatusEnum;
   statusOption = [
     {
+      id: this.unitStatusEnum.For_sale,
       name: "For sale",
       descr: "The unit is available for sale (will be visible in units list).",
-      selected:true
+      selected:false
     },
     {
+      id: this.unitStatusEnum.Sold_unknown,
       name: "Sold unknown",
       descr: "The unit is sold (will be moved to archive).",
       selected: false
     },
     {
+      id: this.unitStatusEnum.Not_for_sale,
       name: "Not for sale now / Maybe later",
       descr: "The owner has decided to postpone the sale for another time.",
       selected: false
     },
     {
+      id: this.unitStatusEnum.Sold_outside_broker,
       name: "Sold with an outside broker",
       descr: "This means the transaction complete between you and a different company.",
       selected: false
@@ -60,17 +66,17 @@ export class UnitsListComponent implements OnInit {
   ];
   DateFormat = AppSettings.DateDisplayFormat;
   maxDate: Date = new Date();
-  selectedOption = {
+  SelectedUnitToChangeStatus = {
+    selectedUnits:[],
+    id:null,
     name: null,
     descr: null,
-    selected: false
+    selected: false,
+    isReminderSet: false,
+    selectedBrokerId: null
   };
   mainTabsSwitch: string = "sales";
   mainTabsName: string = "For sale units";
-  dataSource;
-  displayedColumns: string[] = ['select', 'compound_id', 'unit_type', 'offering_type', 'owner_name', 'details', 'original_price', 'final_price', 'commission', 'unit_desc', 'created_at', 'updated_at', 'created_by', 'edit'];
-  @ViewChild(MatSort) sort: MatSort;
-  selection = new SelectionModel<unitsList>(true, []);
   subscription: Subscription = new Subscription();
   constructor(private unitsService: UnitsService, private snackBar: MatSnackBar, private compoundService: CompoundsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private brokersService: BrokersService) {
     iconRegistry.addSvgIcon('Apartment-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Apartment.svg'));
@@ -93,25 +99,6 @@ export class UnitsListComponent implements OnInit {
         break;
     }
     this.mainTabsSwitch = targetMainTab;
-  }
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  checkboxLabel(row?: unitsList): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
   }
   getCompoundsLookup() {
     this.subscription.add(this.compoundService.getAllCompounds().subscribe(
@@ -142,8 +129,6 @@ export class UnitsListComponent implements OnInit {
             this.saleUnitsList.push(unit);
           }
         }
-        //this.dataSource = new MatTableDataSource(this.unitList);
-        //this.dataSource.sort = this.sort;
       }, error => {
         this.snackBar.open('error in loading compounds..' + error.error, '', { duration: 2000, politeness: 'polite' });
       }));
@@ -161,37 +146,6 @@ export class UnitsListComponent implements OnInit {
         }));
     }
   }
-  openToeditUnit(unit: UnitsModel) {
-    this.editUnit = {
-      id: unit.id,
-      compound_id: unit.compound_id,
-      unit_type: unit.unit_type,
-      offering_type: unit.offering_type,
-      unit_num: unit.unit_num,
-      floor_num: unit.floor_num,
-      unit_view: unit.unit_view,
-      market_price: unit.market_price,
-      owner_name: unit.owner_name,
-      owner_phone: unit.owner_phone,
-      owner_email: unit.owner_email,
-      owner_facebook: unit.owner_facebook,
-      land_area: unit.land_area,
-      building_area: unit.building_area,
-      garden_area: unit.garden_area,
-      bedrooms: unit.bedrooms,
-      bathrooms: unit.bathrooms,
-      original_price: unit.original_price,
-      owner_price: unit.owner_price,
-      over_price: unit.over_price,
-      commission_percentage: unit.commission_percentage,
-      commission_value: unit.commission_value,
-      final_price: unit.final_price,
-      original_downpayment: unit.original_downpayment,
-      final_downpayment: unit.final_downpayment,
-      unit_desc: unit.unit_desc,
-    };
-    (jQuery('#editUnitModal') as any).modal('show');
-  }
   editRecord(e: any) {
     console.log(this.displayMode);
     if (e.rowType == "data" && this.displayMode !== 'select' && (e.column.cellTemplate != "changeStatusTemplate" && e.column.cellTemplate != "SelectUnitTemplate")) {
@@ -199,13 +153,13 @@ export class UnitsListComponent implements OnInit {
       (<any>jQuery('#editUnitModal')).modal('show');
     }
   }
-  selectedUnits = [];
   openChangeStatusModal(row: unitsList) {
     if (this.displayMode == "select") {
       //if(!row._isSelected) row._isSelected = !row._isSelected;
       this.selectedRow.emit(row);
     } else {
       (<any>jQuery('#changeStatusModal')).modal('show');
+      this.SelectedUnitToChangeStatus.selectedUnits.push(row);
       this.getBrokersLookup();
     }
   }
@@ -217,12 +171,41 @@ export class UnitsListComponent implements OnInit {
         //opt.selected = e.value;
       }
     }
-    this.selectedOption = option;
+    this.SelectedUnitToChangeStatus.id = option.id;
+    this.SelectedUnitToChangeStatus.name = option.name;
+    this.SelectedUnitToChangeStatus.descr = option.descr;
+    this.SelectedUnitToChangeStatus.selected = option.selected;
+  }
+  changeUnitStatus() {
+    if (this.SelectedUnitToChangeStatus.selectedUnits[0].id && this.SelectedUnitToChangeStatus.id) {
+    this.subscription.add(this.unitsService.changeUnitStatus(this.SelectedUnitToChangeStatus.selectedUnits[0].id, this.SelectedUnitToChangeStatus.id, this.SelectedUnitToChangeStatus.selectedBrokerId).subscribe(
+        (value: any) => {
+          this.snackBar.open('Data updated successfully', 'OK', { duration: 2000, politeness: 'polite' });
+          (jQuery('#changeStatusModal') as any).modal('hide');
+        }, error => {
+          this.snackBar.open('error in saving..' + error.error, '', { duration: 2000, politeness: 'polite' });
+        }));
+    }
   }
   submitStatusChange() {
-    if (this.changeStatusValidator.instance.validate().isValid) {
-      /*let formatedDate = formatDate(this.singleActivity.activity_date, this.DateFormat, 'en-US');
-        this.singleActivity.activity_date = formatedDate;*/
+    if (this.SelectedUnitToChangeStatus) {
+      if (this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.For_sale
+        || this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.Not_for_sale
+      || this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.Sold_unknown) {
+        this.SelectedUnitToChangeStatus.selectedBrokerId = null;
+        this.changeUnitStatus();
+      } else if (this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.Not_for_sale) {
+        if (this.SelectedUnitToChangeStatus.isReminderSet) {
+          this.changeUnitStatus();
+        } else {
+          this.snackBar.open('Please set reminder to follow up', '', { duration: 2000, politeness: 'polite' });
+        }
+      } else if (this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.Sold_outside_broker) {
+        if (this.changeStatusValidator.instance.validate().isValid) {
+          this.changeUnitStatus();
+        }
+      }
+      
     }
   }
   openAddNewModel(name: string) {

@@ -33,6 +33,19 @@ export class UnitsService {
       map(res => res),
       catchError(this.handleError));
   }
+  changeUnitStatus(unit_id, status, broker_id?) {
+    var url;
+    if (broker_id) {
+      url = AppSettings.API_Url + '/backend/sales/saleUpdateUnitStatus?unit_id=' + unit_id + "&status=" + status + "&broker_id=" + broker_id;
+    } else {
+      url = AppSettings.API_Url + '/backend/sales/saleUpdateUnitStatus?unit_id=' + unit_id + "&status=" + status;
+    }
+    //const formData = new FormData();
+    //formData.append('', JSON.stringify(unit));
+    return this.http.post(url, { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
     //console.error(JSON.stringify(error));
     return observableThrowError(error.error);

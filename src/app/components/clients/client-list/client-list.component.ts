@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from "rxjs";
 import { MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
+import notify from 'devextreme/ui/notify';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ClientsList, ClientsModel } from "../clients-model";
 import { ClientService } from "../client.service";
@@ -8,6 +9,9 @@ import { AppSettings } from "../../shared/app-settings";
 import { formatDate } from '@angular/common';
 import { UnitsModel, unitsList } from '../../units/units-model';
 import { NewClientComponent } from "../new-client/new-client.component";
+import { ActivityClient } from "../../activities/ativities-model";
+import { ActivitiesService } from "../../activities/activities.service";
+import { DxValidationGroupComponent } from 'devextreme-angular';
 declare var jQuery: any;
 
 @Component({
@@ -17,6 +21,8 @@ declare var jQuery: any;
 })
 export class ClientListComponent implements OnInit {
   @ViewChild('editClientComponent') editClientComponent: NewClientComponent;
+  @ViewChild("activityStatusValidator") activityStatusValidator: DxValidationGroupComponent;
+  @ViewChild("resaleTypeValidator") resaleTypeValidator: DxValidationGroupComponent;
   editClient: ClientsModel = new ClientsModel();
   clientList: ClientsList[] = [];
   areasLookup = [];
@@ -26,21 +32,26 @@ export class ClientListComponent implements OnInit {
   resaleTypeOptionObj = {
     type: null,
     selectedUnit: [],
+    selectedClient: null,
+    activity_type: "",
+    activity_status: "",
+    feedback: "",
+
   };
+  activitysubmit: ActivityClient = new ActivityClient();
   dataSource;
-  displayedColumns: string[] = ['select', 'first_name', 'second_name', 'gender', 'active', 'type', 'mobile', 'created_at', 'updated_at', 'created_by', 'edit'];
-  @ViewChild(MatSort) sort: MatSort;
-  selection = new SelectionModel<ClientsList>(true, []);
   subscription: Subscription = new Subscription();
-  constructor(private clientsService: ClientService, private snackBar: MatSnackBar) {
+  constructor(private clientsService: ClientService, private activitiesService: ActivitiesService) {
     this.getAllClients();
   }
   changeMainTabs(targetMainTab: string) {
     switch (targetMainTab) {
       case "primary":
+        this.activitysubmit.type_of_sale = "primary";
         this.mainTabsName = "Primary";
         break;
       case "resale":
+        this.activitysubmit.type_of_sale = "";
         this.mainTabsName = "Resale";
         break;
     }
@@ -48,39 +59,25 @@ export class ClientListComponent implements OnInit {
   }
   resaleTypeOptionChanged(e) {
     console.log(e, this.resaleTypeOptionObj.type);
+    if (e.value == "Internal SALE (Broker from within the company)") {
+      this.activitysubmit.type_of_sale = "internal";
+    } else if (e.value == "External SALE ( External Broker )") {
+      this.activitysubmit.type_of_sale = "external";
+    }
   }
   selectedUnit(row: unitsList) {
     this.resaleTypeOptionObj.selectedUnit[0] = row;
+    notify("You select owned by: " + row.owner_name, "success");
   }
   ngOnInit() {
-  }
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  checkboxLabel(row?: ClientsList): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
   }
   getAllClients() {
     this.subscription.add(this.clientsService.getAllClients().subscribe(
       (value: any) => {
         this.clientList = value.data;
         this.dataSource = new MatTableDataSource(this.clientList);
-        this.dataSource.sort = this.sort;
       }, error => {
-        this.snackBar.open("error in loading clients.." + error.error, "", { duration: 2000, politeness: "polite" });
+        notify("error in loading clients.." + error.error, "error");
       }));
   }
   editRecord(e: any) {
@@ -102,7 +99,41 @@ export class ClientListComponent implements OnInit {
     return formatedDate;
   }
   openChangeStatusModal(row: ClientsList) {
+    this.resaleTypeOptionObj.selectedClient = row;
     (<any>jQuery('#changeStatusModal')).modal('show');
+  }
+  submitActivity() {
+    this.activitysubmit.unit_id = this.resaleTypeOptionObj.selectedUnit[0].id;
+    this.activitysubmit.type_of_sale = this.resaleTypeOptionObj.type;
+    this.activitysubmit.activity_date = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+    this.activitysubmit.activity_status = this.resaleTypeOptionObj.activity_status;
+    this.activitysubmit.activity_type = this.resaleTypeOptionObj.activity_type;
+    this.activitysubmit.client_id = this.resaleTypeOptionObj.selectedClient.id;
+    this.activitysubmit.feedback = this.resaleTypeOptionObj.feedback;
+    this.subscription.add(this.activitiesService.submitActivity(this.activitysubmit).subscribe(
+      (value: any) => {
+        notify("Activity submitted successfully", "success");
+      }, error => {
+        notify("error in submitting.." + error.Message, "error");
+      }));
+  }
+  backToStep(stepNum: number) {
+    if (stepNum == 1) {
+      (<any>jQuery('#collapseOne')).collapse();
+    } else if (stepNum == 2) {
+      (<any>jQuery('#collapseTwo')).collapse();
+    }
+  }
+  goToStep(stepNum: number) {
+    if (stepNum == 2) {
+      if (this.activityStatusValidator.instance.validate().isValid) {
+        (<any>jQuery('#collapseTwo')).collapse();
+      }
+    } else if (stepNum == 3) {
+      if (this.resaleTypeValidator.instance.validate().isValid) {
+        (<any>jQuery('#collapseThree')).collapse();
+      }
+    }
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
