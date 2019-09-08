@@ -45,6 +45,16 @@
         </dx-text-box>
       </div>
     </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Company</label>
+        <dx-text-box [class.required]="true" [(value)]="singleBroker.company_name">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Company is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-text-box>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-sm-4">

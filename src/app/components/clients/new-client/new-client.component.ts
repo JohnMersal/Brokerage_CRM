@@ -6,6 +6,7 @@ import { ClientService } from "../client.service";
 import { AreasService } from '../../areas/areas.service';
 import notify from 'devextreme/ui/notify';
 import { DxValidationGroupComponent } from 'devextreme-angular';
+import { ActivitiesListComponent } from "../../activities/activities-list/activities-list.component";
 
 @Component({
   selector: 'app-new-client',
@@ -16,6 +17,7 @@ export class NewClientComponent implements OnInit {
   @Output() afterSave = new EventEmitter();
   @Input() updateMode: boolean = false;
   @ViewChild('DataValidator') DataValidator: DxValidationGroupComponent;
+  @ViewChild('activitiesListComponent') activitiesListComponent: ActivitiesListComponent;
   clientFormGroup: FormGroup;
   singleClient: ClientsModel = new ClientsModel();
   areasLookup = [];
@@ -60,6 +62,9 @@ export class NewClientComponent implements OnInit {
     }
   }
   ngOnInit() {
+  }
+  reloadActivities() {
+    this.activitiesListComponent.getAllActivities();
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

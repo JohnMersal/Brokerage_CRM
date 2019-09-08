@@ -5,7 +5,7 @@ export class BrokerModel {
     mobile: number;
     gender: string;
     email: string;
-    password: string;
+    company_name: string;
 }
 export class BrokersList{
     id: number;
