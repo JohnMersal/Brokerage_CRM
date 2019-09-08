@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -11,9 +11,10 @@ import { CompoundsList } from '../../compounds/compounds';
 import { CompoundsService } from '../../compounds/compounds.service';
 import { formatDate } from '@angular/common';
 import { NewUnitComponent } from '../new-unit/new-unit.component';
-import { BrokersList } from '../../brokers/broker-model';
+import {BrokerModel, BrokersList} from '../../brokers/broker-model';
 import { BrokersService } from '../../brokers/brokers.service';
 import { DxValidationGroupComponent } from 'devextreme-angular';
+import notify from 'devextreme/ui/notify';
 declare var jQuery: any;
 
 @Component({
@@ -21,68 +22,72 @@ declare var jQuery: any;
   templateUrl: './units-list.component.html',
   styleUrls: ['./units-list.component.scss']
 })
-export class UnitsListComponent implements OnInit {
-  @Input() displayMode: string = '';
+export class UnitsListComponent implements OnInit, OnDestroy {
+  @Input() displayMode = '';
   /*
    * select: to make evry row in grid selective
   */
   @Output() selectedRow = new EventEmitter();
   @ViewChild('changeStatusValidator') changeStatusValidator: DxValidationGroupComponent;
   @ViewChild('edit') EditComponent: NewUnitComponent;
+  @Output() SaveBrokerEvent = new EventEmitter();
+
 
   selectedUnits = [];
   editUnit: UnitsModel = new UnitsModel();
   unitList: unitsList[] = [];
-  rentUnitsList: unitsList[] = []
+  rentUnitsList: unitsList[] = [];
   saleUnitsList: unitsList[] = [];
   compoundsLookup: CompoundsList[] = [];
   brokersLookup: BrokersList[] = [];
+  // No need for all brokers list
+  singleBroker: BrokerModel = new BrokerModel();
+
   unitStatusEnum = UnitStatusEnum;
   statusOption = [
     {
       id: this.unitStatusEnum.For_sale,
-      name: "For sale",
-      descr: "The unit is available for sale (will be visible in units list).",
-      selected:false
+      name: 'For sale',
+      descr: 'The unit is available for sale (will be visible in units list).',
+      selected: false
     },
     {
       id: this.unitStatusEnum.Sold_unknown,
-      name: "Sold unknown",
-      descr: "The unit is sold (will be moved to archive).",
+      name: 'Sold unknown',
+      descr: 'The unit is sold (will be moved to archive).',
       selected: false
     },
     {
       id: this.unitStatusEnum.Not_for_sale,
-      name: "Not for sale now / Maybe later",
-      descr: "The owner has decided to postpone the sale for another time.",
+      name: 'Not for sale now / Maybe later',
+      descr: 'The owner has decided to postpone the sale for another time.',
       selected: false
     },
     {
       id: this.unitStatusEnum.Sold_outside_broker,
-      name: "Sold with an outside broker",
-      descr: "This means the transaction complete between you and a different company.",
+      name: 'Sold with an outside broker',
+      descr: 'This means the transaction complete between you and a different company.',
       selected: false
     }
   ];
   DateFormat = AppSettings.DateDisplayFormat;
   maxDate: Date = new Date();
   SelectedUnitToChangeStatus = {
-    selectedUnits:[],
-    id:null,
+    selectedUnits: [],
+    id: null,
     name: null,
     descr: null,
     selected: false,
     isReminderSet: false,
     selectedBrokerId: null
   };
-  mainTabsSwitch: string = "sales";
-  mainTabsName: string = "For sale units";
+  mainTabsSwitch = 'sales';
+  mainTabsName = 'For sale units';
   subscription: Subscription = new Subscription();
-  constructor(private unitsService: UnitsService, private snackBar: MatSnackBar, private compoundService: CompoundsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private brokersService: BrokersService) {
-    iconRegistry.addSvgIcon('Apartment-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Apartment.svg'));
-    iconRegistry.addSvgIcon('Standalone-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Standalone.svg'));
-    iconRegistry.addSvgIcon('Townhouse-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/Townhouse.svg'));
-    iconRegistry.addSvgIcon('TwinVilla-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/TwinVilla.svg'));
+  constructor(private unitsService: UnitsService,
+              private snackBar: MatSnackBar,
+              private compoundService: CompoundsService,
+              private brokersService: BrokersService) {
     this.getAllUnits();
     this.getCompoundsLookup();
   }
@@ -113,7 +118,7 @@ export class UnitsListComponent implements OnInit {
       (value: any) => {
         this.brokersLookup = value.data;
       }, error => {
-        this.snackBar.open("error in loading brokers list.." + error.error, "", { duration: 2000, politeness: "polite" });
+        this.snackBar.open('error in loading brokers list..' + error.error, '', { duration: 2000, politeness: 'polite' });
       }));
   }
   getAllUnits() {
@@ -148,23 +153,23 @@ export class UnitsListComponent implements OnInit {
   }
   editRecord(e: any) {
     console.log(this.displayMode);
-    if (e.rowType == "data" && this.displayMode !== 'select' && (e.column.cellTemplate != "changeStatusTemplate" && e.column.cellTemplate != "SelectUnitTemplate")) {
+    if (e.rowType == 'data' && this.displayMode !== 'select' && (e.column.cellTemplate != 'changeStatusTemplate' && e.column.cellTemplate != 'SelectUnitTemplate')) {
       Object.assign(this.EditComponent.singleUnit, e.data);
-      (<any>jQuery('#editUnitModal')).modal('show');
+      (jQuery('#editUnitModal') as any).modal('show');
     }
   }
   openChangeStatusModal(row: unitsList) {
-    if (this.displayMode == "select") {
+    if (this.displayMode == 'select') {
       //if(!row._isSelected) row._isSelected = !row._isSelected;
       this.selectedRow.emit(row);
     } else {
-      (<any>jQuery('#changeStatusModal')).modal('show');
+      (jQuery('#changeStatusModal') as any).modal('show');
       this.SelectedUnitToChangeStatus.selectedUnits.push(row);
       this.getBrokersLookup();
     }
   }
   onStatusChanged(e, option) {
-    for (let opt of this.statusOption){
+    for (const opt of this.statusOption){
       if (opt.name != option.name) {
         opt.selected = false;
       } else {
@@ -205,17 +210,17 @@ export class UnitsListComponent implements OnInit {
           this.changeUnitStatus();
         }
       }
-      
+
     }
   }
   openAddNewModel(name: string) {
-    if (name == "broker") {
-      (<any>jQuery('#addNewBrokerModal')).modal('show');
+    if (name == 'broker') {
+      (jQuery('#addNewBrokerModal') as any).modal('show');
     }
   }
   afterSaveBroker(e) {
     this.getBrokersLookup();
-    (<any>jQuery('#addNewBrokerModal')).modal('hide');
+    (jQuery('#addNewBrokerModal') as any).modal('hide');
 
   }
   afterSave() {
@@ -239,5 +244,18 @@ export class UnitsListComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+
+
+  // saveBroker(e) {
+  //   this.subscription.add(this.brokersService.saveBroker(this.singleBroker).subscribe(
+  //     (value: any) => {
+  //       this.SaveBrokerEvent.emit({ id: value, data: this.singleBroker });
+  //       notify('Activity saved successfully', 'success');
+  //       this.singleBroker = new BrokerModel();
+  //     }, error => {
+  //       notify('error in saving..' + error.meta.message, 'error');
+  //     }));
+  // }
 
 }

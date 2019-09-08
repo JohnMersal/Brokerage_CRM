@@ -9,3 +9,28 @@
 .modal-content {
   background-color:$bodycolor;
 }
+
+.UnitStatusDialog{
+  .modal-content {
+    background-color:#fff;
+    padding:24px;
+  }
+
+  .optionBg{
+    background-color:#F6F6F9;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    /deep/ label{
+      margin-bottom:0px !important;
+    }
+    /deep/ .mat-checkbox-inner-container{
+      margin-right:16px;
+    }
+    &.activeOption{
+      background-color:mat-color($mat-leads-orange, 100);
+    }
+    .optionName{
+      font-weight: bold;
+    }
+  }
+}
