@@ -1,32 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClientXsrfModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule, HttpClientXsrfModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SpinnerComponent } from './components/shared/spinner.component';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule, MatIconModule, MatListModule, MatProgressBarModule, MatSelectModule, MatSidenavModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatProgressSpinnerModule, MatDialogModule, MatSliderModule, MatSnackBarModule, MatTabsModule, MatInputModule, MatTableModule, MatCheckboxModule, MatButtonToggleModule, MatDatepickerModule, MatNativeDateModule, MatStepperModule, MatRadioModule } from '@angular/material';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { AppRoutingModule } from './app-routing.module';
 import { DevExtremeModule, DxValidatorModule, DxValidationSummaryModule, DxDataGridModule } from 'devextreme-angular';
-import { DxFormModule } from "devextreme-angular";
-import { DxSwitchModule } from "devextreme-angular"
-import { DxAccordionModule } from "devextreme-angular";
+import { DxFormModule } from 'devextreme-angular';
+import { DxSwitchModule } from 'devextreme-angular';
+import { DxAccordionModule } from 'devextreme-angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NotifierModule, NotifierOptions } from 'angular-notifier';
-import { TimeagoModule } from 'ngx-timeago';
+import { NotifierModule, NotifierOptions } from 'angular-notifier'; // https://www.npmjs.com/package/angular-notifier
+import { TimeagoModule } from 'ngx-timeago'; // https://www.npmjs.com/package/ngx-timeago
 
-import { NumbersOnlyDirective } from "../app/components/shared/numbers-only-directive";
-import { MobileSidebarToggleDirective, RightSidebarToggleDirective } from "../app/components/shared/sidebar.directive";
+import { NumbersOnlyDirective } from '../app/components/shared/numbers-only-directive';
+import { MobileSidebarToggleDirective, RightSidebarToggleDirective } from '../app/components/shared/sidebar.directive';
 
 import { AppComponent } from './app.component';
-import { NavigationComponent } from "./components/shared/header-navigation/navigation.component";
-import { SidebarComponent } from "./components/shared/sidebar/sidebar.component";
+import { NavigationComponent } from './components/shared/header-navigation/navigation.component';
+import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { NewLeadsComponent } from './components/leads/new-leads/new-leads.component';
 import { LeadsListComponent } from './components/leads/leads-list/leads-list.component';
 import { EmployeesListComponent } from './components/employees/employees-list.component';
 import { NewEmployeeComponent } from './components/employees/new-employee/new-employee.component';
-import { EditEmployeeComponent } from "./components/employees/edit-employee/edit-employee.component";
+import { EditEmployeeComponent } from './components/employees/edit-employee/edit-employee.component';
 import { Interceptor } from './Interceptor';
 import { AdminComponent } from './components/admin/admin.component';
 import { ToastComponent } from './components/shared/toast/toast.component';

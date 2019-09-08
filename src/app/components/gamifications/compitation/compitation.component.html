@@ -1,3 +1,78 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-title-box">
+      <h2 class="page-title mat-h1">Create Competition</h2>
+    </div><!--end page-title-box-->
+  </div>
+</div><!--end col-->
+
+<!--Competition Section-->
+<div class="row">
+  <div class="col-4">
+    <div class="competitionBlock">
+      <img src="assets/images/competition/wavecomp.svg" alt="" class="wave">
+      <img src="assets/images/competition/challengetitle.svg" alt="">
+      <div class="title col-12">Date</div>
+      <div class="formBg fb-60">
+        <div class="form-group">
+          <label>From</label>
+          <dx-date-box [value]="now" placeholder="10/16/2018" [showClearButton]="true" type="datetime"></dx-date-box>
+        </div>
+        <div class="form-group">
+          <label>To</label>
+          <dx-date-box [value]="tomorrow" placeholder="10/16/2018" [showClearButton]="true" type="datetime"></dx-date-box>
+        </div>
+      </div>
+      <div class="row">
+        <div class="title col-12">Tasks</div>
+        <div class="singleTask col-12 mb-2">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <dx-number-box [class.required]="true" [showSpinButtons]="false"
+                               #getValue1
+                               [showClearButton]="false" [value]="1">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="You must add a number for the task"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-number-box>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <dx-select-box [dataSource]="[ {name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
+                               [value]="Calls"
+                               #getValue2
+                               displayExpr="name"
+                               valueExpr="name"
+                               [searchEnabled]="true">
+                </dx-select-box>
+              </div>
+            </div>
+            <div class="col-12 text-warning">Make {{getValue1.value}} {{getValue2.value}}</div>
+          </div>
+        </div>
+        <div class="col-12">
+          <button mat-stroked-button><mat-icon>add_box</mat-icon> Add Another Task</button>
+        </div>
+      </div>
+      <div class="title col-12">Tasks</div>
+      <div class="form-group col-12">
+        <dx-number-box format="#,##0.## Points;(#,##0.## Points)">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="You must add reward points"></dxi-validation-rule>
+          </dx-validator>
+        </dx-number-box>
+      </div>
+      <div class="col-12">
+        <button mat-flat-button color="accent" style="width: 100%;">Publish Competition</button>
+      </div>
+      <img src="assets/images/competition/pacman.svg" alt="" class="pacman">
+    </div>
+  </div>
+</div>
+<!--END Competition Section-->
+
     <fieldset>
       <legend>All fixed point</legend>
       <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="fixedPointsList" [showRowLines]="true"
@@ -39,4 +114,3 @@
     </fieldset>
 
 
- 

@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamificationsComponent implements OnInit {
   mainTabsName: string = "";
-  mainTabsSwitch: string = "HappyHours";
+  mainTabsSwitch: string = "TargetPoints";
   constructor() { }
   changeMainTabs(targetMainTab: string) {
     switch (targetMainTab) {
