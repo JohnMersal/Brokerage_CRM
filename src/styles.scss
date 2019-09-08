@@ -138,16 +138,25 @@ html, body{
   //}
   .dx-datagrid-borders > .dx-datagrid-pager, .dx-datagrid-borders > .dx-datagrid-headers, .dx-datagrid-borders > .dx-datagrid-filter-panel{
     border:0px solid !important;
+    font-size:14px;
   }
   .dx-datagrid-borders > .dx-datagrid-headers, .dx-datagrid-borders > .dx-datagrid-rowsview{
     border:0px solid !important;
+    font-size:14px;
   }
   .dx-datagrid-borders > .dx-datagrid-total-footer{
     border:0px solid #e0e0e0;
     border-top:1px solid #e0e0e0;
+    font-size:14px;
   }
   .dx-datagrid-headers.dx-header-multi-row .dx-row.dx-header-row > td{
     border-right:1px solid rgba(255,255,255,0.3)
+  }
+  .dx-datagrid-headers .dx-datagrid-table .dx-row > td{
+    font-size:16px;
+  }
+  .dx-datagrid .dx-row > td{
+    font-size:16px;
   }
   .dx-datagrid-headers .dx-header-row {
     background-color: mat-color($mat-leads-blue, 500);
