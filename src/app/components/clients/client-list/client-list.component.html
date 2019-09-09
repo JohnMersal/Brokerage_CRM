@@ -58,13 +58,13 @@
     <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
       caption="Updated at" [allowFiltering]="false" [allowEditing]="false" [visible]="true" [width]="'auto'">
     </dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Status" [allowFiltering]="true"
+    <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Status" [allowFiltering]="true"
       [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="changeStatusTemplate">
     </dxi-column>
     <div *dxTemplate="let data of 'changeStatusTemplate'">
       <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
         class="mat-primary">Change status</button>
-    </div>
+    </div> -->
 
         <dxo-summary>
           <dxi-total-item column="first_name" summaryType="count">
