@@ -45,7 +45,7 @@
           <!--fixed Column-->
           <dxi-column cssClass="grid-cell" dataType="string" dataField="unit_code" caption="Unit code"
                       [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-
+          
           <dxi-column cssClass="grid-cell" dataType="string" dataField="compound_id" caption="Compound"
                       [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
                       cellTemplate="compound_idTemplate"></dxi-column>
@@ -274,117 +274,57 @@
 </div>
 <div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel"
   aria-hidden="true">
-  <div class="UnitStatusDialog modal-dialog-centered modal-dialog modal-dialog-scrollable modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changeStatusModalLabel">Status</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div class="modal-body">
-        <div class="row d-flex justify-content-between align-items-start">
-          <div class="col-7">
-            <div class="row">
-              <h2 class="mat-h2 col-12">Unit status</h2>
-              <div class="col-12">
-                <dx-validation-group #changeStatusValidator>
-                  <div *ngFor="let opt of statusOption">
-                    <div class="optionBg" [class.activeOption]="opt.selected">
-                      <mat-checkbox
-                        [(ngModel)]="opt.selected"
-                        (click)="onStatusChanged($event, opt)">
-                        <div class="optionName">{{opt.name}}</div>
-                        <div class="optionDesc">{{opt.descr}}</div>
-                      </mat-checkbox>
-<!--                      <dx-check-box [(value)]="opt.selected" [width]="'auto'" [text]="opt.name"-->
-<!--                                    (click)="onStatusChanged($event, opt)"></dx-check-box>-->
-<!--                      <p>{{opt.descr}}</p>-->
-                    <div *ngIf="opt.name == 'Not for sale now / Maybe later' && opt.selected">
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <div class="form-group">
-                            <label>Remind Me in:</label>
-                            <dx-date-box [class.required]="true" width="auto" [displayFormat]="DateFormat" [min]="maxDate"
-                                         [disabled]="!(SelectedUnitToChangeStatus.name == 'Not for sale now / Maybe later')">
-                              <dx-validator>
-                                <dxi-validation-rule type="required" message="Date is Required"></dxi-validation-rule>
-                              </dx-validator>
-                            </dx-date-box>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div *ngIf="opt.name == 'Sold with an outside broker'  && opt.selected">
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <label>Broker:</label>
-                          <div class="extraFeature" *ngIf="SelectedUnitToChangeStatus.name == 'Sold with an outside broker'"><a
-                            class="addNewRecord" (click)="openAddNewModel('broker')"><i class="fas fa-plus"></i> Add new</a></div>
-                          <dx-select-box [class.required]="true" [dataSource]="brokersLookup" displayExpr="first_name"
-                                         valueExpr="id" [searchEnabled]="true" [disabled]="!(SelectedUnitToChangeStatus.name == 'Sold with an outside broker')">
-                            <dx-validator>
-                              <dxi-validation-rule type="required" message="Broker is Required"></dxi-validation-rule>
-                            </dx-validator>
-                          </dx-select-box>
-                        </div>
-<!--                        <div class="col-sm-4">-->
-<!--                          <div class="form-group">-->
-<!--                            <mat-form-field class="example-form-field">-->
-<!--                              <input matInput type="text" placeholder="Company Name" [(ngModel)]="singleBroker.company_name">-->
-<!--                              <button mat-button *ngIf="singleBroker.company_name" matSuffix mat-icon-button aria-label="Clear" (click)="singleBroker.company_name=''">-->
-<!--                                <mat-icon>close</mat-icon>-->
-<!--                              </button>-->
-<!--                            </mat-form-field>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-4">-->
-<!--                          <div class="form-group">-->
-<!--                            <mat-form-field class="example-form-field">-->
-<!--                              <input matInput type="text" placeholder="Company Name" [(ngModel)]="singleBroker.second_name">-->
-<!--                              <button mat-button *ngIf="singleBroker.second_name" matSuffix mat-icon-button aria-label="Clear" (click)="singleBroker.second_name=''">-->
-<!--                                <mat-icon>close</mat-icon>-->
-<!--                              </button>-->
-<!--                            </mat-form-field>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-4">-->
-<!--                          <div class="form-group">-->
-<!--                            <mat-form-field class="example-form-field">-->
-<!--                              <input matInput type="text" placeholder="Company Name" [(ngModel)]="singleBroker.gender">-->
-<!--                              <button mat-button *ngIf="singleBroker.gender" matSuffix mat-icon-button aria-label="Clear" (click)="singleBroker.gender=''">-->
-<!--                                <mat-icon>close</mat-icon>-->
-<!--                              </button>-->
-<!--                            </mat-form-field>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-4">-->
-<!--                          <div class="form-group">-->
-<!--                            <mat-form-field class="example-form-field">-->
-<!--                              <input matInput type="text" placeholder="Broker name" [(ngModel)]="singleBroker.first_name ">-->
-<!--                              <button mat-button *ngIf="singleBroker.first_name" matSuffix mat-icon-button aria-label="Clear" (click)="singleBroker.first_name = ''">-->
-<!--                                <mat-icon>close</mat-icon>-->
-<!--                              </button>-->
-<!--                            </mat-form-field>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-4">-->
-<!--                          <div class="form-group">-->
-<!--                            <mat-form-field class="example-form-field">-->
-<!--                              <input matInput type="number" placeholder="Broker phone number" [(ngModel)]="singleBroker.mobile">-->
-<!--                            </mat-form-field>-->
-<!--                          </div>-->
-<!--                        </div>-->
-                      </div>
-                    </div>
-                    </div>
+        <dx-validation-group #changeStatusValidator>
+          <div *ngFor="let opt of statusOption">
+            <dx-check-box [(value)]="opt.selected" [width]="'auto'" [text]="opt.name"
+              (click)="onStatusChanged($event, opt)"></dx-check-box>
+            <p>{{opt.descr}}</p>
+            <div *ngIf="opt.name == 'Not for sale now / Maybe later'">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Remind Me in:</label>
+                    <dx-date-box [class.required]="true" width="auto" [displayFormat]="DateFormat" [min]="maxDate"
+                      [disabled]="!(SelectedUnitToChangeStatus.name == 'Not for sale now / Maybe later')">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" message="Date is Required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-date-box>
                   </div>
-                </dx-validation-group>
+                </div>
               </div>
-              <div class="mt-2 col-12 d-flex align-items-center justify-content-start">
-                <button type="button" class="w-25 mx-1" data-dismiss="modal" aria-label="Close" mat-stroked-button >Cancel</button>
-                <button type="button" class="w-25 mx-1" (click)="submitStatusChange();" mat-flat-button color="primary">Change status</button>
+            </div>
+            <div *ngIf="opt.name == 'Sold with an outside broker'">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Broker:</label>
+                    <div class="extraFeature" *ngIf="SelectedUnitToChangeStatus.name == 'Sold with an outside broker'"><a
+                        class="addNewRecord" (click)="openAddNewModel('broker')"><i class="fas fa-plus"></i> Add new</a></div>
+                    <dx-select-box [class.required]="true" [dataSource]="brokersLookup" displayExpr="first_name"
+                      valueExpr="id" [searchEnabled]="true" [disabled]="!(SelectedUnitToChangeStatus.name == 'Sold with an outside broker')">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" message="Broker is Required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-select-box>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-5 align-self-center">
-            <img class="img-responsive" src="assets/images/illustration/unitstatusIllustration.svg" alt="">
-          </div>
+        </dx-validation-group>
+        <div>
+          <button type="button" (click)="submitStatusChange()" mat-flat-button color="primary"
+            class="mat-primary">Change status</button>
         </div>
       </div>
     </div>
@@ -392,7 +332,7 @@
 </div>
 <div class="modal fade" id="addNewBrokerModal" tabindex="-1" role="dialog" aria-labelledby="addNewBrokerModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog-centered modal-dialog modal-dialog-scrollable modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addNewBrokerModalLabel">Add new broker</h5>

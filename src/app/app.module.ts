@@ -57,6 +57,7 @@ import { BrokersListComponent } from './components/brokers/brokers-list/brokers-
 import { CheckConflictComponent } from './components/requests/conflicts/check-conflict/check-conflict.component';
 import { SolveconflictsComponent } from './components/requests/conflicts/solveconflicts/solveconflicts.component';
 import { RequestsComponent } from './components/requests/requests.component';
+import { ApprovalListComponent } from './components/requests/approval-list/approval-list.component';
 
 // Overriding Notifier Options
 const notifierDefaultOptions: NotifierOptions = {
@@ -98,7 +99,7 @@ const notifierDefaultOptions: NotifierOptions = {
     TargetPointsComponent, LoginComponent,
     PermissionListComponent, NewBrokerComponent,
     BrokersListComponent, CheckConflictComponent,
-    SolveconflictsComponent, RequestsComponent
+    SolveconflictsComponent, RequestsComponent, ApprovalListComponent
   ],
   imports: [
     HttpClientModule,

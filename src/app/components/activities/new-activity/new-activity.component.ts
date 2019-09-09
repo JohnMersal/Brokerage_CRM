@@ -18,7 +18,7 @@ export class NewActivityComponent implements OnInit {
   _clientId: number;
   @Input()
   set clientId(value){
-    this.singleActivity.id = value;
+    this.singleActivity.client_id = value;
     this._clientId = value;
   };
   get clientId() {
@@ -32,7 +32,7 @@ export class NewActivityComponent implements OnInit {
   maxDate: Date = new Date();
   subscription: Subscription = new Subscription();
   constructor(private clientsService: ClientService, private activitiesService: ActivitiesService) {
-    if (!this.clientId) this.getClientsLookup();
+    //if (!this.clientId) this.getClientsLookup();
   }
   getClientsLookup() {
     this.subscription.add(this.clientsService.getAllClients().subscribe(
@@ -49,8 +49,8 @@ export class NewActivityComponent implements OnInit {
       if (this.updateMode) {
         this.subscription.add(this.activitiesService.updateActivity(this.singleActivity).subscribe(
           (value: any) => {
-            notify("Activity updated successfully", "success");
             this.afterSave.emit({ id: value, data: this.singleActivity });
+            notify("Activity updated successfully", "success");
             this.singleActivity = new ActivityModel();
           }, error => {
             notify(error.meta.message, "error");

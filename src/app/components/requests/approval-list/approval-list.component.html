@@ -1,0 +1,38 @@
+<dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="approvalList" [showRowLines]="true"
+  [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+  [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+  <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+  <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+  <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-export [enabled]="true" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+  <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+  <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+  <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+  <!--fixed Column-->
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="flag" caption="Flag" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'">
+  </dxi-column>
+
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="operationCode" caption="Operation Code"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="operationDesc" caption="Operation desc."
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Action" [allowFiltering]="true"
+    [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="action_dataTemplate">
+  </dxi-column>
+
+  <div *dxTemplate="let data of 'action_dataTemplate'">
+    <button type="button" (click)="approveRequest(data.data)" mat-flat-button color="primary" class="mat-primary">Approve</button>
+    <button type="button" (click)="rejectRequest(data.data)" mat-flat-button color="primary"
+      class="mat-primary">Reject</button>
+  </div>
+
+  <dxo-summary>
+    <dxi-total-item column="flag" summaryType="count">
+    </dxi-total-item>
+  </dxo-summary>
+</dx-data-grid>

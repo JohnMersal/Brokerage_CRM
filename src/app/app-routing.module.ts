@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'toDo', component: TodosListComponent, canActivate: [AdminGuard] },
   { path: 'clients', component: ClientListComponent, canActivate: [AdminGuard] },
   { path: 'addClient', component: NewClientComponent, canActivate: [AdminGuard] },
+  { path: 'client/:ID', component: NewClientComponent, canActivate: [AdminGuard] },
   { path: 'addTodo', component: NewTodoComponent, canActivate: [AdminGuard] },
   { path: 'gamifications', component: GamificationsComponent, canActivate: [AdminGuard] },
   { path: 'requests', component: RequestsComponent, canActivate: [AdminGuard] },

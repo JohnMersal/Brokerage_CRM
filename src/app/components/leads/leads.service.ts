@@ -41,6 +41,13 @@ export class LeadsService {
       map(res => res),
       catchError(this.handleError));
   }
+  deleteSingleLead(leadId) {
+    const url = AppSettings.leads_URL + '/' + leadId + '/destroy';
+    return this.http.post(url, { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+    
+  }
   private handleError(error: HttpErrorResponse) {
     //console.error(JSON.stringify(error));
     return observableThrowError(error.error);

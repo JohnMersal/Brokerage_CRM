@@ -17,6 +17,11 @@ export class ClientService {
     return this.http.get(url).pipe(
       map(res => res), catchError(this.handleError));
   }
+  getClientById(id: number) {
+    const url = `${AppSettings.client_URL}` + '/' + id + '/edit';
+    return this.http.get(url).pipe(
+      map(res => res), catchError(this.handleError));
+  }
   saveClient(client: ClientsModel) {
     const url = AppSettings.client_URL + '/store';
     //const formData = new FormData();

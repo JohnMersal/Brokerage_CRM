@@ -12,6 +12,7 @@ import { NewClientComponent } from "../new-client/new-client.component";
 import { ActivityClient } from "../../activities/ativities-model";
 import { ActivitiesService } from "../../activities/activities.service";
 import { DxValidationGroupComponent } from 'devextreme-angular';
+import { Router } from '@angular/router';
 declare var jQuery: any;
 
 @Component({
@@ -41,7 +42,7 @@ export class ClientListComponent implements OnInit {
   activitysubmit: ActivityClient = new ActivityClient();
   dataSource;
   subscription: Subscription = new Subscription();
-  constructor(private clientsService: ClientService, private activitiesService: ActivitiesService) {
+  constructor(private clientsService: ClientService, private activitiesService: ActivitiesService, private router: Router,) {
     this.getAllClients();
   }
   changeMainTabs(targetMainTab: string) {
@@ -82,11 +83,12 @@ export class ClientListComponent implements OnInit {
   }
   editRecord(e: any) {
     if (e.rowType == "data" && e.column.cellTemplate != "changeStatusTemplate") {
-      Object.assign(this.editClientComponent.singleClient, e.data);
+      this.router.navigate(['client/'+e.data.id]);
+      /*Object.assign(this.editClientComponent.singleClient, e.data);
       this.editClientComponent.singleClient.budget_from = e.data.client.budget_from;
       this.editClientComponent.singleClient.budget_to = e.data.client.budget_to;
       this.editClientComponent.singleClient.request_type = e.data.client.request_type;
-      (<any>jQuery('#editClientModal')).modal('show');
+      (<any>jQuery('#editClientModal')).modal('show');*/
     }
   }
   afterSaveClient(e) {
@@ -103,19 +105,19 @@ export class ClientListComponent implements OnInit {
     (<any>jQuery('#changeStatusModal')).modal('show');
   }
   submitActivity() {
-    this.activitysubmit.unit_id = this.resaleTypeOptionObj.selectedUnit[0].id;
-    this.activitysubmit.type_of_sale = this.resaleTypeOptionObj.type;
-    this.activitysubmit.activity_date = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
-    this.activitysubmit.activity_status = this.resaleTypeOptionObj.activity_status;
-    this.activitysubmit.activity_type = this.resaleTypeOptionObj.activity_type;
-    this.activitysubmit.client_id = this.resaleTypeOptionObj.selectedClient.id;
-    this.activitysubmit.feedback = this.resaleTypeOptionObj.feedback;
-    this.subscription.add(this.activitiesService.submitActivity(this.activitysubmit).subscribe(
-      (value: any) => {
-        notify("Activity submitted successfully", "success");
-      }, error => {
-        notify("error in submitting.." + error.Message, "error");
-      }));
+    // this.activitysubmit.unit_id = this.resaleTypeOptionObj.selectedUnit[0].id;
+    // this.activitysubmit.type_of_sale = this.resaleTypeOptionObj.type;
+    // this.activitysubmit.activity_date = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+    // this.activitysubmit.activity_status = this.resaleTypeOptionObj.activity_status;
+    // this.activitysubmit.activity_type = this.resaleTypeOptionObj.activity_type;
+    // this.activitysubmit.client_id = this.resaleTypeOptionObj.selectedClient.id;
+    // this.activitysubmit.feedback = this.resaleTypeOptionObj.feedback;
+    // this.subscription.add(this.activitiesService.submitActivity(this.activitysubmit).subscribe(
+    //   (value: any) => {
+    //     notify("Activity submitted successfully", "success");
+    //   }, error => {
+    //     notify("error in submitting.." + error.Message, "error");
+    //   }));
   }
   backToStep(stepNum: number) {
     if (stepNum == 1) {

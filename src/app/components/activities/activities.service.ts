@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AppSettings } from '../shared/app-settings';
-import { AtivitiesListModel, ActivityModel, ActivityClient } from "./ativities-model";
+import { AtivitiesListModel, ActivityModel, ActivityClient, PrimaryAndExternalSale, InternalSale } from "./ativities-model";
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +33,36 @@ export class ActivitiesService {
       map(res => res),
       catchError(this.handleError));
   }
-  submitActivity(activity: ActivityClient) {
-    const url = AppSettings.activities_URL + '/store/won';
+  submitPrimaryActivity(activity: PrimaryAndExternalSale) {
+    //const url = AppSettings.activities_URL + '/store/won';
+    const url = AppSettings.API_Url + '/backend/sales/primary';
     return this.http.post(url, JSON.stringify(activity), { headers: this.headers }).pipe(
       map(res => res),
       catchError(this.handleError));
+  }
+  submitExternalActivity(activity: PrimaryAndExternalSale) {
+    //const url = AppSettings.activities_URL + '/store/won';
+    const url = AppSettings.API_Url + '/backend/sales/resaleExternally';
+    return this.http.post(url, JSON.stringify(activity), { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+  }
+  submitInternalActivity(activity: InternalSale) {
+    //const url = AppSettings.activities_URL + '/store/won';
+    const url = AppSettings.API_Url + '/backend/sales/resaleInternally';
+    return this.http.post(url, JSON.stringify(activity), { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+  }
+  getTempRequestApproval() {
+    const url = `${AppSettings.API_Url}/backend/sales/getNewTempRequests`;
+    return this.http.get(url).pipe(
+      map(res => res), catchError(this.handleError));
+  }
+  approveDisapproveRequest(id, satatus) {
+    const url = `${AppSettings.API_Url}/backend/sales/approveDisapproveOperation?id=` + id + "&satatus=" + satatus;
+    return this.http.get(url).pipe(
+      map(res => res), catchError(this.handleError));
   }
   getWonActivities() {
     const url = `${AppSettings.activities_URL}/getAllWonStatuses`;

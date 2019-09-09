@@ -51,8 +51,14 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label>Request type</label>
-        <dx-select-box [class.required]="true" [dataSource]="[{name:'Buy'},{name:'Sale'}, {name:'Rent'}]"
+        <dx-select-box *ngIf="!clientID" [class.required]="true" [dataSource]="[{name:'Buy'},{name:'Sale'}, {name:'Rent'}]"
           [(value)]="singleClient.request_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Request type type is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-select-box>
+        <dx-select-box *ngIf="clientID && singleClient.client" [class.required]="true" [dataSource]="[{name:'Buy'},{name:'Sale'}, {name:'Rent'}]"
+          [(value)]="singleClient.client.request_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
           <dx-validator>
             <dxi-validation-rule type="required" message="Request type type is required"></dxi-validation-rule>
           </dx-validator>
@@ -62,7 +68,13 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label>Budget from</label>
-        <dx-number-box [class.required]="true" [(value)]="singleClient.budget_from" [showSpinButtons]="false"
+        <dx-number-box *ngIf="!clientID" [class.required]="true" [(value)]="singleClient.budget_from" [showSpinButtons]="false"
+          [showClearButton]="false">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Budget from is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-number-box>
+        <dx-number-box *ngIf="clientID && singleClient.client" [class.required]="true" [(value)]="singleClient.client.budget_from" [showSpinButtons]="false"
           [showClearButton]="false">
           <dx-validator>
             <dxi-validation-rule type="required" message="Budget from is required"></dxi-validation-rule>
@@ -73,7 +85,13 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label>Budget to</label>
-        <dx-number-box [class.required]="true" [(value)]="singleClient.budget_to" [showSpinButtons]="false"
+        <dx-number-box *ngIf="!clientID" [class.required]="true" [(value)]="singleClient.budget_to" [showSpinButtons]="false"
+          [showClearButton]="false">
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Budget to is required"></dxi-validation-rule>
+          </dx-validator>
+        </dx-number-box>
+        <dx-number-box *ngIf="clientID && singleClient.client" [class.required]="true" [(value)]="singleClient.client.budget_to" [showSpinButtons]="false"
           [showClearButton]="false">
           <dx-validator>
             <dxi-validation-rule type="required" message="Budget to is required"></dxi-validation-rule>
