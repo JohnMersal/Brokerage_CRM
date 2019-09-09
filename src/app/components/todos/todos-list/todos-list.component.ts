@@ -17,10 +17,15 @@ import DataSource from 'devextreme/data/data_source';
 export class TodosListComponent implements OnInit {
   dataSource: any;
   currentDate: Date = new Date(2016, 7, 2, 11, 30);
+  now: Date = new Date();
   resourcesDataSource = [];
 
 
-
+  get sortData() {
+    return this.todosList.sort((a, b) => {
+      return new Date(b.created_at) as any - <any> new Date(a.created_at);
+    });
+  }
 
   mainTabsSwitch: string = "todo";
   mainTabsName: string = "For sale units";
@@ -110,6 +115,7 @@ export class TodosListComponent implements OnInit {
     let formatedDate = formatDate(date, 'yyyy-MM-dd', 'en-US');
     return formatedDate;
   }
+
   ngOnInit() {
   }
 

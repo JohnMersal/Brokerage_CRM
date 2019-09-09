@@ -1,3 +1,60 @@
+<div class="to-do-widget m-t-20">
+  <!-- .modal for add task -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Task</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" placeholder="Enter Your Name">
+            </div>
+            <div class="form-group">
+              <label>Email address</label>
+              <input type="email" class="form-control" placeholder="Enter email">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
+    <li class="list-group-item" data-role="task" *ngFor="let task of sortData; let i = index">
+      <div class="checkbox checkbox-info">
+        <input type="checkbox" [id]="'task' + task.id" name="inputCheckboxesBook">
+        <label [for]="'task' + task.id" class="">
+          <span>{{task.todo_desc}}</span>
+          <span class="label label-light-warning">{{task.created_at | timeago:live}}</span>
+        </label>
+      </div>
+      <div class="assignedto">
+        <span>Due date: {{task.todo_date}}</span>
+      </div>
+<!--      <ul class="assignedto">-->
+<!--        <li><img src="../assets/images/users/1.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Steave"></li>-->
+<!--        <li><img src="../assets/images/users/1.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Steave"></li>-->
+<!--        <li><img src="../assets/images/users/1.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Steave"></li>-->
+<!--      </ul>-->
+      <div class="item-date">{{task.todo_date}}</div>
+    </li>
+  </ul>
+
+</div>
+
+
 <fieldset>
   <legend>All to-do list</legend>
   <app-tabs [currentTabName]="mainTabsName">
@@ -62,13 +119,13 @@
     </dx-data-grid>
   </div>
   <div *ngIf="mainTabsSwitch == 'calendar'">
-    <dx-scheduler [dataSource]="dataSource" [views]="['month']" currentView="month" [currentDate]="currentDate"
+    <dx-scheduler [dataSource]="sortData" [views]="['month']" currentView="month" [currentDate]="now"
       [firstDayOfWeek]="1" [startDayHour]="8" [endDayHour]="18" [showAllDayPanel]="false" [height]="600"
        dataCellTemplate="dataCellTemplate">
-    
+
       <dxi-resource fieldExpr="employeeID" [allowMultiple]="false" [dataSource]="resourcesDataSource" label="Employee">
       </dxi-resource>
-        
+
       <div *dxTemplate="let cellData of 'dataCellTemplate'" class='employee-weekend' [ngClass]="markWeekEnd(cellData)">
         <div class='day-cell' [ngClass]='markTraining(cellData)'>{{cellData.text}}</div>
       </div>
