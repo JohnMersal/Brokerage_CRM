@@ -1,20 +1,22 @@
 <app-tabs [currentTabName]="mainTabsName">
   <!-- <li class="tabItem" [class.active]="mainTabsSwitch == 'TCR'">
     <a (click)="changeMainTabs('TCR')">TCR</a>
-  </li>
+  </li>-->
   <li class="tabItem" [class.active]="mainTabsSwitch == 'approval'">
     <a (click)="changeMainTabs('approval')">Approval</a>
   </li>
-  <li class="tabItem" [class.active]="mainTabsSwitch == 'CILRequest'">
+  <!-- <li class="tabItem" [class.active]="mainTabsSwitch == 'CILRequest'">
     <a (click)="changeMainTabs('CILRequest')">CIL Requests</a>
-  </li> -->
+  </li>  -->
   <li class="tabItem" [class.active]="mainTabsSwitch == 'conflicts'">
     <a (click)="changeMainTabs('conflicts')">Conflicts</a>
   </li>
 </app-tabs>
 <div>
   <div *ngIf="mainTabsSwitch == 'TCR'">TCR here</div>
-  <div *ngIf="mainTabsSwitch == 'approval'">Aprroval here</div>
+  <div *ngIf="mainTabsSwitch == 'approval'">
+    <app-approval-list></app-approval-list>
+  </div>
   <div *ngIf="mainTabsSwitch == 'CILRequest'">CIL request here</div>
   <div *ngIf="mainTabsSwitch == 'conflicts'">
     <app-check-conflict></app-check-conflict>
