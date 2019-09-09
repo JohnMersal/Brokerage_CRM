@@ -196,7 +196,7 @@ export class UnitsListComponent implements OnInit, OnDestroy {
     if (this.SelectedUnitToChangeStatus) {
       if (this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.For_sale
         || this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.Not_for_sale
-      || this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.Sold_unknown) {
+        || this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.Sold_unknown) {
         this.SelectedUnitToChangeStatus.selectedBrokerId = null;
         this.changeUnitStatus();
       } else if (this.SelectedUnitToChangeStatus.id == this.unitStatusEnum.Not_for_sale) {
