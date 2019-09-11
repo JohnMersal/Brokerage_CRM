@@ -126,7 +126,7 @@
             <div class="col-12">
               <div class="form-group">
                 <label>Offering type</label>
-                <dx-select-box [class.required]="true" [dataSource]="[{name:'Buy'},{name:'Sale'}, {name:'Rent'}]"
+                <dx-select-box [class.required]="true" [dataSource]="[{name:'Sale'}, {name:'Rent'}]"
                   [(value)]="singleUnit.offering_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
                 </dx-select-box>
               </div>
@@ -182,13 +182,13 @@
                 </dx-number-box>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12" *ngIf="false">
               <div class="form-group">
                 <label>Owner email</label>
                 <dx-text-box [(value)]="singleUnit.owner_email"></dx-text-box>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12" *ngIf="false">
               <div class="form-group">
                 <label>Owner facebook</label>
                 <dx-text-box [(value)]="singleUnit.owner_facebook"></dx-text-box>
@@ -196,9 +196,9 @@
             </div>
             <div class="col-12">
               <div class="form-group">
-                <div class="todo">TO BE ADDED TO THE API!</div>
+                <div class="todo" *ngIf="false">TO BE ADDED TO THE API!</div>
                 <label>Owner's Notes</label>
-                <dx-text-area [class.required]="true" [autoResizeEnabled]="true" [height]="130">
+                <dx-text-area [class.required]="true" [(value)]="singleUnit.owner_notes" [autoResizeEnabled]="true" [height]="130">
                 </dx-text-area>
               </div>
             </div>

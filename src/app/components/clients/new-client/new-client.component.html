@@ -57,7 +57,7 @@
             <dxi-validation-rule type="required" message="Request type type is required"></dxi-validation-rule>
           </dx-validator>
         </dx-select-box>
-        <dx-select-box *ngIf="clientID && singleClient.client" [class.required]="true" [dataSource]="[{name:'Buy'},{name:'Sale'}, {name:'Rent'}]"
+        <dx-select-box *ngIf="clientID && singleClient.client" [class.required]="true" [dataSource]="[{name:'Sale'}, {name:'Rent'}]"
           [(value)]="singleClient.client.request_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
           <dx-validator>
             <dxi-validation-rule type="required" message="Request type type is required"></dxi-validation-rule>
@@ -97,6 +97,26 @@
             <dxi-validation-rule type="required" message="Budget to is required"></dxi-validation-rule>
           </dx-validator>
         </dx-number-box>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label>Interested in</label>
+        <dx-drop-down-box [(value)]="gridBoxValue" valueExpr="id" [displayExpr]="unit_code" placeholder="Select a value..."
+          [showClearButton]="true" [dataSource]="unitsLookup" (onValueChanged)="unitOnValueChanged($event)">
+        
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid [dataSource]="unitsLookup" [columns]="['unit_code', 'offering_type', 'id']"
+              [selection]="{ mode: 'multiple' }" [hoverStateEnabled]="true" [paging]="{ enabled: true, pageSize: 10 }"
+              [filterRow]="{ visible: true }" [scrolling]="{ mode: 'infinite' }" [height]="345"
+              [(selectedRowKeys)]="gridSelectedRowKeys">
+            </dx-data-grid>
+          </div>
+          <dx-validator>
+            <dxi-validation-rule type="required" message="Unit is required">
+            </dxi-validation-rule>
+          </dx-validator>
+        </dx-drop-down-box>
       </div>
     </div>
   </div>

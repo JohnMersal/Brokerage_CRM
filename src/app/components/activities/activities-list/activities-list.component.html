@@ -1,6 +1,6 @@
 <fieldset>
   <legend>All Activities</legend>
-  <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="activitiesList" [showRowLines]="true"
+  <dx-data-grid #grid class="CustomDataTable  dataGrid" height="400" [(dataSource)]="activitiesList" [showRowLines]="true"
     [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
     [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
     <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
@@ -43,13 +43,13 @@
       {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
     </div>
 
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Status" [allowFiltering]="true"
+    <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Status" [allowFiltering]="true"
       [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="changeStatusTemplate">
     </dxi-column>
     <div *dxTemplate="let data of 'changeStatusTemplate'">
       <button type="button" (click)="openChangeStatusModal(data.data)" mat-flat-button color="primary"
         class="mat-primary">Change status</button>
-    </div>
+    </div> -->
 
     <dxo-summary>
       <dxi-total-item column="first_name" summaryType="count">
@@ -196,22 +196,22 @@
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label>Owner name</label>
+                    <label>Broker name</label>
                     <dx-text-box [class.required]="true" [(value)]="primarySaleStatus_OBJ.owner_name">
                       <dx-validator>
-                        <dxi-validation-rule type="required" message="Owner name required"></dxi-validation-rule>
+                        <dxi-validation-rule type="required" message="Broker name required"></dxi-validation-rule>
                       </dx-validator>
                     </dx-text-box>
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label>Owner phone</label>
+                    <label>Mobile number</label>
                     <dx-number-box [class.required]="true" [(value)]="primarySaleStatus_OBJ.owner_phone"
                       [showSpinButtons]="false" [showClearButton]="false">
                       <dx-validator>
                         <dxi-validation-rule type="required" [min]="11" [max]="11"
-                          message="Owner phone must be at least 11 characters">
+                          message="Mobile number must be at least 11 characters">
                         </dxi-validation-rule>
                       </dx-validator>
                     </dx-number-box>
@@ -326,10 +326,10 @@
                           </div>
                           <div class="col-sm-4">
                             <div class="form-group">
-                              <label>Owner name</label>
+                              <label>Broker name</label>
                               <dx-text-box [class.required]="true" [(value)]="externalSaleStatus_OBJ.owner_name">
                                 <dx-validator>
-                                  <dxi-validation-rule type="required" message="Owner name required">
+                                  <dxi-validation-rule type="required" message="Broker name required">
                                   </dxi-validation-rule>
                                 </dx-validator>
                               </dx-text-box>
@@ -337,12 +337,12 @@
                           </div>
                           <div class="col-sm-4">
                             <div class="form-group">
-                              <label>Owner phone</label>
+                              <label>Mobile number</label>
                               <dx-number-box [class.required]="true" [(value)]="externalSaleStatus_OBJ.owner_phone"
                                 [showSpinButtons]="false" [showClearButton]="false">
                                 <dx-validator>
                                   <dxi-validation-rule type="required" [min]="11" [max]="11"
-                                    message="Owner phone must be at least 11 characters">
+                                    message="Mobile number must be at least 11 characters">
                                   </dxi-validation-rule>
                                 </dx-validator>
                               </dx-number-box>

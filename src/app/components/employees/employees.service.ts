@@ -51,10 +51,16 @@ export class EmployeesService {
       catchError(this.handleError));
   }
   updateEmployee(singleEmployee: singleEmployee) {
-    const url = AppSettings.leads_URL + '/' + singleEmployee.id + '/update';
+    const url = AppSettings.employees_URL + '/' + singleEmployee.id + '/update';
     //const formData = new FormData();
     //formData.append('', JSON.stringify(singleLead));
     return this.http.post(url, JSON.stringify(singleEmployee), { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+  }
+  reassignWork(from_id: number, to_id: number) {
+    const url = AppSettings.employees_URL + '/reassignEmployeeWork?from_emp_id=' + from_id + "&to_emp_id=" + to_id;
+    return this.http.post(url, { headers: this.headers }).pipe(
       map(res => res),
       catchError(this.handleError));
   }

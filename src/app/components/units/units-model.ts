@@ -17,7 +17,7 @@ export class UnitsModel {
     owner_name: string;
     owner_phone: number;
     owner_email: number;
-    owner_facebook: string;
+    owner_notes: string;
 
     land_area: string;
     building_area: string;
@@ -43,6 +43,7 @@ export class unitsList {
     compound_id: number;
     unit_type: string;
     unit_num: number;
+    unit_code: string;
     land_area: number;
     building_area: number;
     garden_area: number;
@@ -50,7 +51,7 @@ export class unitsList {
     owner_name: string;
     owner_phone: number;
     owner_email: number;
-    owner_facebook: string;
+    owner_notes: string;
     bedrooms: number;
     bathrooms: number;
     floor_num: number;

@@ -66,7 +66,7 @@
     </li>
   </app-tabs>
   <div *ngIf="mainTabsSwitch == 'todo'">
-    <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="todosList" [showRowLines]="true"
+    <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="todosList" [showRowLines]="true"
       [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
       [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
       <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
