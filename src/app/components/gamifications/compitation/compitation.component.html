@@ -75,7 +75,7 @@
 
     <fieldset>
       <legend>All fixed point</legend>
-      <dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="fixedPointsList" [showRowLines]="true"
+      <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="fixedPointsList" [showRowLines]="true"
     [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
         [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
         <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>

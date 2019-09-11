@@ -8,6 +8,8 @@ import notify from 'devextreme/ui/notify';
 import { DxValidationGroupComponent } from 'devextreme-angular';
 import { ActivitiesListComponent } from "../../activities/activities-list/activities-list.component";
 import { ActivatedRoute, Router } from '@angular/router';
+import { unitsList } from '../../units/units-model';
+import { UnitsService } from "../../units/units.service";
 
 @Component({
   selector: 'app-new-client',
@@ -24,9 +26,30 @@ export class NewClientComponent implements OnInit {
   areasLookup = [];
   subscription: Subscription = new Subscription();
   clientID: number;
-  constructor(private clientsSrvice: ClientService, private formBuilder: FormBuilder, private areasService: AreasService, public route: ActivatedRoute, public router: Router) {
+  unitsLookup: unitsList[] = [];
+  _gridBoxValue: unitsList[];
+  get gridBoxValue(): unitsList[] {
+    return this._gridBoxValue;
+  }
+
+  set gridBoxValue(value: unitsList[]) {
+    this._gridSelectedRowKeys = value || [];
+    this._gridBoxValue = value;
+  }
+
+  _gridSelectedRowKeys: unitsList[] = [];
+  get gridSelectedRowKeys(): unitsList[] {
+    return this._gridSelectedRowKeys;
+  }
+
+  set gridSelectedRowKeys(value: unitsList[]) {
+    this._gridBoxValue = value || null;
+    this._gridSelectedRowKeys = value;
+  }
+  constructor(private clientsSrvice: ClientService, private formBuilder: FormBuilder, private areasService: AreasService, public route: ActivatedRoute, public router: Router, private unitsService: UnitsService) {
     this.creatAreaForm();
     this.getRecord();
+    this.getUnitsLookup();
   }
   getRecord() {
     this.subscription.add(this.route.params.subscribe(params => {
@@ -83,6 +106,15 @@ export class NewClientComponent implements OnInit {
           }));
       }
     }
+  }
+  getUnitsLookup() {
+    this.subscription.add(this.unitsService.getAllUnits().subscribe(
+      (value: any) => {
+        this.unitsLookup = value.data;
+      }, error => {
+        notify('error in loading units list..', 'error');
+      }));
+
   }
   ngOnInit() {
   }

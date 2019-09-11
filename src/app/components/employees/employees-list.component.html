@@ -38,7 +38,7 @@
   <div class="col-md-12">
     <h4 class="card-title">Employees</h4>
   </div>
-<dx-data-grid #grid class="dataGrid" height="400" [(dataSource)]="employeesList" [showRowLines]="true"
+<dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="employeesList" [showRowLines]="true"
     [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
   [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
   <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
