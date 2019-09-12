@@ -182,6 +182,18 @@
                 </dx-number-box>
               </div>
             </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Broker type</label>
+                <dx-select-box [class.required]="true" [dataSource]="[{name:'Internal'}, {name:'External'}]"
+                  [(value)]="singleUnit.broker_type" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" [min]="11" [max]="11"
+                      message="Broker type is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-select-box>
+              </div>
+            </div>
             <div class="col-12" *ngIf="false">
               <div class="form-group">
                 <label>Owner email</label>
