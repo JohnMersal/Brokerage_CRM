@@ -186,7 +186,7 @@ export class NewUnitComponent implements OnInit, OnDestroy {
             this.router.navigate(['units']);
           }
         }, error => {
-          notify('error in saving..' + error.meta.message, 'error');
+          notify('error in saving..' + error.message, 'error');
         }));
 
       } else {
@@ -197,8 +197,8 @@ export class NewUnitComponent implements OnInit, OnDestroy {
           this.singleUnit = new UnitsModel();
           // this.unitFormGroup.reset();
         }, error => {
-            this.notifier.notify('error', 'error in validation,' + error.meta.message + 'please check the form again and fix highlighted inputs');
-            // notify('error in saving..' + error.meta.message, 'error');
+            this.notifier.notify('error', error.message + 'please check the form again and fix highlighted inputs');
+            // notify('error in saving..' + error.message, 'error');
         }));
       }
     }
