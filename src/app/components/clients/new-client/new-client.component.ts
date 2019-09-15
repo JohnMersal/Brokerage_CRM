@@ -10,6 +10,7 @@ import { ActivitiesListComponent } from "../../activities/activities-list/activi
 import { ActivatedRoute, Router } from '@angular/router';
 import { unitsList } from '../../units/units-model';
 import { UnitsService } from "../../units/units.service";
+import { AppSettings } from '../../shared/app-settings';
 
 @Component({
   selector: 'app-new-client',
@@ -56,6 +57,23 @@ export class NewClientComponent implements OnInit {
       this.clientID = +params['ID'];
       if (!this.clientID || this.clientID == 0) {
         this.clientID = 0;
+      } else if (this.clientID == -1) {
+        this.clientID = 0;
+        if (AppSettings.leadMovedToClient.id) {
+          this.singleClient = {
+            first_name: AppSettings.leadMovedToClient.first_name,
+            second_name: AppSettings.leadMovedToClient.second_name,
+            mobile: AppSettings.leadMovedToClient.country_code + AppSettings.leadMovedToClient.lead_phone,
+            budget_from: null,
+            budget_to: null,
+            email: null,
+            gender: null,
+            request_type: null,
+            id: null
+          };
+        } else {
+          notify("error in load the data.. please back to lead and click 'move'.", "error");
+        }
       } else {
         this.getClientById();
       }
@@ -85,6 +103,8 @@ export class NewClientComponent implements OnInit {
   saveClient() {
     if (this.DataValidator.instance.validate().isValid) {
       if (this.updateMode || this.clientID) {
+        this.singleClient.budget_from = 700000;
+        this.singleClient.budget_to = 1200000;
         this.subscription.add(this.clientsSrvice.updateClient(this.singleClient).subscribe(
           (value: any) => {
             this.afterSave.emit({ id: value, data: this.singleClient });
@@ -116,6 +136,7 @@ export class NewClientComponent implements OnInit {
       }));
 
   }
+  unitOnValueChanged(){}
   ngOnInit() {
   }
   reloadActivities() {

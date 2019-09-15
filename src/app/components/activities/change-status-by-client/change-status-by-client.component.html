@@ -80,8 +80,8 @@
         <div class="col-sm-4">
           <div class="form-group">
             <label>Commission</label>
-            <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0"
-              [(value)]="primarySaleStatus_OBJ.commission" [showSpinButtons]="false" [showClearButton]="false">
+            <dx-number-box [class.required]="true" format="#,##0.## EGP" [min]="0" [(value)]="primarySaleStatus_OBJ.commission"
+             [showSpinButtons]="false" [showClearButton]="false">
               <dx-validator>
                 <dxi-validation-rule type="required" message="Commission is required"></dxi-validation-rule>
               </dx-validator>
@@ -92,8 +92,7 @@
       <div class="row">
         <div class="col-sm-4">
           <div class="form-group">
-            <button type="button" (click)="submitPrimarySales()" mat-flat-button color="primary"
-              class="mat-primary">Submit</button>
+            <button type="button" (click)="submitPrimarySales()" mat-flat-button color="primary" class="mat-primary">Submit</button>
           </div>
         </div>
       </div>

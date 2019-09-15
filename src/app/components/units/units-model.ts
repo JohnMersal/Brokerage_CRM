@@ -37,6 +37,7 @@ export class UnitsModel {
     sold_by: number;
     sold_to: number;
     type_of_sale: string;
+    broker_type: string;
 }
 export class unitsList {
     id: number;
