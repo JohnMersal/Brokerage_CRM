@@ -7,6 +7,15 @@ export class TodoModel {
     start_date: any;
     end_date: any;
 }
+export class Calendar{
+    text: string;
+    employeeID: number;
+    startDate: Date;
+    endDate: Date;
+    assigned_to: number;
+    todo_desc: string;
+    todo_status: string;
+}
 export class TodosList{
     id: number;
     todo_desc: string;
