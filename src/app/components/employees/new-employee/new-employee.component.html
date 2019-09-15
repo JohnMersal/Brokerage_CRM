@@ -52,7 +52,7 @@
           </dx-text-box>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4" *ngIf="false">
         <div class="form-group">
           <label>Re-password</label>
           <dx-text-box [(value)]="repassword">
@@ -64,7 +64,7 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group">
-            <mat-label>Gender</mat-label>
+            <label>Gender</label>
             <dx-select-box [class.required]="true" [dataSource]="[{name:'Male'},{name:'Female'}]"
               [(value)]="singleEmployee.gender" displayExpr="name" valueExpr="name" [searchEnabled]="true">
               <dx-validator>

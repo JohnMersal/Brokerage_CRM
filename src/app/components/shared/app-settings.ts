@@ -1,10 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Permissions, UserPermissions } from "../permission/permission-model";
+import { LeadsModel } from "../leads/leads-model";
 
 export class AppSettings {
     static headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     static API_Url = "http://dirlms.com/";
+    //static API_Url = "http://68.66.243.103/";
     static leads_URL = AppSettings.API_Url + "backend/leads";
     static employees_URL = AppSettings.API_Url + "backend/employees";
     static areas_URL = AppSettings.API_Url + "backend/areas";
@@ -24,7 +26,8 @@ export class AppSettings {
     static DateDisplayFormat = "yyyy-MM-dd";
     static DateTimeDisplayFormat = "yyyy-MM-dd HH:mm:ss";
 
-    static MainPageRoute: "home";
+    static MainPageRoute= "home";
+    static leadMovedToClient: LeadsModel = new LeadsModel();
 
     static loggedInUser = {
         permissions: [],

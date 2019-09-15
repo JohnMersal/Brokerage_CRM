@@ -6,6 +6,7 @@ import { LeadsService } from "../leads.service";
 import { AppSettings } from "../../shared/app-settings";
 import { formatDate } from '@angular/common';
 import { EmployeesService } from '../../employees/employees.service';
+import { Router } from '@angular/router';
 declare var jQuery: any;
 
 @Component({
@@ -22,7 +23,7 @@ export class LeadsListComponent implements OnInit {
   employeesLookup = [];
   assginToEmployee: number = null;
   subscription: Subscription = new Subscription();
-  constructor(private leadsService: LeadsService, private employeesService: EmployeesService) { }
+  constructor(private leadsService: LeadsService, private employeesService: EmployeesService, private router: Router) { }
   getAllLeads() {
     this.subscription.add(this.leadsService.getAllLeads().subscribe(
       (value: any) => {
@@ -53,7 +54,7 @@ export class LeadsListComponent implements OnInit {
     }
   }
   editRecord(e: any) {
-    if (e.rowType == "data" && e.column.cellTemplate != "assginTemplate") {
+    if (e.rowType == "data" && e.column.cellTemplate != "assginTemplate" && e.column.cellTemplate != "movingTemplate" ) {
       //console.log(e.data);
       this.editLead = {
         id: e.data.id,
@@ -93,6 +94,14 @@ export class LeadsListComponent implements OnInit {
       }, error => {
         notify("error in assgining.." + error.message, "error");
       }));
+  }
+  movingToClient(lead: LeadsModel) {
+    AppSettings.leadMovedToClient.first_name = lead.first_name;
+    AppSettings.leadMovedToClient.second_name = lead.second_name;
+    AppSettings.leadMovedToClient.id = lead.id;
+    AppSettings.leadMovedToClient.country_code = lead.country_code;
+    AppSettings.leadMovedToClient.lead_phone = lead.lead_phone;
+    this.router.navigate(['/client/-1']);
   }
   ngOnInit() {
     if (!this.customListMode) {

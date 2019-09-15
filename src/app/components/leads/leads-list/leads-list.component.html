@@ -43,10 +43,15 @@
           <div *dxTemplate="let data of 'reassigned_toTemplate'">
             {{data.data.reassigned_to.first_name}} {{data.data.reassigned_to.second_name}}
           </div>
-
           <div *dxTemplate="let data of 'assginTemplate'">
             <button type="button" mat-flat-button color="primary" class="mat-primary" (click)="assginTo(data.data)">Assgin</button>
           </div>
+          <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Moving"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="movingTemplate"></dxi-column>
+          <div *dxTemplate="let data of 'movingTemplate'">
+            <button type="button" mat-flat-button color="primary" class="mat-primary" (click)="movingToClient(data.data)">Moving</button>
+          </div>
+
          <dxo-summary>
           <dxi-total-item column="first_name" summaryType="count">
           </dxi-total-item>
