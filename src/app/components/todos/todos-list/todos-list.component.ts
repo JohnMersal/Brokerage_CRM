@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
 import notify from 'devextreme/ui/notify';
-import { TodosList, TodoModel } from "../todo-model";
+import { TodosList, TodoModel, Calendar } from "../todo-model";
 import { TodosService } from "../todos.service";
 import { AppSettings } from "../../shared/app-settings";
 import { formatDate } from '@angular/common';
@@ -19,13 +19,14 @@ export class TodosListComponent implements OnInit {
   currentDate: Date = new Date(2016, 7, 2, 11, 30);
   now: Date = new Date();
   resourcesDataSource = [];
-
-
-  get sortData() {
-    return this.todosList.sort((a, b) => {
-      return new Date(b.created_at) as any - <any> new Date(a.created_at);
-    });
-  }
+  calendar: Calendar[] = [];
+  sortData: any;
+  
+  // get sortData() {
+  //   return this.todosList.sort((a, b) => {
+  //     return new Date(b.created_at) as any - <any> new Date(a.created_at);
+  //   });
+  // }
 
   mainTabsSwitch: string = "todo";
   mainTabsName: string = "For sale units";
@@ -42,7 +43,6 @@ export class TodosListComponent implements OnInit {
     this.dataSource = new DataSource({
       store: this.todosList
     });
-    this.resourcesDataSource = leadsService.getEmployees();
   }
   changeMainTabs(targetMainTab: string) {
     switch (targetMainTab) {
@@ -67,6 +67,21 @@ export class TodosListComponent implements OnInit {
     this.subscription.add(this.leadsService.getAllTodos().subscribe(
       (value: any) => {
         this.todosList = value.data;
+        for (var n = 0; n < this.todosList.length; n++) {
+          this.calendar[n] = {
+            startDate : this.todosList[n].start_date,
+            endDate : this.todosList[n].end_date,
+            text : this.todosList[n].todo_desc,
+            assigned_to : this.todosList[n].assigned_to.id,
+            todo_status : this.todosList[n].todo_status,
+            employeeID: null,
+            todo_desc:null
+          }
+        }
+        this.sortData = new DataSource({
+          store: this.calendar,
+          pageSize: 0
+        });
       }, error => {
         console.log(error);
       }));
@@ -136,14 +151,12 @@ export class TodosListComponent implements OnInit {
     var classObject = {
       "day-cell": true
     }
-
     //classObject[this.getCurrentTraining(cellData.startDate.getDate(), cellData.groups.employeeID)] = true;
     return classObject;
   }
 
    getCurrentTraining(date, employeeID) {
     //var result = (date + employeeID) % 3, currentTraining = "training-background-" + result;
-
     //return currentTraining;
   }
 }
