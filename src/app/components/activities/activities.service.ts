@@ -61,7 +61,7 @@ export class ActivitiesService {
   }
   approveDisapproveRequest(id, satatus) {
     const url = `${AppSettings.API_Url}/backend/sales/approveDisapproveOperation?id=` + id + "&satatus=" + satatus;
-    return this.http.get(url).pipe(
+    return this.http.post(url, null, { headers: this.headers }).pipe(
       map(res => res), catchError(this.handleError));
   }
   getWonActivities() {
