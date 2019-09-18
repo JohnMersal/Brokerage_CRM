@@ -1,5 +1,5 @@
 <app-tabs [currentTabName]="mainTabsName">
-  <li *ngIf="false" class="tabItem" [class.active]="mainTabsSwitch == 'FixedPoints'">
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'FixedPoints'">
     <a (click)="changeMainTabs('FixedPoints')">Fixed points</a>
   </li>
   <li class="tabItem" [class.active]="mainTabsSwitch == 'HappyHours'">

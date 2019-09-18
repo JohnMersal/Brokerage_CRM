@@ -55,7 +55,7 @@ export class HappyHourComponent implements OnInit {
   }
   editRecord(e: any) {
     //if (e.rowType == "data") {
-    let call_HappyHour_points, meeting_HappyHour_points, won_HappyHour_points;
+    let call_HappyHour_points, meeting_HappyHour_points, won_HappyHour_points, Showing_HappyHour_points;
     for (let record of this.HappyHoursList){
       if (record.action == "Call") {
         call_HappyHour_points = record.happy_points;
@@ -63,6 +63,8 @@ export class HappyHourComponent implements OnInit {
         meeting_HappyHour_points = record.happy_points;
       } else if (record.action == "Won") {
         won_HappyHour_points = record.happy_points;
+      } else if (record.action == "Showing") {
+        Showing_HappyHour_points = record.happy_points
       }
     }
       this.editHappyHour = {
@@ -70,8 +72,10 @@ export class HappyHourComponent implements OnInit {
         call_HappyHour_points: call_HappyHour_points,
         meeting_HappyHour_points: meeting_HappyHour_points,
         won_HappyHour_points: won_HappyHour_points,
+        showing_HappyHour_points: Showing_HappyHour_points,
         happy_start: e.data.happy_start,
         happy_end: e.data.happy_end,
+        
       };
       (<any>jQuery('#editLevelModal')).modal('show');
     //}
