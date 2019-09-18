@@ -3,26 +3,36 @@
   <div class="col-lg-4 col-xlg-3 col-md-5">
     <div class="card">
       <div class="card-block">
-        <div style="text-align: center;" class="m-t-30"> <img *ngIf="singleEmployee.employee" src="{{singleEmployee.employee.profile_picture}}" onerror="this.onerror=null;this.src='assets/images/profile-pic-placeholder.png';" class="img-circle" width="150" />
-          <img *ngIf="!singleEmployee.employee" src="assets/images/profile-pic-placeholder.png" class="img-circle" width="150" />
+        <div style="text-align: center;" class="m-t-30"> <img *ngIf="singleEmployee.employee"
+            src="{{singleEmployee.employee.profile_picture}}"
+            onerror="this.onerror=null;this.src='assets/images/profile-pic-placeholder.png';" class="img-circle"
+            width="150" />
+          <img *ngIf="!singleEmployee.employee" src="assets/images/profile-pic-placeholder.png" class="img-circle"
+            width="150" />
           <h4 class="card-title m-t-10">{{singleEmployee.first_name}} {{singleEmployee.second_name}}</h4>
-          <h6 class="card-subtitle"><ng-container *ngIf="singleEmployee.employee">{{singleEmployee.employee.job_title}}</ng-container></h6>
-          <ngb-progressbar type="success" [value]="currentLevel.value" [max]="nextLevel.value" [animated]="false" [striped]="false" height="20">{{currentLevel.value}}/{{nextLevel.value}}
+          <h6 class="card-subtitle">
+            <ng-container *ngIf="singleEmployee.employee">{{singleEmployee.employee.job_title}}</ng-container>
+          </h6>
+          <ngb-progressbar type="success" [value]="currentLevel.value" [max]="nextLevel.value" [animated]="false"
+            [striped]="false" height="20">{{currentLevel.value}}/{{nextLevel.value}}
           </ngb-progressbar>
           <div class="clearfix">
-          <div class="pull-left">{{currentLevel.name}}</div>
-          <div class="pull-right">{{nextLevel.name}}</div>
-        </div>
+            <div class="pull-left">{{currentLevel.name}}</div>
+            <div class="pull-right">{{nextLevel.name}}</div>
+          </div>
         </div>
       </div>
       <div>
         <hr>
       </div>
       <div class="card-block">
-        <small class="text-muted">Email address </small><h6>{{singleEmployee.email}}</h6>
-        <small class="text-muted p-t-30 db">Phone</small><h6>{{singleEmployee.mobile}}</h6>
+        <small class="text-muted">Email address </small>
+        <h6>{{singleEmployee.email}}</h6>
+        <small class="text-muted p-t-30 db">Phone</small>
+        <h6>{{singleEmployee.mobile}}</h6>
         <!-- <small class="text-muted p-t-30 db">Address</small><h6>1234567891234567</h6> -->
-        <small class="text-muted p-t-30 db">National ID</small><h6 *ngIf="singleEmployee.employee">{{singleEmployee.employee.national_id}}</h6>
+        <small class="text-muted p-t-30 db">National ID</small>
+        <h6 *ngIf="singleEmployee.employee">{{singleEmployee.employee.national_id}}</h6>
       </div>
     </div>
   </div>
@@ -67,7 +77,8 @@
                       <div class="round align-self-center round-info"><i class="fa fa-calendar"></i></div>
                       <div class="m-l-10 align-self-center">
                         <h3 class="m-b-0">
-                          <ng-container *ngIf="singleEmployee.employee">{{singleEmployee.employee.joining_date}}</ng-container>
+                          <ng-container *ngIf="singleEmployee.employee">{{singleEmployee.employee.joining_date}}
+                          </ng-container>
                         </h3>
                         <h5 class="text-muted m-b-0">Joining Date</h5>
                       </div>
@@ -92,20 +103,76 @@
               </div>
               <!-- Column -->
               <ng-container *ngIf="activities">
-              <div class="col-lg-3 col-md-6">
-                <div class="card">
-                  <div class="d-flex flex-row">
-                    <div class="p-10 bg-info">
-                      <h3 class="text-white box m-b-0 d-flex"><i class="fa fa-phone"></i></h3>
-                    </div>
-                    <div class="align-self-center m-l-20">
-                      <h3 class="m-b-0 text-info">{{activityCalls}}</h3>
-                      <h5 class="text-muted m-b-0">Total calls</h5>
+                <div class="col-lg-3 col-md-6">
+                  <div class="card">
+                    <div class="d-flex flex-row">
+                      <div class="p-10 bg-info">
+                        <h3 class="text-white box m-b-0 d-flex"><i class="fa fa-phone"></i></h3>
+                      </div>
+                      <div class="align-self-center m-l-20">
+                        <h3 class="m-b-0 text-info">{{activityCalls}}</h3>
+                        <h5 class="text-muted m-b-0">Total calls</h5>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+                <!-- Column -->
+                <div class="col-lg-3 col-md-6">
+                  <div class="card">
+                    <div class="d-flex flex-row">
+                      <div class="p-10 bg-success">
+                        <h3 class="text-white box m-b-0 d-flex">
+                          <mat-icon svgIcon="icon-happy"></mat-icon>
+                        </h3>
+                      </div>
+                      <div class="align-self-center m-l-20">
+                        <h3 class="m-b-0 text-success">{{activityWon}}</h3>
+                        <h5 class="text-muted m-b-0 text-success">Won</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Column -->
+                <div class="col-lg-3 col-md-6">
+                  <div class="card">
+                    <div class="d-flex flex-row">
+                      <div class="p-10 bg-primary">
+                        <h3 class="text-white box m-b-0 d-flex">
+                          <mat-icon svgIcon="icon-wink"></mat-icon>
+                        </h3>
+                      </div>
+                      <div class="align-self-center m-l-20">
+                        <h3 class="m-b-0">{{activityOnGoing}}</h3>
+                        <h5 class="text-muted m-b-0 text-primary">On Going</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Column -->
+                <div class="col-lg-3 col-md-6">
+                  <div class="card">
+                    <div class="d-flex flex-row">
+                      <div class="p-10 bg-danger">
+                        <h3 class="text-white box m-b-0 d-flex">
+                          <mat-icon svgIcon="icon-sad"></mat-icon>
+                        </h3>
+                      </div>
+                      <div class="align-self-center m-l-20">
+                        <h3 class="m-b-0 text-danger">{{activityLost}}</h3>
+                        <h5 class="text-muted m-b-0 text-danger">Lost</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              
+
               <!-- Column -->
+            </div>
+            <ng-container *ngIf="HappyHoursList.length > 0">
+            <hr />
+            <h3 class="m-b-0">Happy hours</h3>
+            <div class="row">
               <div class="col-lg-3 col-md-6">
                 <div class="card">
                   <div class="d-flex flex-row">
@@ -115,132 +182,143 @@
                       </h3>
                     </div>
                     <div class="align-self-center m-l-20">
-                      <h3 class="m-b-0 text-success">{{activityWon}}</h3>
-                      <h5 class="text-muted m-b-0 text-success">Won</h5>
+                      <h3 class="m-b-0 text-success">{{happyHoursCall}}</h3>
+                      <h5 class="text-muted m-b-0 text-danger">calls</h5>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- Column -->
               <div class="col-lg-3 col-md-6">
                 <div class="card">
                   <div class="d-flex flex-row">
-                    <div class="p-10 bg-primary">
+                    <div class="p-10 bg-success">
                       <h3 class="text-white box m-b-0 d-flex">
-                        <mat-icon svgIcon="icon-wink"></mat-icon>
+                        <mat-icon svgIcon="icon-happy"></mat-icon>
                       </h3>
                     </div>
                     <div class="align-self-center m-l-20">
-                      <h3 class="m-b-0">{{activityOnGoing}}</h3>
-                      <h5 class="text-muted m-b-0 text-primary">On Going</h5>
+                      <h3 class="m-b-0 text-success">{{happyHoursMeeting}}</h3>
+                      <h5 class="text-muted m-b-0 text-danger">Meetings</h5>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- Column -->
               <div class="col-lg-3 col-md-6">
                 <div class="card">
                   <div class="d-flex flex-row">
-                    <div class="p-10 bg-danger">
+                    <div class="p-10 bg-success">
                       <h3 class="text-white box m-b-0 d-flex">
-                        <mat-icon svgIcon="icon-sad"></mat-icon>
+                        <mat-icon svgIcon="icon-happy"></mat-icon>
                       </h3>
                     </div>
                     <div class="align-self-center m-l-20">
-                      <h3 class="m-b-0 text-danger">{{activityLost}}</h3>
-                      <h5 class="text-muted m-b-0 text-danger">Lost</h5>
+                      <h3 class="m-b-0 text-success">{{happyHoursWon}}</h3>
+                      <h5 class="text-muted m-b-0 text-danger">Won</h5>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="d-flex flex-row">
+                    <div class="p-10 bg-success">
+                      <h3 class="text-white box m-b-0 d-flex">
+                        <mat-icon svgIcon="icon-happy"></mat-icon>
+                      </h3>
+                    </div>
+                    <div class="align-self-center m-l-20">
+                      <h3 class="m-b-0 text-success">{{happyHoursShowing}}</h3>
+                      <h5 class="text-muted m-b-0 text-danger">Showing</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             </ng-container>
-              <!-- Column -->
-              <div class="col-12" *ngIf="false">
-                <div class="card">
-                  <div class="card-block">
-                    <div class="row">
-                      <div class="col-12">
-                        <h2 class="card-title">Target</h2>
-                      </div>
-                      <div class="col-12">
-                        <mat-tab-group animationDuration="400ms">
-                          <mat-tab label="In commission">
-                            <div class="py-2 px-3">
-                              <div class="row">
-                                <div class="col-12">
-                                  <h5 class="m-t-30">Monthly: 1,000,000 EGP <span class="pull-right">3,000,000</span>
-                                  </h5>
-                                  <div class="progress ">
-                                    <div class="progress-bar bg-danger wow animated progress-animated"
-                                      style="width: 33%; height:6px;" role="progressbar"> <span class="sr-only">60%
-                                        Complete</span> </div>
-                                  </div>
-                                </div>
-                                <div class="col-12">
-                                  <h5 class="m-t-30">Quarter: 4,000,000 EGP <span class="pull-right">8,000,000</span>
-                                  </h5>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-info wow animated progress-animated"
-                                      style="width: 50%; height:6px;" role="progressbar"> <span class="sr-only">60%
-                                        Complete</span> </div>
-                                  </div>
-                                </div>
-
-                                <div class="col-12">
-                                  <h5 class="m-t-30">Yearly: 32,000,000 EGP <span class="pull-right">32,000,000</span>
-                                  </h5>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-success wow animated progress-animated"
-                                      style="width: 100%; height:6px;" role="progressbar"> <span class="sr-only">60%
-                                        Complete</span> </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </mat-tab>
-                          <mat-tab label="In total sales value">
-                            <div class="py-2 px-3">
-                              <div class="row">
-                                <div class="col-12">
-                                  <h5 class="m-t-30">Monthly: 1,000,000 EGP <span class="pull-right">3,000,000</span>
-                                  </h5>
-                                  <div class="progress ">
-                                    <div class="progress-bar bg-danger wow animated progress-animated"
-                                      style="width: 33%; height:6px;" role="progressbar"> <span class="sr-only">60%
-                                        Complete</span> </div>
-                                  </div>
-                                </div>
-                                <div class="col-12">
-                                  <h5 class="m-t-30">Quarter: 4,000,000 EGP <span class="pull-right">8,000,000</span>
-                                  </h5>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-info wow animated progress-animated"
-                                      style="width: 50%; height:6px;" role="progressbar"> <span class="sr-only">60%
-                                        Complete</span> </div>
-                                  </div>
-                                </div>
-
-                                <div class="col-12">
-                                  <h5 class="m-t-30">Yearly: 32,000,000 EGP <span class="pull-right">32,000,000</span>
-                                  </h5>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-success wow animated progress-animated"
-                                      style="width: 100%; height:6px;" role="progressbar"> <span class="sr-only">60%
-                                        Complete</span> </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </mat-tab>
-                        </mat-tab-group>
-                      </div>
-
+            <!-- Column -->
+            <div class="col-12" *ngIf="false">
+              <div class="card">
+                <div class="card-block">
+                  <div class="row">
+                    <div class="col-12">
+                      <h2 class="card-title">Target</h2>
                     </div>
+                    <div class="col-12">
+                      <mat-tab-group animationDuration="400ms">
+                        <mat-tab label="In commission">
+                          <div class="py-2 px-3">
+                            <div class="row">
+                              <div class="col-12">
+                                <h5 class="m-t-30">Monthly: 1,000,000 EGP <span class="pull-right">3,000,000</span>
+                                </h5>
+                                <div class="progress ">
+                                  <div class="progress-bar bg-danger wow animated progress-animated" style="width: 33%; height:6px;"
+                                    role="progressbar"> <span class="sr-only">60%
+                                      Complete</span> </div>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <h5 class="m-t-30">Quarter: 4,000,000 EGP <span class="pull-right">8,000,000</span>
+                                </h5>
+                                <div class="progress">
+                                  <div class="progress-bar bg-info wow animated progress-animated" style="width: 50%; height:6px;"
+                                    role="progressbar"> <span class="sr-only">60%
+                                      Complete</span> </div>
+                                </div>
+                              </div>
+            
+                              <div class="col-12">
+                                <h5 class="m-t-30">Yearly: 32,000,000 EGP <span class="pull-right">32,000,000</span>
+                                </h5>
+                                <div class="progress">
+                                  <div class="progress-bar bg-success wow animated progress-animated"
+                                    style="width: 100%; height:6px;" role="progressbar"> <span class="sr-only">60%
+                                      Complete</span> </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                        <mat-tab label="In total sales value">
+                          <div class="py-2 px-3">
+                            <div class="row">
+                              <div class="col-12">
+                                <h5 class="m-t-30">Monthly: 1,000,000 EGP <span class="pull-right">3,000,000</span>
+                                </h5>
+                                <div class="progress ">
+                                  <div class="progress-bar bg-danger wow animated progress-animated" style="width: 33%; height:6px;"
+                                    role="progressbar"> <span class="sr-only">60%
+                                      Complete</span> </div>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <h5 class="m-t-30">Quarter: 4,000,000 EGP <span class="pull-right">8,000,000</span>
+                                </h5>
+                                <div class="progress">
+                                  <div class="progress-bar bg-info wow animated progress-animated" style="width: 50%; height:6px;"
+                                    role="progressbar"> <span class="sr-only">60%
+                                      Complete</span> </div>
+                                </div>
+                              </div>
+            
+                              <div class="col-12">
+                                <h5 class="m-t-30">Yearly: 32,000,000 EGP <span class="pull-right">32,000,000</span>
+                                </h5>
+                                <div class="progress">
+                                  <div class="progress-bar bg-success wow animated progress-animated"
+                                    style="width: 100%; height:6px;" role="progressbar"> <span class="sr-only">60%
+                                      Complete</span> </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </div>
+            
                   </div>
                 </div>
               </div>
-
-              <!-- Column -->
             </div>
           </div>
 
@@ -254,91 +332,91 @@
         <mat-tab label="Update Profile">
           <div class="card-block">
             <!-- <form class="form-horizontal form-material"> -->
-              <div class="row" *ngIf="singleEmployee && singleEmployee.employee">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>First name</label>
-                    <dx-text-box [(value)]="singleEmployee.first_name">
-                      <dx-validator>
-                        <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
-                      </dx-validator>
-                    </dx-text-box>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Second name</label>
-                    <dx-text-box [(value)]="singleEmployee.second_name">
-                      <dx-validator>
-                        <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
-                      </dx-validator>
-                    </dx-text-box>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Email</label>
-                    <dx-text-box [(value)]="singleEmployee.email">
-                      <dx-validator>
-                        <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
-                      </dx-validator>
-                    </dx-text-box>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Email</label>
-                    <dx-text-box value="kjghhjjkl" [disabled]="true" mode="password">
-                      <dx-validator>
-                        <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
-                      </dx-validator>
-                    </dx-text-box>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Gender</label>
-                    <dx-select-box [class.required]="true" [dataSource]="[{name:'Male'},{name:'Female'}]"
-                      [(value)]="singleEmployee.gender" displayExpr="name" valueExpr="name" [searchEnabled]="true">
-                      <dx-validator>
-                        <dxi-validation-rule type="required" message="Gender is required"></dxi-validation-rule>
-                      </dx-validator>
-                    </dx-select-box>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Mobile</label>
-                    <dx-number-box [class.required]="true" [(value)]="singleEmployee.mobile" [showSpinButtons]="false"
-                      [showClearButton]="false">
-                      <dx-validator>
-                        <dxi-validation-rule type="required" message="Mobile type is required"></dxi-validation-rule>
-                      </dx-validator>
-                    </dx-number-box>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>National id</label>
-                    <dx-text-box [(value)]="singleEmployee.employee.national_id">
-                      <dx-validator>
-                        <dxi-validation-rule type="required" message="National id type is required"></dxi-validation-rule>
-                      </dx-validator>
-                    </dx-text-box>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Job title</label>
-                    <dx-text-box [(value)]="singleEmployee.employee.job_title">
-                      <dx-validator>
-                        <dxi-validation-rule type="required" message="Job title type is required"></dxi-validation-rule>
-                      </dx-validator>
-                    </dx-text-box>
-                  </div>
+            <div class="row" *ngIf="singleEmployee && singleEmployee.employee">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>First name</label>
+                  <dx-text-box [(value)]="singleEmployee.first_name">
+                    <dx-validator>
+                      <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                    </dx-validator>
+                  </dx-text-box>
                 </div>
               </div>
-              <!-- <div class="form-group">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Second name</label>
+                  <dx-text-box [(value)]="singleEmployee.second_name">
+                    <dx-validator>
+                      <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                    </dx-validator>
+                  </dx-text-box>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Email</label>
+                  <dx-text-box [(value)]="singleEmployee.email">
+                    <dx-validator>
+                      <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                    </dx-validator>
+                  </dx-text-box>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Email</label>
+                  <dx-text-box value="kjghhjjkl" [disabled]="true" mode="password">
+                    <dx-validator>
+                      <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                    </dx-validator>
+                  </dx-text-box>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Gender</label>
+                  <dx-select-box [class.required]="true" [dataSource]="[{name:'Male'},{name:'Female'}]"
+                    [(value)]="singleEmployee.gender" displayExpr="name" valueExpr="name" [searchEnabled]="true">
+                    <dx-validator>
+                      <dxi-validation-rule type="required" message="Gender is required"></dxi-validation-rule>
+                    </dx-validator>
+                  </dx-select-box>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Mobile</label>
+                  <dx-number-box [class.required]="true" [(value)]="singleEmployee.mobile" [showSpinButtons]="false"
+                    [showClearButton]="false">
+                    <dx-validator>
+                      <dxi-validation-rule type="required" message="Mobile type is required"></dxi-validation-rule>
+                    </dx-validator>
+                  </dx-number-box>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>National id</label>
+                  <dx-text-box [(value)]="singleEmployee.employee.national_id">
+                    <dx-validator>
+                      <dxi-validation-rule type="required" message="National id type is required"></dxi-validation-rule>
+                    </dx-validator>
+                  </dx-text-box>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Job title</label>
+                  <dx-text-box [(value)]="singleEmployee.employee.job_title">
+                    <dx-validator>
+                      <dxi-validation-rule type="required" message="Job title type is required"></dxi-validation-rule>
+                    </dx-validator>
+                  </dx-text-box>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group">
                 <label class="col-md-12">Message</label>
                 <div class="col-md-12">
                   <textarea rows="5" class="form-control form-control-line"></textarea>
@@ -356,11 +434,24 @@
                   </select>
                 </div>
               </div> -->
-              <div class="form-group">
-                <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
                   <button class="btn btn-success" (click)="updateEmployee()">Update Profile</button>
                 </div>
               </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <dx-check-box [(value)]="assignMode" text="Re-assign to another employee"></dx-check-box>
+                </div>
+                <div *ngIf="assignMode">
+                  <span>Assign work to another employee</span>
+                  <div class="form-group">
+                    <button class="btn btn-success" (click)="openReassignWorkModal()">Re-assign</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- </form> -->
           </div>
         </mat-tab>
@@ -368,4 +459,41 @@
     </div>
   </div>
   <!-- Column -->
+</div>
+
+<div class="modal fade" id="reassignModal" tabindex="-1" role="dialog" aria-labelledby="reassignModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reassignModalLabel">Re-assign</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <dx-validation-group #DataValidator>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Choose employee</label>
+                <dx-select-box [class.required]="true" [dataSource]="employeesLookup" [(value)]="assginToEmployee"
+                  displayExpr="first_name" valueExpr="id" [searchEnabled]="true">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="Employee is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-select-box>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <button type="button" (click)="assignworkToAnother()" mat-flat-button color="primary"
+                  class="mat-primary">Update</button>
+              </div>
+            </div>
+          </div>
+        </dx-validation-group>
+      </div>
+    </div>
+  </div>
 </div>

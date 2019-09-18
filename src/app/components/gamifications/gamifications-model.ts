@@ -8,6 +8,7 @@ export class HappyHourUpdateModel{
     call_HappyHour_points: number;
     meeting_HappyHour_points: number;
     won_HappyHour_points: number;
+    showing_HappyHour_points: number;
     happy_start: any;
     happy_end: any;
 }

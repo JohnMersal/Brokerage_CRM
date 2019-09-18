@@ -22,9 +22,14 @@ export class CompitationComponent implements OnInit {
   targetPointsList: TargetPointsModel[] = [];
   assginToEmployee: number = null;
   DateTimeFormat = AppSettings.DateTimeDisplayFormat;
+  DateFormat = AppSettings.DateDisplayFormat;
   maxDate: Date = new Date();
   subscription: Subscription = new Subscription();
-
+  call_target_value: number = 0;
+  meeting_target_value: number = 0;
+  won_target_value: number = 0;
+  showing_target_value: number = 0;
+  targetPoint: number = 0;
   now: Date = new Date();
   tomorrow = new Date();
 
@@ -47,6 +52,29 @@ export class CompitationComponent implements OnInit {
       }, error => {
         console.log(error);
       }));
+  }
+  publishTargetPoints() {
+    if (this.DataValidator.instance.validate().isValid) {
+      let formatedStartDate = formatDate(this.now, this.DateTimeFormat, 'en-US');
+      let formatedEndDate = formatDate(this.tomorrow, this.DateTimeFormat, 'en-US');
+      this.editTarget = {
+        call_target_value: this.call_target_value,
+        meeting_target_value: this.meeting_target_value,
+        won_target_value: this.won_target_value,
+        showing_target_value: this.showing_target_value,
+        target_start: formatedStartDate,
+        target_end: formatedEndDate,
+        target_points: this.targetPoint,
+        id:null
+      };
+      this.subscription.add(this.gamificationsService.updateTargetPoints(this.editTarget).subscribe(
+        (value: any) => {
+          notify("Lead published successfully", "success");
+          this.getAllTargetPoints();
+        }, error => {
+          notify(error.meta.message, "error");
+        }));
+    }
   }
   updateTargetPoints() {
     if (this.DataValidator.instance.validate().isValid) {

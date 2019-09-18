@@ -17,7 +17,7 @@
   & > *:not(.wave) {
     position: relative;
     z-index: 1;
-    padding: 16px 0;
+    padding: 0 0 16px 0;
   }
   .wave{
     min-width: 100%;

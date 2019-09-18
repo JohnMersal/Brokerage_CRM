@@ -10,7 +10,10 @@ import { AtivitiesListModel } from "../../activities/ativities-model";
 import { ActivitiesService } from "../../activities/activities.service";
 import { levelsList, LevelModel } from "../../gamifications/levels/levels-model";
 import { LevelsService } from "../../gamifications/levels/levels.service";
+import { HappyHoursModel, TargetPointsModel } from "../../gamifications/gamifications-model";
+import { GamificationsService } from "../../gamifications/gamifications.service";
 import notify from 'devextreme/ui/notify';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-edit-employee',
@@ -21,20 +24,28 @@ export class EditEmployeeComponent implements OnInit {
   subtitle: string;
   ID: number = 0;
   singleEmployee: Employees = new Employees();
+  assignMode: boolean = false;
+  toAnotherId: number;
   date = new FormControl(new Date());
   leads: leadsList[] = [];
   activities: AtivitiesListModel[] = [];
   activityWon: number = 0;
   activityCalls: number = 0;
+  activityShowing: number = 0;
   activityOnGoing: number = 0;
   activityLost: number = 0;
   salesValue: string = "EGP not yet";
   levels: levelsList[] = [];
   currentLevel: LevelModel = new LevelModel();
   nextLevel: LevelModel = new LevelModel();
-
+  HappyHoursList: HappyHoursModel[] = [];
+  happyHoursCall: number;
+  happyHoursMeeting: number;
+  happyHoursShowing: number;
+  happyHoursWon: number;
+  employeesLookup = [];
   subscription: Subscription = new Subscription();
-  constructor(private router: Router, private route: ActivatedRoute, private employeesService: EmployeesService, private leadsServices: LeadsService, private activitiesService: ActivitiesService, private levelsService: LevelsService) { 
+  constructor(private router: Router, private route: ActivatedRoute, private employeesService: EmployeesService, private leadsServices: LeadsService, private activitiesService: ActivitiesService, private levelsService: LevelsService, private gamificationsService: GamificationsService) { 
     this.getRecord();
   }
   getRecord() {
@@ -94,15 +105,56 @@ export class EditEmployeeComponent implements OnInit {
   getRelatedActivities() {
     this.subscription.add(this.activitiesService.getAllActivities().subscribe(
       (value: any) => {
+        this.getAllHappyHourPoints();
         this.activities = value.data.filter(x => x.created_by.id == this.singleEmployee.id);
         var activityWonCalc = this.activities.filter(x => x.activity_status == "Won");
         this.activityWon = activityWonCalc.length;
         var activityCallsCalc = this.activities.filter(x => x.activity_type == "Call");
         this.activityCalls = activityCallsCalc.length;
+        var activityShowingCalc = this.activities.filter(x => x.activity_type == "Showing");
+        this.activityShowing = activityShowingCalc.length;
         var activityOnGoingCalc = this.activities.filter(x => x.activity_status == "Ongoing");
         this.activityOnGoing = activityOnGoingCalc.length;
         var activityLostCalc = this.activities.filter(x => x.activity_status == "Lost");
         this.activityLost = activityLostCalc.length;
+      }));
+  }
+  getAllHappyHourPoints() {
+    this.subscription.add(this.gamificationsService.getHappyHourPoints().subscribe(
+      (value: any) => {
+        this.HappyHoursList = value.data;
+        for (let record of this.HappyHoursList) {
+          if (record.action == "Call") {
+            this.happyHoursCall = record.happy_points * this.activityCalls;
+          } else if (record.action == "Meeting") {
+            this.happyHoursMeeting = record.happy_points * this.activityWon;
+          } else if (record.action == "Won") {
+            this.happyHoursWon = record.happy_points * this.activityWon;
+          } else if (record.action == "Showing") {
+            this.happyHoursShowing = record.happy_points * this.activityShowing;
+          }
+        }
+      }, error => {
+        console.log(error);
+      }));
+  }
+  openReassignWorkModal() {
+    if(!this.employeesLookup || this.employeesLookup.length == 0) this.getEmployeesLookup();
+    (<any>jQuery('#reassignModal')).modal('show');
+  }
+  getEmployeesLookup() {
+    this.subscription.add(this.employeesService.getAllEmployees().subscribe(
+      (value: any) => {
+        this.employeesLookup = value.data;
+      }, error => {
+        console.log(error);
+      }));
+  }
+  assignworkToAnother() {
+    this.subscription.add(this.employeesService.reassignWork(this.singleEmployee.id, this.toAnotherId).subscribe(
+      (value: any) => {
+        (<any>jQuery('#reassignModal')).modal('hide');
+        notify("works assigned to another employee successfully", "success");
       }));
   }
 

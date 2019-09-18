@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./requests.component.scss']
 })
 export class RequestsComponent implements OnInit {
-  mainTabsSwitch: string = "conflicts";
-  mainTabsName: string = "Conflicts";
+  mainTabsSwitch: string = "approval";
+  mainTabsName: string = "Approval";
 
   constructor() { }
   changeMainTabs(targetMainTab: string) {
