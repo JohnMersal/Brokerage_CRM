@@ -1,89 +1,110 @@
 <!-- <mat-horizontal-stepper [linear]="true" #stepper>
   <mat-step [stepControl]="leadFormGroup">
     <ng-template matStepLabel>Save New Lead</ng-template> -->
-    <fieldset>
-      <legend>Import Single Lead:</legend>
-      <!-- <form [formGroup]="leadFormGroup" (ngSubmit)="saveLead()"> -->
-        <dx-validation-group #DataValidator>
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label>Lead name</label>
-              <dx-text-box [class.required]="true" [(value)]="singleLead.first_name">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="First name is Required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-text-box>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label>Lead name</label>
-              <dx-text-box [class.required]="true" [(value)]="singleLead.second_name">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="Second name is Required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-text-box>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label>project name</label>
-              <dx-text-box [class.required]="true" [(value)]="singleLead.project_name">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="project name is Required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-text-box>
-              <!-- <mat-form-field class="example-full-width">
-                <input matInput placeholder="project name" (input)="singleLead.project_name=$event.target.value"
-                  formControlName="project_name" required>
-              </mat-form-field> -->
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label>Country code</label>
-              <dx-number-box [class.required]="true" [min]="0" [(value)]="singleLead.country_code" [showSpinButtons]="false"
-                [showClearButton]="false">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="country code is required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-number-box>
-              <!-- <mat-form-field class="example-full-width">
-                <input matInput #country_code maxlength="5" placeholder="country code"
-                  (input)="singleLead.country_code=$event.target.value" formControlName="country_code" numbersOnly
-                  required>
-                <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
-              </mat-form-field> -->
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label>Lead phone</label>
-              <dx-number-box [class.required]="true" [min]="0" [(value)]="singleLead.lead_phone" [showSpinButtons]="false"
-                [showClearButton]="false">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="Lead phone is required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-number-box>
-              <!-- <mat-form-field class="example-full-width">
-                <input matInput #lead_phone maxlength="10" placeholder="lead phone"
-                  (input)="singleLead.lead_phone=$event.target.value" formControlName="lead_phone" numbersOnly required>
-                <mat-hint align="end">{{lead_phone.value.length}} / 10</mat-hint>
-              </mat-form-field> -->
-            </div>
+<app-tabs [currentTabName]="mainTabsName">
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'type'">
+    <a (click)="changeMainTabs('type')">Import single lead</a>
+  </li>
+  <li class="tabItem" [class.active]="mainTabsSwitch == 'import'">
+    <a (click)="changeMainTabs('import')">Import bulk leads</a>
+  </li>
+</app-tabs>
+<div>
+  <div *ngIf="mainTabsSwitch == 'type'">
+    <dx-validation-group #DataValidator>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Lead name</label>
+            <dx-text-box [class.required]="true" [(value)]="singleLead.first_name">
+              <dx-validator>
+                <dxi-validation-rule type="required" message="First name is Required"></dxi-validation-rule>
+              </dx-validator>
+            </dx-text-box>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <button type="button" mat-flat-button color="primary" (click)="saveLead()" class="mat-primary">Save</button>
-            </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Lead name</label>
+            <dx-text-box [class.required]="true" [(value)]="singleLead.second_name">
+              <dx-validator>
+                <dxi-validation-rule type="required" message="Second name is Required"></dxi-validation-rule>
+              </dx-validator>
+            </dx-text-box>
           </div>
         </div>
-        </dx-validation-group>
-      <!-- </form> -->
-      <!-- <form [formGroup]="leadFormGroup" (ngSubmit)="saveLead()">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>project name</label>
+            <dx-text-box [class.required]="true" [(value)]="singleLead.project_name">
+              <dx-validator>
+                <dxi-validation-rule type="required" message="project name is Required"></dxi-validation-rule>
+              </dx-validator>
+            </dx-text-box>
+            <!-- <mat-form-field class="example-full-width">
+                        <input matInput placeholder="project name" (input)="singleLead.project_name=$event.target.value"
+                          formControlName="project_name" required>
+                      </mat-form-field> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Country code</label>
+            <dx-number-box [class.required]="true" [min]="0" [(value)]="singleLead.country_code"
+              [showSpinButtons]="false" [showClearButton]="false">
+              <dx-validator>
+                <dxi-validation-rule type="required" message="country code is required"></dxi-validation-rule>
+              </dx-validator>
+            </dx-number-box>
+            <!-- <mat-form-field class="example-full-width">
+                        <input matInput #country_code maxlength="5" placeholder="country code"
+                          (input)="singleLead.country_code=$event.target.value" formControlName="country_code" numbersOnly
+                          required>
+                        <mat-hint align="end">{{country_code.value.length}} / 5</mat-hint>
+                      </mat-form-field> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Lead phone</label>
+            <dx-number-box [class.required]="true" [min]="0" [(value)]="singleLead.lead_phone" [showSpinButtons]="false"
+              [showClearButton]="false">
+              <dx-validator>
+                <dxi-validation-rule type="required" message="Lead phone is required"></dxi-validation-rule>
+              </dx-validator>
+            </dx-number-box>
+            <!-- <mat-form-field class="example-full-width">
+                        <input matInput #lead_phone maxlength="10" placeholder="lead phone"
+                          (input)="singleLead.lead_phone=$event.target.value" formControlName="lead_phone" numbersOnly required>
+                        <mat-hint align="end">{{lead_phone.value.length}} / 10</mat-hint>
+                      </mat-form-field> -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <button type="button" mat-flat-button color="primary" (click)="saveLead()" class="mat-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </dx-validation-group>
+  </div>
+  <div *ngIf="mainTabsSwitch == 'import'">
+    <p>Please download the <a [attr.href]="'assets/file/leads.xlsx'">blank template</a> file and upload it.</p>
+    <form id="form" #form method="post" action="" enctype="multipart/form-data">
+      <div class="form-group">
+        <dx-file-uploader selectButtonText="Select file" [(value)]="UploadedFiles" labelText="" uploadMode="useForm" [multiple]="false"  maxFileSize="4000000">
+          <!-- allowedFileExtensions="['.xlsx']" -->
+        </dx-file-uploader>
+      </div>
+      <div class="form-group">
+        <button type="button" mat-flat-button color="primary" (click)="uploadFile()" class="mat-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- <form [formGroup]="leadFormGroup" (ngSubmit)="saveLead()">
         <div class="row">
           <div class="col-sm-4">
             <div class="form-group">
@@ -129,8 +150,7 @@
           </div>
         </div>
       </form> -->
-    </fieldset>
-  <!-- </mat-step>
+<!-- </mat-step>
   <mat-step>
     <ng-template matStepLabel>Assign a task</ng-template>
     <mat-form-field>
@@ -212,7 +232,8 @@
 
 </fieldset> -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

@@ -46,7 +46,14 @@ export class LeadsService {
     return this.http.post(url, { headers: this.headers }).pipe(
       map(res => res),
       catchError(this.handleError));
-    
+  }
+  file(acctualFile) {
+    const url = AppSettings.API_Url + "backend/leads/importLeads";
+    var formData: FormData = new FormData();
+    formData.append("file", acctualFile[0]);
+    return this.http.post(url, formData).pipe(
+      map(res => res),
+      catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {
     //console.error(JSON.stringify(error));

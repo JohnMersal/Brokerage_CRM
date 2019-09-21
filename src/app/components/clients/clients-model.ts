@@ -9,7 +9,7 @@ export class ClientsModel {
     budget_to: number;
     request_type: string;// Buy, Sale, Rent
 }
-export class ClientsList{
+export class ClientsList {
     id: number;
     first_name: string;
     second_name: string;
@@ -22,18 +22,8 @@ export class ClientsList{
     created_by: number;
     created_at: Date;
     updated_at: Date;
-    client: {
-        id: number;
-        user_id: number;
-        request_type: string;
-        budget_from: number;
-        budget_to: number;
-        created_by: {
-            id: number;
-            first_name: string;
-            second_name: string;
-        },
-        created_at: Date;
-        updated_at: Date;
-    }
+    user_id: number;
+    request_type: string;
+    budget_from: number;
+    budget_to: number;
 }

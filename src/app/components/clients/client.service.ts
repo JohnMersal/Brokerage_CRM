@@ -38,6 +38,25 @@ export class ClientService {
       map(res => res),
       catchError(this.handleError));
   }
+  storeInterestedInUnits(clienId: number, UnitID: number) {
+    const url = AppSettings.client_URL + '/storeInterestedInUnits?client_id=' + clienId + '&unit_id=' + UnitID;
+    return this.http.post(url, { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+  }
+  getInterestedInUnitsForClient(clienId: number) {
+    const url = AppSettings.client_URL + '/getInterestedInUnitsForClient/' + clienId;
+    return this.http.get(url, { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+  }
+  deleteInterestedInUnitForClient(clienId: number, UnitID: number) {
+    const url = AppSettings.client_URL + '/deleteInterestedInUnitForClient?client_id=' + clienId + '&unit_id=' + UnitID;
+    return this.http.post(url, { headers: this.headers }).pipe(
+      map(res => res),
+      catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     //console.error(JSON.stringify(error));
     return observableThrowError(error.error);

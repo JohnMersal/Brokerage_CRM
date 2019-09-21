@@ -6,6 +6,7 @@ import { GamificationsService } from "../gamifications.service";
 import { AppSettings } from "../../shared/app-settings";
 import { formatDate } from '@angular/common';
 import { DxValidationGroupComponent } from 'devextreme-angular';
+import { parseDate } from 'tough-cookie';
 declare var jQuery: any;
 
 @Component({
@@ -20,6 +21,7 @@ export class CompitationComponent implements OnInit {
   editTarget: TargetPointUpdateModel = new TargetPointUpdateModel();
   fixedPointsList: FixedPointsModel[] = [];
   targetPointsList: TargetPointsModel[] = [];
+  isCompitationRunning: boolean = false;
   assginToEmployee: number = null;
   DateTimeFormat = AppSettings.DateTimeDisplayFormat;
   DateFormat = AppSettings.DateDisplayFormat;
@@ -49,6 +51,12 @@ export class CompitationComponent implements OnInit {
     this.subscription.add(this.gamificationsService.getTargetPoints().subscribe(
       (value: any) => {
         this.targetPointsList = value.data;
+        var startingDate = Date.parse(this.targetPointsList[0].target_start);
+        var endingDate = Date.parse(this.targetPointsList[0].target_end);
+        var todayTime = new Date().getTime();
+        if (startingDate < todayTime && endingDate > todayTime) {
+          this.isCompitationRunning = true;
+        }
       }, error => {
         console.log(error);
       }));

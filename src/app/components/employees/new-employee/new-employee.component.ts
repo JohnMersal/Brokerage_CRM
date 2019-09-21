@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from "rxjs";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { singleEmployee } from "../employees";
+import { singleEmployee, Employee, Employees } from "../employees";
 import { EmployeesService } from "../employees.service";
 import notify from 'devextreme/ui/notify';
 import { AppSettings } from "../../shared/app-settings";
@@ -10,6 +10,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { formatDate } from '@angular/common';
 import { toDate } from '@angular/common/src/i18n/format_date';
 import { DxValidationGroupComponent } from 'devextreme-angular';
+import { PositionList } from "../../positions/positions-model";
+import { PositionsService } from "../../positions/positions.service";
 
 
 @Component({
@@ -22,9 +24,13 @@ export class NewEmployeeComponent implements OnInit {
   singleEmployee: singleEmployee = new singleEmployee();
   maxDate: Date = new Date();
   files: any[] = [];
+  employeesLookup: Employees[] = [];
+  positionLookup: PositionList[] = [];
   DateFormat = AppSettings.DateDisplayFormat;
   subscription: Subscription = new Subscription();
-  constructor(private employeeService: EmployeesService) {
+  constructor(private employeeService: EmployeesService, private positionsService: PositionsService) {
+    this.getPositionsLookup();
+    this.getEmployeesLookup();
   }
   preview(e) {
     //console.log(e);
@@ -52,6 +58,22 @@ export class NewEmployeeComponent implements OnInit {
           notify(error.meta.message, "error");
         }));
     }
+  }
+  getPositionsLookup() {
+    this.subscription.add(this.positionsService.getAllPosition().subscribe(
+      (value: any) => {
+        this.positionLookup = value.data;
+      }, error => {
+        notify(error.meta.message, "error");
+      }));
+  }
+  getEmployeesLookup() {
+    this.subscription.add(this.employeeService.getAllEmployees().subscribe(
+      (value: any) => {
+        this.employeesLookup = value.data;
+      }, error => {
+        notify(error.meta.message, "error");
+      }));
   }
   ngOnInit() {
   }

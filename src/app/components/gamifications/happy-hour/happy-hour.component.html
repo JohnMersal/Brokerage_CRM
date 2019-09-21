@@ -1,63 +1,40 @@
 <div class="card">
   <div class="card-body">
     <div class="row">
-      <div class="sectionTitle col-12"><h2>Happy Hour</h2></div>
-      <div class="col-12">
-        <mat-radio-group>
+      <div class="sectionTitle col-12">
+        <h2>Happy Hour</h2>
+      </div>
+      <div class="col-8">
+        <div class="form-group">
           <div class="row justify-content-sm-left">
             <div class="col-sm-auto">
               Multiplier:
             </div>
             <div class="col-sm-auto">
-              <mat-radio-button class="example-radio-button" value="2x">
-                2x
-              </mat-radio-button>
-            </div>
-            <div class="col-sm-auto">
-              <mat-radio-button class="example-radio-button" value="3x">
-                3x
-              </mat-radio-button>
-            </div>
-            <div class="col-sm-auto">
-              <mat-radio-button class="example-radio-button" value="4x">
-                4x
-              </mat-radio-button>
-            </div>
-            <div class="col-sm-auto">
-              <mat-radio-button class="example-radio-button" value="5x">
-                5x
-              </mat-radio-button>
+              <dx-radio-group [items]="['2X', '3X', '4X', '5X']" (click)="calculateTargetPoiint()" [(value)]="choosenPoint" layout="horizontal">
+              </dx-radio-group>
             </div>
           </div>
-        </mat-radio-group>
-        <mat-radio-group>
+        </div>
+        <div class="form-group">
           <div class="row justify-content-sm-left">
             <div class="col-sm-auto">
               Duration:
             </div>
             <div class="col-sm-auto">
-              <mat-radio-button class="example-radio-button" value="1x">
-                1 hour
-              </mat-radio-button>
-            </div>
-            <div class="col-sm-auto">
-              <mat-radio-button class="example-radio-button" value="2x">
-                2 hours
-              </mat-radio-button>
-            </div>
-            <div class="col-sm-auto">
-              <mat-radio-button class="example-radio-button" value="3x">
-                3 hours
-              </mat-radio-button>
-            </div>
-            <div class="col-sm-auto">
-              <mat-radio-button class="example-radio-button" value="1day">
-                24 hours
-              </mat-radio-button>
+              <dx-radio-group [items]="['1 Hour', '2 Hour', '3 Hour', '24 Hour']" (click)="calculateTargetDate()" [(value)]="choosenDate"
+                layout="horizontal">
+              </dx-radio-group>
             </div>
           </div>
-        </mat-radio-group>
-        <button mat-flat-button color="primary">Start Happy Hour</button>
+        </div>
+        <button mat-flat-button color="primary" (click)="updateHappyHourPoints()">Start Happy Hour</button>
+      </div>
+      <div class="col-sm-4" *ngIf="fixedPointsList.length > 0">
+        <p>Call Target: ({{choosenPoint}} {{callFixedPoint}}) = {{calculateChoosenPoint*callFixedPoint}} point </p>
+        <p>Meeting Target: ({{choosenPoint}} {{meetingFixedPoint}}) = {{calculateChoosenPoint*meetingFixedPoint}} point </p>
+        <p>Showing Target: ({{choosenPoint}} {{showingFixedPoint}}) = {{calculateChoosenPoint*showingFixedPoint}} point </p>
+        <p>Won Target: ({{choosenPoint}} {{wonFixedPoint}}) = {{calculateChoosenPoint*wonFixedPoint}} point </p>
       </div>
     </div>
   </div>
@@ -65,9 +42,10 @@
 
 <fieldset>
   <legend>All Happy hours</legend>
-  <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="HappyHoursList" [showRowLines]="true"
-    [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
-    [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
+  <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="HappyHoursList"
+    [showRowLines]="true" [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+    [allowColumnReordering]="true" [allowColumnResizing]="true" (onCellClick)="editRecord($event)"
+    [columnAutoWidth]="true">
     <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
     <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
     <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
@@ -79,12 +57,13 @@
     <!--fixed Column-->
     <dxi-column cssClass="grid-cell" dataType="string" dataField="action" caption="Action" [allowFiltering]="true"
       [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="number" dataField="happy_points" caption="Happy points" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="Date" dataField="happy_start"
-      caption="Start date" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+    <dxi-column cssClass="grid-cell" dataType="number" dataField="happy_points" caption="Happy points"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="Date" dataField="happy_start" caption="Start date"
+      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
     </dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="Date" dataField="happy_end" caption="End date" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="Date" dataField="happy_end" caption="End date" [allowFiltering]="true"
+      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
 
     <!-- <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
       caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
@@ -119,75 +98,80 @@
       </div>
       <div class="modal-body">
         <dx-validation-group #DataValidator>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Call points</label>
-              <dx-number-box [class.required]="true" [(value)]="editHappyHour.call_HappyHour_points" [showSpinButtons]="true" [showClearButton]="false">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-number-box>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Call points</label>
+                <dx-number-box [class.required]="true" [(value)]="editHappyHour.call_HappyHour_points"
+                  [showSpinButtons]="true" [showClearButton]="false">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-number-box>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Meeting points</label>
+                <dx-number-box [class.required]="true" [(value)]="editHappyHour.meeting_HappyHour_points"
+                  [showSpinButtons]="true" [showClearButton]="false">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-number-box>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Won points</label>
+                <dx-number-box [class.required]="true" [(value)]="editHappyHour.won_HappyHour_points"
+                  [showSpinButtons]="true" [showClearButton]="false">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-number-box>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Showing points</label>
+                <dx-number-box [class.required]="true" [(value)]="editHappyHour.showing_HappyHour_points"
+                  [showSpinButtons]="true" [showClearButton]="false">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-number-box>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Start date</label>
+                <dx-date-box [class.required]="true" width="auto" [(value)]="editHappyHour.happy_start"
+                  [displayFormat]="DateTimeFormat" [max]="editHappyHour.happy_end" type="datetime">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="Start date is Required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-date-box>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>End date</label>
+                <dx-date-box [class.required]="true" width="auto" [(value)]="editHappyHour.happy_end"
+                  [displayFormat]="DateTimeFormat" [min]="maxDate" type="datetime">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="End date is Required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-date-box>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <button type="button" (click)="updateHappyHourPoints()" mat-flat-button color="primary"
+                  class="mat-primary">Update</button>
+              </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Meeting points</label>
-              <dx-number-box [class.required]="true" [(value)]="editHappyHour.meeting_HappyHour_points" [showSpinButtons]="true" [showClearButton]="false">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-number-box>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Won points</label>
-              <dx-number-box [class.required]="true" [(value)]="editHappyHour.won_HappyHour_points" [showSpinButtons]="true" [showClearButton]="false">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-number-box>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Showing points</label>
-              <dx-number-box [class.required]="true" [(value)]="editHappyHour.showing_HappyHour_points" [showSpinButtons]="true" [showClearButton]="false">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="Points type is required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-number-box>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Start date</label>
-              <dx-date-box [class.required]="true" width="auto" [(value)]="editHappyHour.happy_start" [displayFormat]="DateTimeFormat"
-                 [max]="editHappyHour.happy_end" type="datetime">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="Start date is Required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-date-box>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>End date</label>
-              <dx-date-box [class.required]="true" width="auto" [(value)]="editHappyHour.happy_end" [displayFormat]="DateTimeFormat"
-                [min]="maxDate" type="datetime">
-                <dx-validator>
-                  <dxi-validation-rule type="required" message="End date is Required"></dxi-validation-rule>
-                </dx-validator>
-              </dx-date-box>
-            </div>
-          </div>
-          <div class="col-sm-12">
-            <div class="form-group">
-              <button type="button" (click)="updateHappyHourPoints()" mat-flat-button color="primary" class="mat-primary">Update</button>
-            </div>
-          </div>
-        </div>
         </dx-validation-group>
       </div>
     </div>

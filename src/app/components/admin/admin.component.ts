@@ -3,6 +3,7 @@ import { AreasListComponent } from "../areas/areas-list/areas-list.component";
 import { CompoundsListComponent } from "../compounds/compounds-list/compounds-list.component";
 import { LeadsListComponent } from "../leads/leads-list/leads-list.component";
 import { BrokersListComponent } from "../brokers/brokers-list/brokers-list.component";
+import { PositionsListComponent } from "../positions/positions-list/positions-list.component";
 
 @Component({
   selector: 'app-admin',
@@ -18,6 +19,7 @@ export class AdminComponent implements OnInit {
   @ViewChild('compoundsListComponent') compoundsListComponent: CompoundsListComponent;
   @ViewChild('LeadsListComponent') LeadsListComponent: LeadsListComponent;
   @ViewChild('BrokersListComponent') BrokersListComponent: BrokersListComponent;
+  @ViewChild('PositionsListComponent') PositionsListComponent: PositionsListComponent;
 
   constructor() { }
   changeMainTabs(targetMainTab: string) {
@@ -76,5 +78,8 @@ export class AdminComponent implements OnInit {
   }
   afterSaveBroker(event) {
     this.BrokersListComponent.getAllUnits();
+  }
+  afterSavePosition() {
+    this.PositionsListComponent.getAllPositions();
   }
 }

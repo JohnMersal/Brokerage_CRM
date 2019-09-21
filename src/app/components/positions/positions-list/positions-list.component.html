@@ -1,0 +1,55 @@
+<dx-data-grid #grid class="CustomDataTable dataGrid" [(dataSource)]="positionsList" [showRowLines]="true"
+  [showColumnLines]="false" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="false"
+  [allowColumnResizing]="false" [columnAutoWidth]="false" [selectedRowKeys]="selectedUnits"
+  (onCellClick)="editRecord($event)">
+  <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+  <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+  <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-export [enabled]="true" fileName="Units" [allowExportSelectedData]="false"></dxo-export>
+  <dxo-column-chooser [enabled]="true" mode="select" [allowSearch]="true"></dxo-column-chooser>
+  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+
+  <!--fixed Column-->
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="name" caption="Name" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="target_commission_monthly" caption="Commission monthly"
+    [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+  </dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="target_commission_quarterly"
+    caption="Commission quarterly" [allowSearch]="false" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+  </dxi-column>
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="target_commission_yearly" caption="Commission yearly" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="target_sales_monthly" caption="Sales monthly" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="target_sales_quarterly" caption="Sales quarterly" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+  <dxi-column cssClass="grid-cell" dataType="string" dataField="target_sales_yearly" caption="Sales yearly" [allowFiltering]="true"
+    [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+
+  <dxo-summary>
+    <dxi-total-item column="Name" summaryType="count">
+    </dxi-total-item>
+  </dxo-summary>
+</dx-data-grid>
+
+<div class="modal fade" id="editUnitModal" tabindex="-1" role="dialog" aria-labelledby="editUnitModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUnitModalLabel">Edit:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-edit-position #edit [updateMode]="true" (afterSave)="afterSave($event)"></app-edit-position>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <fieldset>
   <legend>All target points</legend>
-  <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="targetPointsList" [showRowLines]="true"
+  <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="fixedPointsList" [showRowLines]="true"
     [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
     [allowColumnResizing]="true" (onCellClick)="editRecord($event)" [columnAutoWidth]="true">
     <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
@@ -13,6 +13,11 @@
     <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
     <!--fixed Column-->
     <dxi-column cssClass="grid-cell" dataType="string" dataField="action" caption="Action" [allowFiltering]="true"
+      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+    <dxi-column cssClass="grid-cell" dataType="number" dataField="fixed_points" caption="Points" [allowFiltering]="true"
+      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+      
+    <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="action" caption="Action" [allowFiltering]="true"
       [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
     <dxi-column cssClass="grid-cell" dataType="number" dataField="target_value" caption="Target value"
       [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
@@ -38,7 +43,7 @@
 
     <div *dxTemplate="let data of 'created_byTemplate'">
       {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
-    </div>
+    </div> -->
     <dxo-summary>
       <dxi-total-item column="action" summaryType="count">
       </dxi-total-item>

@@ -11,6 +11,8 @@ export class singleEmployee{
     joining_date: any;
     profile_picture: any;
     active: number;
+    position_id: number;
+    team_leader_id: number;
 }
 export class Employees {
     id: number;
@@ -25,6 +27,14 @@ export class Employees {
     created_at: Date;
     updated_at: Date;
     employee: Employee;
+    position_id: number;
+    team_leader_id: number;
+    numOfActivites: {
+        calls: number;
+        meetings: number;
+        showings: number;
+        wons: number;
+    }
 }
 export class Employee{
     id: number;

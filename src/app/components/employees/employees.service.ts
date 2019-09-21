@@ -27,12 +27,14 @@ export class EmployeesService {
       '&second_name=' + singleEmployee.second_name +
       '&gender=' + singleEmployee.gender +
       '&active=' + singleEmployee.active +
-      '&email=' + singleEmployee.email + 
-      '&job_title=' + singleEmployee.job_title + 
-      '&mobile=' + singleEmployee.mobile + 
-      '&national_id=' + singleEmployee.national_id + 
-      '&password=' + singleEmployee.password + 
-      '&joining_date=' + singleEmployee.joining_date
+      '&email=' + singleEmployee.email +
+      '&job_title=' + singleEmployee.job_title +
+      '&mobile=' + singleEmployee.mobile +
+      '&national_id=' + singleEmployee.national_id +
+      '&password=' + singleEmployee.password +
+      '&joining_date=' + singleEmployee.joining_date +
+      '&position_id=' + singleEmployee.position_id +
+      '&team_leader_id=' +singleEmployee.team_leader_id;
     const formData = new FormData();
     // formData.append('active', singleEmployee.active.toString());
     // formData.append('email', singleEmployee.email);

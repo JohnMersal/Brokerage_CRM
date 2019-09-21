@@ -1,0 +1,97 @@
+<fieldset>
+  <legend>New employee:</legend>
+  <dx-validation-group #DataValidator>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Name</label>
+          <dx-text-box [(value)]="singlePosition.name">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="First name type is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Target commission monthly</label>
+          <dx-number-box [class.required]="true" [(value)]="singlePosition.target_commission_monthly"
+            [showSpinButtons]="false" format="#,##0.## EGP" [min]="0" [showClearButton]="false">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Target commission monthly is required">
+              </dxi-validation-rule>
+            </dx-validator>
+          </dx-number-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Target commission quarterly</label>
+          <dx-number-box [class.required]="true" [(value)]="singlePosition.target_commission_quarterly" [showSpinButtons]="false"
+            format="#,##0.## EGP" [min]="0" [showClearButton]="false">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Target commission quarterly is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-number-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Target commission yearly</label>
+          <dx-number-box [class.required]="true" [(value)]="singlePosition.target_commission_yearly" [showSpinButtons]="false"
+            format="#,##0.## EGP" [min]="0" [showClearButton]="false">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Target commission yearly is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-number-box>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Target sales monthly</label>
+          <dx-number-box [class.required]="true" [(value)]="singlePosition.target_sales_monthly" [showSpinButtons]="false"
+            format="#,##0.## EGP" [min]="0" [showClearButton]="false">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Target sales monthly is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-number-box>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Target sales quarterly</label>
+          <dx-number-box [class.required]="true" [(value)]="singlePosition.target_sales_quarterly" [showSpinButtons]="false"
+            format="#,##0.## EGP" [min]="0" [showClearButton]="false">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Target sales quarterly is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-number-box>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Target sales yearly</label>
+          <dx-number-box [class.required]="true" [(value)]="singlePosition.target_sales_yearly" [showSpinButtons]="false"
+            format="#,##0.## EGP" [min]="0" [showClearButton]="false">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Target sales yearl is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-number-box>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <button type="button" (click)="savePosition()" mat-button class="mat-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </dx-validation-group>
+</fieldset>

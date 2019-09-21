@@ -101,22 +101,38 @@
     </div>
     <div class="col-sm-12">
       <div class="form-group">
-        <label>Interested in</label>
-        <dx-drop-down-box [(value)]="gridBoxValue" valueExpr="id" [displayExpr]="unit_code" placeholder="Select a value..."
-          [showClearButton]="true" [dataSource]="unitsLookup" (onValueChanged)="unitOnValueChanged($event)">
+        <!-- <label>Interested in</label> -->
+        <dx-data-grid #grid id="grid-container" height="300" [dataSource]="unitsLookup" keyExpr="id" [(selectedRowKeys)]="gridBoxValue"
+          (onSelectionChanged)="unitOnValueChanged($event)" [showBorders]="true">
+          <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxo-selection mode="multiple"> </dxo-selection>
+          <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+          <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+        
+          <dxi-column dataField="unit_code" [allowFiltering]="true"></dxi-column>
+          <dxi-column dataField="unit_type" [allowFiltering]="true"></dxi-column>
+          <dxi-column dataField="offering_type" [allowFiltering]="true"></dxi-column>
+          <dxi-column dataField="owner_name" [allowFiltering]="true"></dxi-column>
+          <dxi-column dataField="final_price" [allowFiltering]="true"></dxi-column>
+          <!-- <dxi-column dataField="HireDate" dataType="date" [width]="125"></dxi-column> -->
+        </dx-data-grid>
+        <!-- <dx-drop-down-box [disabled]="!interestedUnitsLoaded" [(value)]="gridBoxValue" valueExpr="id" [displayExpr]="unit_code" placeholder="Select a value..." [showClearButton]="true" [dataSource]="unitsLookup" (onValueChanged)="unitOnValueChanged($event)">
         
           <div *dxTemplate="let data of 'content'">
             <dx-data-grid [dataSource]="unitsLookup" [columns]="['unit_code', 'offering_type', 'id']"
               [selection]="{ mode: 'multiple' }" [hoverStateEnabled]="true" [paging]="{ enabled: true, pageSize: 10 }"
               [filterRow]="{ visible: true }" [scrolling]="{ mode: 'infinite' }" [height]="345"
-              [(selectedRowKeys)]="gridSelectedRowKeys">
+              [(selectedRowKeys)]="gridBoxValue">
             </dx-data-grid>
           </div>
           <dx-validator>
             <dxi-validation-rule type="required" message="Unit is required">
             </dxi-validation-rule>
           </dx-validator>
-        </dx-drop-down-box>
+        </dx-drop-down-box> -->
+
       </div>
     </div>
   </div>

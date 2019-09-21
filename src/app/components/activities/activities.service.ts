@@ -55,7 +55,7 @@ export class ActivitiesService {
       catchError(this.handleError));
   }
   getTempRequestApproval() {
-    const url = `${AppSettings.API_Url}/backend/sales/getNewTempRequests`;
+    const url = `${AppSettings.API_Url}/backend/sales/getAllTempRequests`;
     return this.http.get(url).pipe(
       map(res => res), catchError(this.handleError));
   }

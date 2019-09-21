@@ -22,6 +22,7 @@ export class AppSettings {
     static logout_URL = AppSettings.API_Url + "logout";
     static permissions_URL = AppSettings.API_Url + "backend/userPermissions";
     static broker_URL = AppSettings.API_Url + "backend/brokers";
+    static position_URL = AppSettings.API_Url + "backend/positions";
 
     static DateDisplayFormat = "yyyy-MM-dd";
     static DateTimeDisplayFormat = "yyyy-MM-dd HH:mm:ss";
