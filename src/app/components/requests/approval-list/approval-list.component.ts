@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivitiesService } from "../../activities/activities.service";
 import { Subscription } from 'rxjs';
 import notify from 'devextreme/ui/notify';
@@ -10,6 +10,7 @@ import notify from 'devextreme/ui/notify';
 })
 export class ApprovalListComponent implements OnInit {
   approvalList = [];
+  @Input() filterRequestByStatus: string;// disapproved. new, approveed
   subscription: Subscription = new Subscription();
   constructor(private activitiesService: ActivitiesService) {
     this.getAllApprovalList();
@@ -17,7 +18,11 @@ export class ApprovalListComponent implements OnInit {
   getAllApprovalList() {
     this.subscription.add(this.activitiesService.getTempRequestApproval().subscribe(
       (value: any) => {
-        this.approvalList = value.data;
+        if (this.filterRequestByStatus) {
+          this.approvalList = value.data.filter(x => x.flag == this.filterRequestByStatus);
+        } else {
+          this.approvalList = value.data;
+        }
       }, error => {
         console.log(error);
       }));
@@ -44,6 +49,12 @@ export class ApprovalListComponent implements OnInit {
       }, error => {
         notify(error.Message, 'error');
       }));
+  }
+  checkWitchList():boolean {
+    if (this.filterRequestByStatus == 'new') {
+      return true;
+    }
+    return false;
   }
   ngOnInit() {
   }

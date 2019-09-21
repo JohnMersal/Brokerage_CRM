@@ -59,6 +59,8 @@ import { SolveconflictsComponent } from './components/requests/conflicts/solveco
 import { RequestsComponent } from './components/requests/requests.component';
 import { ApprovalListComponent } from './components/requests/approval-list/approval-list.component';
 import { ChangeStatusByClientComponent } from './components/activities/change-status-by-client/change-status-by-client.component';
+import { PositionsListComponent } from './components/positions/positions-list/positions-list.component';
+import { EditPositionComponent } from './components/positions/edit-position/edit-position.component';
 
 // Overriding Notifier Options
 const notifierDefaultOptions: NotifierOptions = {
@@ -100,7 +102,7 @@ const notifierDefaultOptions: NotifierOptions = {
     TargetPointsComponent, LoginComponent,
     PermissionListComponent, NewBrokerComponent,
     BrokersListComponent, CheckConflictComponent,
-    SolveconflictsComponent, RequestsComponent, ApprovalListComponent, ChangeStatusByClientComponent
+    SolveconflictsComponent, RequestsComponent, ApprovalListComponent, ChangeStatusByClientComponent, PositionsListComponent, EditPositionComponent
   ],
   imports: [
     HttpClientModule,

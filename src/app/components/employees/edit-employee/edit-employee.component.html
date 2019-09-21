@@ -3,7 +3,8 @@
   <div class="col-lg-4 col-xlg-3 col-md-5">
     <div class="card">
       <div class="card-block">
-        <div style="text-align: center;" class="m-t-30"> <img *ngIf="singleEmployee.employee"
+        <div style="text-align: center;" class="m-t-30">
+          <img *ngIf="singleEmployee.employee"
             src="{{singleEmployee.employee.profile_picture}}"
             onerror="this.onerror=null;this.src='assets/images/profile-pic-placeholder.png';" class="img-circle"
             width="150" />
@@ -165,75 +166,26 @@
                   </div>
                 </div>
               </ng-container>
-              
+
 
               <!-- Column -->
             </div>
-            <ng-container *ngIf="HappyHoursList.length > 0">
-            <hr />
-            <h3 class="m-b-0">Happy hours</h3>
-            <div class="row">
-              <div class="col-lg-3 col-md-6">
-                <div class="card">
-                  <div class="d-flex flex-row">
-                    <div class="p-10 bg-success">
-                      <h3 class="text-white box m-b-0 d-flex">
-                        <mat-icon svgIcon="icon-happy"></mat-icon>
-                      </h3>
-                    </div>
-                    <div class="align-self-center m-l-20">
-                      <h3 class="m-b-0 text-success">{{happyHoursCall}}</h3>
-                      <h5 class="text-muted m-b-0 text-danger">calls</h5>
+            <ng-container *ngIf="singleEmployee.numOfActivites">
+              <hr />
+              <h3 class="m-b-0">badges/Trophies</h3>
+              <div class="row">
+                <div class="col-lg-3 col-md-6">
+                  <div class="card callBadges-{{badgesCallClass}}">
+                    <div class="d-flex flex-row">
+                      <mat-icon svgIcon="icon-happy"></mat-icon>
+                      <div class="align-self-center m-l-20">
+                        <h3 class="m-b-0 text-success">Calls</h3>
+                        <h5 class="text-muted m-b-0 text-danger">{{badgesCallClass}}</h5>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-3 col-md-6">
-                <div class="card">
-                  <div class="d-flex flex-row">
-                    <div class="p-10 bg-success">
-                      <h3 class="text-white box m-b-0 d-flex">
-                        <mat-icon svgIcon="icon-happy"></mat-icon>
-                      </h3>
-                    </div>
-                    <div class="align-self-center m-l-20">
-                      <h3 class="m-b-0 text-success">{{happyHoursMeeting}}</h3>
-                      <h5 class="text-muted m-b-0 text-danger">Meetings</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6">
-                <div class="card">
-                  <div class="d-flex flex-row">
-                    <div class="p-10 bg-success">
-                      <h3 class="text-white box m-b-0 d-flex">
-                        <mat-icon svgIcon="icon-happy"></mat-icon>
-                      </h3>
-                    </div>
-                    <div class="align-self-center m-l-20">
-                      <h3 class="m-b-0 text-success">{{happyHoursWon}}</h3>
-                      <h5 class="text-muted m-b-0 text-danger">Won</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6">
-                <div class="card">
-                  <div class="d-flex flex-row">
-                    <div class="p-10 bg-success">
-                      <h3 class="text-white box m-b-0 d-flex">
-                        <mat-icon svgIcon="icon-happy"></mat-icon>
-                      </h3>
-                    </div>
-                    <div class="align-self-center m-l-20">
-                      <h3 class="m-b-0 text-success">{{happyHoursShowing}}</h3>
-                      <h5 class="text-muted m-b-0 text-danger">Showing</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
             </ng-container>
             <!-- Column -->
             <div class="col-12" *ngIf="false">
@@ -252,8 +204,8 @@
                                 <h5 class="m-t-30">Monthly: 1,000,000 EGP <span class="pull-right">3,000,000</span>
                                 </h5>
                                 <div class="progress ">
-                                  <div class="progress-bar bg-danger wow animated progress-animated" style="width: 33%; height:6px;"
-                                    role="progressbar"> <span class="sr-only">60%
+                                  <div class="progress-bar bg-danger wow animated progress-animated"
+                                    style="width: 33%; height:6px;" role="progressbar"> <span class="sr-only">60%
                                       Complete</span> </div>
                                 </div>
                               </div>
@@ -261,12 +213,12 @@
                                 <h5 class="m-t-30">Quarter: 4,000,000 EGP <span class="pull-right">8,000,000</span>
                                 </h5>
                                 <div class="progress">
-                                  <div class="progress-bar bg-info wow animated progress-animated" style="width: 50%; height:6px;"
-                                    role="progressbar"> <span class="sr-only">60%
+                                  <div class="progress-bar bg-info wow animated progress-animated"
+                                    style="width: 50%; height:6px;" role="progressbar"> <span class="sr-only">60%
                                       Complete</span> </div>
                                 </div>
                               </div>
-            
+
                               <div class="col-12">
                                 <h5 class="m-t-30">Yearly: 32,000,000 EGP <span class="pull-right">32,000,000</span>
                                 </h5>
@@ -286,8 +238,8 @@
                                 <h5 class="m-t-30">Monthly: 1,000,000 EGP <span class="pull-right">3,000,000</span>
                                 </h5>
                                 <div class="progress ">
-                                  <div class="progress-bar bg-danger wow animated progress-animated" style="width: 33%; height:6px;"
-                                    role="progressbar"> <span class="sr-only">60%
+                                  <div class="progress-bar bg-danger wow animated progress-animated"
+                                    style="width: 33%; height:6px;" role="progressbar"> <span class="sr-only">60%
                                       Complete</span> </div>
                                 </div>
                               </div>
@@ -295,12 +247,12 @@
                                 <h5 class="m-t-30">Quarter: 4,000,000 EGP <span class="pull-right">8,000,000</span>
                                 </h5>
                                 <div class="progress">
-                                  <div class="progress-bar bg-info wow animated progress-animated" style="width: 50%; height:6px;"
-                                    role="progressbar"> <span class="sr-only">60%
+                                  <div class="progress-bar bg-info wow animated progress-animated"
+                                    style="width: 50%; height:6px;" role="progressbar"> <span class="sr-only">60%
                                       Complete</span> </div>
                                 </div>
                               </div>
-            
+
                               <div class="col-12">
                                 <h5 class="m-t-30">Yearly: 32,000,000 EGP <span class="pull-right">32,000,000</span>
                                 </h5>
@@ -315,7 +267,7 @@
                         </mat-tab>
                       </mat-tab-group>
                     </div>
-            
+
                   </div>
                 </div>
               </div>

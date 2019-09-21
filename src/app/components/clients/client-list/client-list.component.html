@@ -174,13 +174,12 @@
   </div>
 </div>
 
-<div class="modal fade" id="interestedUnitsModal" tabindex="-1" role="dialog"
-  aria-labelledby="interestedUnitsModalLabel" aria-hidden="true">
+<div class="modal fade" id="interestedUnitsModal" tabindex="-1" role="dialog" aria-labelledby="interestedUnitsModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop=false>
   <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="interestedUnitsModalLabel">Interested in units</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetInterestedUnit()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -188,8 +187,24 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
-              <label>Units list</label>
-              <dx-drop-down-box [(value)]="gridBoxValue" valueExpr="id" [displayExpr]="unit_code"
+              <label *ngIf="gridBoxValue">Units list: {{gridBoxValue.length}}</label>
+              <dx-data-grid #grid id="grid-container" height="300" [dataSource]="unitsLookup" keyExpr="id" [(selectedRowKeys)]="gridBoxValue"
+                (onSelectionChanged)="unitOnValueChanged($event)" [showBorders]="true">
+                <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-selection mode="multiple"> </dxo-selection>
+                <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+                <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+              
+                <dxi-column dataField="unit_code" [allowFiltering]="true"></dxi-column>
+                <dxi-column dataField="unit_type" [allowFiltering]="true"></dxi-column>
+                <dxi-column dataField="offering_type" [allowFiltering]="true"></dxi-column>
+                <dxi-column dataField="owner_name" [allowFiltering]="true"></dxi-column>
+                <dxi-column dataField="final_price" [allowFiltering]="true"></dxi-column>
+                <!-- <dxi-column dataField="HireDate" dataType="date" [width]="125"></dxi-column> -->
+              </dx-data-grid>
+              <!-- <dx-drop-down-box [(value)]="gridBoxValue" valueExpr="id" [displayExpr]="unit_code"
                 placeholder="Select a value..." [showClearButton]="true" [dataSource]="unitsLookup"
                 (onValueChanged)="unitOnValueChanged($event)">
 
@@ -204,12 +219,12 @@
                   <dxi-validation-rule type="required" message="Unit is required">
                   </dxi-validation-rule>
                 </dx-validator>
-              </dx-drop-down-box>
+              </dx-drop-down-box> -->
             </div>
           </div>
-          <div class="col-sm-4">
+          <!-- <div class="col-sm-4">
             <button type="button" mat-flat-button color="primary" class="mat-primary">Save changes</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

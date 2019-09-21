@@ -43,25 +43,14 @@ export class ClientListComponent implements OnInit {
     feedback: "",
 
   };
-  _gridBoxValue: unitsList;
-  get gridBoxValue(): unitsList {
+  interestedUnitsLoaded: boolean = false;
+  _gridBoxValue: number[];
+  get gridBoxValue() {
     return this._gridBoxValue;
   }
 
-  set gridBoxValue(value: unitsList) {
-    this._gridSelectedRowKeys = value && [value] || [];
-    //this.internalSaleStatus_OBJ.unit_id = value.id;
+  set gridBoxValue(value: number[]) {
     this._gridBoxValue = value;
-  }
-
-  _gridSelectedRowKeys: unitsList[] = [];
-  get gridSelectedRowKeys(): unitsList[] {
-    return this._gridSelectedRowKeys;
-  }
-
-  set gridSelectedRowKeys(value: unitsList[]) {
-    this._gridBoxValue = value.length && value[0] || null;
-    this._gridSelectedRowKeys = value;
   }
   activitysubmit: ActivityClient = new ActivityClient();
   dataSource;
@@ -113,6 +102,7 @@ export class ClientListComponent implements OnInit {
     this.subscription.add(this.unitsService.getAllUnits().subscribe(
       (value: any) => {
         this.unitsLookup = value.data;
+        if(this.singleClient && this.singleClient.id) this.getInterestedInUnits(this.singleClient.id);
       }, error => {
         notify("Error in loading units.." + error.error, "error");
       }));
@@ -149,10 +139,6 @@ export class ClientListComponent implements OnInit {
   openChangeStatusModal(row: ClientsList) {
     this.resaleTypeOptionObj.selectedClient = row;
     (<any>jQuery('#changeStatusModal')).modal('show');
-  }
-  openInterestedUnitsModal(row: ClientsList) {
-    if(this.unitsLookup.length == 0) this.getunitsLookup();
-    (<any>jQuery('#interestedUnitsModal')).modal('show');
   }
   submitActivity() {
     // this.activitysubmit.unit_id = this.resaleTypeOptionObj.selectedUnit[0].id;
@@ -204,6 +190,67 @@ export class ClientListComponent implements OnInit {
         (<any>jQuery('#collapseThree')).collapse();
       }
     }
+  }
+  getInterestedInUnits(clientId: number) {
+    this.subscription.add(this.clientsService.getInterestedInUnitsForClient(clientId).subscribe(
+      (value: any) => {
+        this.gridBoxValue = [];
+        for (let unit of value.data) {
+          this.gridBoxValue.push(unit.id);
+        }
+        //notify("unit went to the client interested list successfully", "success");
+      }, error => {
+        notify('error in fetching units list..', 'error');
+      }));
+  }
+  storeInterestedInUnits(clientId: number, unitId: number) {
+    this.subscription.add(this.clientsService.storeInterestedInUnits(clientId, unitId).subscribe(
+      (value: any) => {
+        //this.unitsLookup = value.data;
+        notify("unit went to the client interested list successfully", "success");
+      }, error => {
+        notify('error in adding unit to list..', 'error');
+      }));
+  }
+  deleteInterestedInUnits(clientId: number, unitId: number) {
+    this.subscription.add(this.clientsService.deleteInterestedInUnitForClient(clientId, unitId).subscribe(
+      (value: any) => {
+        //this.unitsLookup = value.data;
+        notify("unit deleted from the client interested list successfully", "success");
+      }, error => {
+        notify('error in deleting unit..', 'error');
+      }));
+  }
+  openInterestedUnitsModal(row: ClientsList) {
+    this.singleClient = {
+      budget_from: row.budget_from,
+      budget_to: row.budget_to,
+      email: row.email,
+      first_name: row.first_name,
+      second_name: row.second_name,
+      gender: row.gender,
+      request_type: row.request_type,
+      mobile: row.mobile,
+      id: row.id
+    };
+    if (this.unitsLookup.length == 0) this.getunitsLookup();
+    (<any>jQuery('#interestedUnitsModal')).modal('show');
+  }
+  unitOnValueChanged(e) {
+    //console.log(e, this.gridBoxValue);
+    if (this.interestedUnitsLoaded) {
+      if (e.currentSelectedRowKeys > 0) {
+        //this.storeInterestedInUnits(e.currentSelectedRowKeys[0]);
+      } else if (e.currentDeselectedRowKeys.length > 0) {
+        //this.deleteInterestedInUnits(e.currentDeselectedRowKeys[0]);
+      }
+    }
+    this.interestedUnitsLoaded = true;
+  }
+  resetInterestedUnit() {
+    this.gridBoxValue = [];
+    this.singleClient = new ClientsModel();
+    this.interestedUnitsLoaded = false;
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

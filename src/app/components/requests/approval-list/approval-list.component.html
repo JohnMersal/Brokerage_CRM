@@ -21,12 +21,15 @@
   <dxi-column cssClass="grid-cell" dataType="string" dataField="operationDesc" caption="Operation desc."
     [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
 
-  <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Action" [allowFiltering]="true"
-    [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="action_dataTemplate">
-  </dxi-column>
+  <ng-container *ngIf="checkWitchList()">
+    <dxi-column cssClass="grid-cell" dataType="string" dataField="id" caption="Action" [allowFiltering]="true"
+      [fixed]="true" [allowEditing]="false" [visible]="true" [width]="'auto'" cellTemplate="action_dataTemplate">
+    </dxi-column>
+  </ng-container>
 
   <div *dxTemplate="let data of 'action_dataTemplate'">
-    <button type="button" (click)="approveRequest(data.data)" mat-flat-button color="primary" class="mat-primary">Approve</button>
+    <button type="button" (click)="approveRequest(data.data)" mat-flat-button color="primary"
+      class="mat-primary">Approve</button>
     <button type="button" (click)="rejectRequest(data.data)" mat-flat-button color="primary"
       class="mat-primary">Reject</button>
   </div>

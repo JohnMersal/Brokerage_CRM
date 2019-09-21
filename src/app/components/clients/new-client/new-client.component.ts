@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { unitsList } from '../../units/units-model';
 import { UnitsService } from "../../units/units.service";
 import { AppSettings } from '../../shared/app-settings';
+import CustomStore from 'devextreme/data/custom_store';
 
 @Component({
   selector: 'app-new-client',
@@ -26,25 +27,26 @@ export class NewClientComponent implements OnInit {
   singleClient: ClientsModel = new ClientsModel();
   areasLookup = [];
   subscription: Subscription = new Subscription();
+  interestedUnitsLoaded: boolean = false;
   clientID: number;
   unitsLookup: unitsList[] = [];
-  _gridBoxValue: unitsList[];
-  get gridBoxValue(): unitsList[] {
+  _gridBoxValue: number[];
+  get gridBoxValue() {
     return this._gridBoxValue;
   }
 
-  set gridBoxValue(value: unitsList[]) {
-    this._gridSelectedRowKeys = value || [];
+  set gridBoxValue(value: number[]) {
+    //this._gridSelectedRowKeys = value || [];
     this._gridBoxValue = value;
   }
 
-  _gridSelectedRowKeys: unitsList[] = [];
-  get gridSelectedRowKeys(): unitsList[] {
+  _gridSelectedRowKeys: number[] = [];
+  get gridSelectedRowKeys(): number[] {
     return this._gridSelectedRowKeys;
   }
 
-  set gridSelectedRowKeys(value: unitsList[]) {
-    this._gridBoxValue = value || null;
+  set gridSelectedRowKeys(value: number[]) {
+    //this._gridBoxValue = value || null;
     this._gridSelectedRowKeys = value;
   }
   constructor(private clientsSrvice: ClientService, private formBuilder: FormBuilder, private areasService: AreasService, public route: ActivatedRoute, public router: Router, private unitsService: UnitsService) {
@@ -80,13 +82,14 @@ export class NewClientComponent implements OnInit {
     }));
   }
   getClientById() {
-        this.subscription.add(this.clientsSrvice.getClientById(this.clientID).subscribe(
-          (value: any) => {
-            //notify("Client updated successfully", "success");
-            this.singleClient = value.data;
-          }, error => {
-            notify("error in loading.." + error.error, "error");
-          }));
+    this.subscription.add(this.clientsSrvice.getClientById(this.clientID).subscribe(
+      (value: any) => {
+        //notify("Client updated successfully", "success");
+        this.singleClient = value.data;
+        this.getInterestedInUnits(this.singleClient.id)
+      }, error => {
+        notify("error in loading.." + error.error, "error");
+      }));
   }
   creatAreaForm() {
     this.clientFormGroup = this.formBuilder.group({
@@ -134,9 +137,48 @@ export class NewClientComponent implements OnInit {
       }, error => {
         notify('error in loading units list..', 'error');
       }));
-
   }
-  unitOnValueChanged(){}
+  getInterestedInUnits(clientId: number) {
+    this.subscription.add(this.clientsSrvice.getInterestedInUnitsForClient(this.singleClient.id).subscribe(
+      (value: any) => {
+        this.gridBoxValue = [];
+        for (let unit of value.data) {
+          this.gridBoxValue.push(unit.id);
+        }
+        //notify("unit went to the client interested list successfully", "success");
+      }, error => {
+        notify('error in fetching units list..', 'error');
+      }));
+  }
+  storeInterestedInUnits(unitId: number) {
+    this.subscription.add(this.clientsSrvice.storeInterestedInUnits(this.singleClient.id, unitId).subscribe(
+      (value: any) => {
+        //this.unitsLookup = value.data;
+        notify("unit went to the client interested list successfully", "success");
+      }, error => {
+        notify('error in adding unit to list..', 'error');
+      }));
+  }
+  deleteInterestedInUnits(unitId: number) {
+    this.subscription.add(this.clientsSrvice.deleteInterestedInUnitForClient(this.singleClient.id, unitId).subscribe(
+      (value: any) => {
+        //this.unitsLookup = value.data;
+        notify("unit deleted from the client interested list successfully", "success");
+      }, error => {
+        notify('error in deleting unit..', 'error');
+      }));
+  }
+  unitOnValueChanged(e) {
+    //console.log(e, this.gridBoxValue);
+    if (this.interestedUnitsLoaded) {
+      if (e.currentSelectedRowKeys > 0) {
+        this.storeInterestedInUnits(e.currentSelectedRowKeys[0]);
+      } else if (e.currentDeselectedRowKeys.length > 0) {
+        this.deleteInterestedInUnits(e.currentDeselectedRowKeys[0]);
+      }
+    }
+    this.interestedUnitsLoaded = true;
+  }
   ngOnInit() {
   }
   reloadActivities() {

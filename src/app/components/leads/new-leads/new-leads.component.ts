@@ -10,6 +10,7 @@ import notify from 'devextreme/ui/notify';
 import { MatStepper } from "@angular/material/stepper";
 import { AppSettings } from "../../shared/app-settings";
 import { DxValidationGroupComponent } from 'devextreme-angular';
+import { NgForm } from '@angular/forms';
 declare var jQuery: any;
 
 @Component({
@@ -19,6 +20,7 @@ declare var jQuery: any;
 })
 export class NewLeadsComponent implements OnInit {
   @ViewChild('DataValidator') DataValidator: DxValidationGroupComponent;
+  @ViewChild('form') form: NgForm;
   @Input() updateMode: boolean = false;
   @Output() afterSave = new EventEmitter();
   isLinear = false;
@@ -40,11 +42,33 @@ export class NewLeadsComponent implements OnInit {
   dataSource;
   @ViewChild('stepper') stepper: MatStepper;
   @ViewChild(MatSort) sort: MatSort;
+  mainTabsSwitch: string = "type";
+  mainTabsName: string = "Import single lead";
   selection = new SelectionModel<leadsList>(true, []);
   subscription: Subscription = new Subscription();
   constructor(private leadsService: LeadsService, private formBuilder: FormBuilder, private employeesService: EmployeesService) {
     //this.getAllLeads();
     //this.creatLeadForm();
+  }
+  changeMainTabs(targetMainTab: string) {
+    switch (targetMainTab) {
+      case "import":
+        this.mainTabsName = "Import bulk leads";
+        break;
+      case "type":
+        this.mainTabsName = "Import single lead";
+        break;
+    }
+    this.mainTabsSwitch = targetMainTab;
+  }
+  UploadedFiles: any[] = [];
+  uploadFile() {
+    //const acctualFile: FileList = event.value[0];
+    this.subscription.add(this.leadsService.file(this.UploadedFiles).subscribe(
+      (value: any) => {
+      }, error => {
+        console.log(error);
+      }));
   }
   ngOnInit() {
   }

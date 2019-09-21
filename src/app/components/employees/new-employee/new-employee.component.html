@@ -85,6 +85,28 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group">
+          <label>Position</label>
+          <dx-select-box [class.required]="true" [dataSource]="positionLookup"
+              [(value)]="singleEmployee.position_id" displayExpr="name" valueExpr="id" [searchEnabled]="true">
+              <dx-validator>
+                <dxi-validation-rule type="required" message="Position is required"></dxi-validation-rule>
+              </dx-validator>
+            </dx-select-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Team leader</label>
+          <dx-select-box [class.required]="true" [dataSource]="employeesLookup" [(value)]="singleEmployee.team_leader_id"
+            displayExpr="first_name" valueExpr="id" [searchEnabled]="true">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Team leader is required"></dxi-validation-rule>
+            </dx-validator>
+          </dx-select-box>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
           <label>National id</label>
           <dx-text-box [(value)]="singleEmployee.national_id">
             <dx-validator>

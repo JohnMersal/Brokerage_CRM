@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from "rxjs";
 import notify from 'devextreme/ui/notify';
-import { TargetPointsModel, TargetPointUpdateModel } from "../gamifications-model";
+import { TargetPointsModel, TargetPointUpdateModel, FixedPointsModel } from "../gamifications-model";
 import { GamificationsService } from "../gamifications.service";
 import { AppSettings } from "../../shared/app-settings";
 import { formatDate } from '@angular/common';
@@ -18,18 +18,28 @@ export class TargetPointsComponent implements OnInit {
   RowFilter: boolean = false;
   GroupFilter: boolean = false;
   editTarget: TargetPointUpdateModel = new TargetPointUpdateModel();
+  fixedPointsList: FixedPointsModel[] = [];
   targetPointsList: TargetPointsModel[] = [];
   assginToEmployee: number = null;
   DateTimeFormat = AppSettings.DateTimeDisplayFormat;
   maxDate: Date = new Date();
   subscription: Subscription = new Subscription();
   constructor(private gamificationsService: GamificationsService) {
-    this.getAllTargetPoints();
+    //this.getAllTargetPoints();
+    this.getAllCompitionsPoints();
   }
   getAllTargetPoints() {
     this.subscription.add(this.gamificationsService.getTargetPoints().subscribe(
       (value: any) => {
         this.targetPointsList = value.data;
+      }, error => {
+        console.log(error);
+      }));
+  }
+  getAllCompitionsPoints() {
+    this.subscription.add(this.gamificationsService.getFixedPoints().subscribe(
+      (value: any) => {
+        this.fixedPointsList = value.data;
       }, error => {
         console.log(error);
       }));
@@ -52,29 +62,29 @@ export class TargetPointsComponent implements OnInit {
     }
   }
   editRecord(e: any) {
-    let call_target_value, meeting_target_value, won_target_value, showing_target_value;
-    for (let record of this.targetPointsList) {
-      if (record.action == "Call") {
-        call_target_value = record.target_points;
-      } else if (record.action == "Meeting") {
-        meeting_target_value = record.target_points;
-      } else if (record.action == "Won") {
-        won_target_value = record.target_points;
-      } else if (record.action == "showing") {
-        showing_target_value = record.target_points;
-      }
-    }
-    this.editTarget = {
-      id: e.data.id,
-      call_target_value: call_target_value,
-      meeting_target_value: meeting_target_value,
-      won_target_value: won_target_value,
-      showing_target_value: showing_target_value,
-      target_start: e.data.target_start,
-      target_end: e.data.target_end,
-      target_points: e.data.target_points
-    };
-    (<any>jQuery('#editLevelModal')).modal('show');
+    // let call_target_value, meeting_target_value, won_target_value, showing_target_value;
+    // for (let record of this.targetPointsList) {
+    //   if (record.action == "Call") {
+    //     call_target_value = record.target_points;
+    //   } else if (record.action == "Meeting") {
+    //     meeting_target_value = record.target_points;
+    //   } else if (record.action == "Won") {
+    //     won_target_value = record.target_points;
+    //   } else if (record.action == "showing") {
+    //     showing_target_value = record.target_points;
+    //   }
+    // }
+    // this.editTarget = {
+    //   id: e.data.id,
+    //   call_target_value: call_target_value,
+    //   meeting_target_value: meeting_target_value,
+    //   won_target_value: won_target_value,
+    //   showing_target_value: showing_target_value,
+    //   target_start: e.data.target_start,
+    //   target_end: e.data.target_end,
+    //   target_points: e.data.target_points
+    // };
+    // (<any>jQuery('#editLevelModal')).modal('show');
   }
   getDateFormated(x) {
     let date = x.value;

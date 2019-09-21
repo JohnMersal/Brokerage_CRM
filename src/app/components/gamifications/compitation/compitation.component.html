@@ -1,216 +1,237 @@
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-3">
     <div class="page-title-box">
       <h2 class="page-title mat-h1">Create Competition</h2>
     </div>
-  </div>
-</div>
-
-<!--Competition Section-->
-<div class="row">
-  <div class="col-3">
-    <div class="competitionBlock">
-      <img src="assets/images/competition/verticalPathCompetition.svg" alt="" class="wave">
-      <img src="assets/images/competition/challengetitle.svg" alt="">
-      <dx-validation-group #DataValidator>
-      <div class="title col-12">Date</div>
-      <div class="formBg fb-60">
-        <div class="form-group">
-          <label>From</label>
-          <dx-date-box [(value)]="now" placeholder="10/16/2018" [showClearButton]="true" type="datetime">
-          <dx-validator>
-            <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
-          </dx-validator>
-        </dx-date-box>
-        </div>
-        <div class="form-group">
-          <label>To</label>
-          <dx-date-box [(value)]="tomorrow" placeholder="10/16/2018" [showClearButton]="true" type="datetime">
-            <dx-validator>
-              <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
-            </dx-validator>
-          </dx-date-box>
-        </div>
-      </div>
-      <div class="row">
-        <div class="title col-12">Calls</div>
-        <div class="singleTask col-12 mb-2">
-          <div class="row">
-            <div class="col-6">
+    <div class="row">
+      <div class="col-12">
+        <div class="competitionBlock">
+          <img src="assets/images/competition/verticalPathCompetition.svg" alt="" class="wave">
+          <img src="assets/images/competition/challengetitle.svg" alt="">
+          <dx-validation-group #DataValidator>
+            <div class="title col-12">Date</div>
+            <div class="formBg fb-60">
               <div class="form-group">
-                <dx-number-box [class.required]="true" [showSpinButtons]="false" #getValue11 [showClearButton]="false"
-                  [(value)]="call_target_value">
+                <label>From</label>
+                <dx-date-box [(value)]="now" placeholder="10/16/2018" [showClearButton]="true" type="datetime">
                   <dx-validator>
-                    <dxi-validation-rule type="required" message="You must add a number for the task">
-                    </dxi-validation-rule>
+                    <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
                   </dx-validator>
-                </dx-number-box>
+                </dx-date-box>
               </div>
-            </div>
-            <div class="col-6">
               <div class="form-group">
-                <dx-select-box [dataSource]="[{name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
-                  [value]="'Calls'" [disabled]="true" #getValue12 displayExpr="name" valueExpr="name" [searchEnabled]="true">
-                </dx-select-box>
+                <label>To</label>
+                <dx-date-box [(value)]="tomorrow" placeholder="10/16/2018" [showClearButton]="true" type="datetime">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-date-box>
               </div>
             </div>
-            <div class="col-12 text-warning">Make {{call_target_value}} {{getValue12.value}}</div>
-          </div>
-        </div>
-        <!-- <div class="col-12">
+            <div class="row">
+              <div class="title col-12">Calls</div>
+              <div class="singleTask col-12 mb-2">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-number-box [class.required]="true" [showSpinButtons]="false" #getValue11
+                        [showClearButton]="false" [(value)]="call_target_value">
+                        <dx-validator>
+                          <dxi-validation-rule type="required" message="You must add a number for the task">
+                          </dxi-validation-rule>
+                        </dx-validator>
+                      </dx-number-box>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-select-box [dataSource]="[{name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
+                        [value]="'Calls'" [disabled]="true" #getValue12 displayExpr="name" valueExpr="name"
+                        [searchEnabled]="true">
+                      </dx-select-box>
+                    </div>
+                  </div>
+                  <div class="col-12 text-warning">Make {{call_target_value}} {{getValue12.value}}</div>
+                </div>
+              </div>
+              <!-- <div class="col-12">
           <button mat-stroked-button>
             <mat-icon>add_box</mat-icon> Add Another Task
           </button>
         </div> -->
-      </div>
-      <div class="row">
-        <div class="title col-12">Meetings</div>
-        <div class="singleTask col-12 mb-2">
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <dx-number-box [class.required]="true" [showSpinButtons]="false" #getValue21 [showClearButton]="false"
-                  [(value)]="meeting_target_value">
-                  <dx-validator>
-                    <dxi-validation-rule type="required" message="You must add a number for the task">
-                    </dxi-validation-rule>
-                  </dx-validator>
-                </dx-number-box>
-              </div>
             </div>
-            <div class="col-6">
-              <div class="form-group">
-                <dx-select-box [dataSource]="[{name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
-                  [value]="'Meetings'" [disabled]="true" #getValue22 displayExpr="name" valueExpr="name" [searchEnabled]="true">
-                </dx-select-box>
+            <div class="row">
+              <div class="title col-12">Meetings</div>
+              <div class="singleTask col-12 mb-2">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-number-box [class.required]="true" [showSpinButtons]="false" #getValue21
+                        [showClearButton]="false" [(value)]="meeting_target_value">
+                        <dx-validator>
+                          <dxi-validation-rule type="required" message="You must add a number for the task">
+                          </dxi-validation-rule>
+                        </dx-validator>
+                      </dx-number-box>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-select-box [dataSource]="[{name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
+                        [value]="'Meetings'" [disabled]="true" #getValue22 displayExpr="name" valueExpr="name"
+                        [searchEnabled]="true">
+                      </dx-select-box>
+                    </div>
+                  </div>
+                  <div class="col-12 text-warning">Make {{meeting_target_value}} {{getValue22.value}}</div>
+                </div>
               </div>
-            </div>
-            <div class="col-12 text-warning">Make {{meeting_target_value}} {{getValue22.value}}</div>
-          </div>
-        </div>
-        <!-- <div class="col-12">
+              <!-- <div class="col-12">
                 <button mat-stroked-button>
                   <mat-icon>add_box</mat-icon> Add Another Task
                 </button>
               </div> -->
-      </div>
-      <div class="row">
-        <div class="title col-12">Won</div>
-        <div class="singleTask col-12 mb-2">
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <dx-number-box [class.required]="true" [showSpinButtons]="false" #getValue31 [showClearButton]="false" [(value)]="won_target_value">
-                  <dx-validator>
-                    <dxi-validation-rule type="required" message="You must add a number for the task">
-                    </dxi-validation-rule>
-                  </dx-validator>
-                </dx-number-box>
-              </div>
             </div>
-            <div class="col-6">
-              <div class="form-group">
-                <dx-select-box [dataSource]="[{name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
-                  [value]="'Meetings'" [disabled]="true" #getValue32 displayExpr="name" valueExpr="name" [searchEnabled]="true">
-                </dx-select-box>
+            <div class="row">
+              <div class="title col-12">Won</div>
+              <div class="singleTask col-12 mb-2">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-number-box [class.required]="true" [showSpinButtons]="false" #getValue31
+                        [showClearButton]="false" [(value)]="won_target_value">
+                        <dx-validator>
+                          <dxi-validation-rule type="required" message="You must add a number for the task">
+                          </dxi-validation-rule>
+                        </dx-validator>
+                      </dx-number-box>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-select-box [dataSource]="[{name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
+                        [value]="'Meetings'" [disabled]="true" #getValue32 displayExpr="name" valueExpr="name"
+                        [searchEnabled]="true">
+                      </dx-select-box>
+                    </div>
+                  </div>
+                  <div class="col-12 text-warning">Make {{won_target_value}} {{getValue32.value}}</div>
+                </div>
               </div>
-            </div>
-            <div class="col-12 text-warning">Make {{won_target_value}} {{getValue32.value}}</div>
-          </div>
-        </div>
-        <!-- <div class="col-12">
+              <!-- <div class="col-12">
                       <button mat-stroked-button>
                         <mat-icon>add_box</mat-icon> Add Another Task
                       </button>
                     </div> -->
-      </div>
-      <div class="row">
-        <div class="title col-12">Showing</div>
-        <div class="singleTask col-12 mb-2">
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <dx-number-box [class.required]="true" [showSpinButtons]="false" #getValue41 [showClearButton]="false"
-                  [(value)]="showing_target_value">
-                  <dx-validator>
-                    <dxi-validation-rule type="required" message="You must add a number for the task">
-                    </dxi-validation-rule>
-                  </dx-validator>
-                </dx-number-box>
-              </div>
             </div>
-            <div class="col-6">
-              <div class="form-group">
-                <dx-select-box [dataSource]="[{name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
-                  [value]="'Meetings'" [disabled]="true" #getValue42 displayExpr="name" valueExpr="name"
-                  [searchEnabled]="true">
-                </dx-select-box>
+            <div class="row">
+              <div class="title col-12">Showing</div>
+              <div class="singleTask col-12 mb-2">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-number-box [class.required]="true" [showSpinButtons]="false" #getValue41
+                        [showClearButton]="false" [(value)]="showing_target_value">
+                        <dx-validator>
+                          <dxi-validation-rule type="required" message="You must add a number for the task">
+                          </dxi-validation-rule>
+                        </dx-validator>
+                      </dx-number-box>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-select-box [dataSource]="[{name:'Calls'},{name:'Meetings'}, {name:'Showing'}, {name:'Won'}]"
+                        [value]="'Meetings'" [disabled]="true" #getValue42 displayExpr="name" valueExpr="name"
+                        [searchEnabled]="true">
+                      </dx-select-box>
+                    </div>
+                  </div>
+                  <div class="col-12 text-warning">Make {{showing_target_value}} {{getValue42.value}}</div>
+                </div>
               </div>
-            </div>
-            <div class="col-12 text-warning">Make {{showing_target_value}} {{getValue42.value}}</div>
-          </div>
-        </div>
-        <!-- <div class="col-12">
+              <!-- <div class="col-12">
                             <button mat-stroked-button>
                               <mat-icon>add_box</mat-icon> Add Another Task
                             </button>
                           </div> -->
+            </div>
+            <div class="title col-12">Target points</div>
+            <div class="form-group col-12">
+              <dx-number-box [(value)]="targetPoint" format="#,##0.## Points;(#,##0.## Points)">
+                <dx-validator>
+                  <dxi-validation-rule type="required" message="You must add reward points"></dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+            </div>
+            <div class="col-12">
+              <button mat-flat-button (click)="publishTargetPoints()" color="accent" style="width: 100%;">Publish
+                competition</button>
+            </div>
+          </dx-validation-group>
+          <img src="assets/images/competition/pacman.svg" alt="" class="pacman">
+        </div>
       </div>
-      <div class="title col-12">Target points</div>
-      <div class="form-group col-12">
-        <dx-number-box [(value)]="targetPoint" format="#,##0.## Points;(#,##0.## Points)">
-          <dx-validator>
-            <dxi-validation-rule type="required" message="You must add reward points"></dxi-validation-rule>
-          </dx-validator>
-        </dx-number-box>
-      </div>
-      <div class="col-12">
-        <button mat-flat-button (click)="publishTargetPoints()" color="accent" style="width: 100%;">Publish competition</button>
-      </div>
-      </dx-validation-group>
-      <img src="assets/images/competition/pacman.svg" alt="" class="pacman">
     </div>
   </div>
+  <div class="col-sm-9" *ngIf="isCompitationRunning">
+    <fieldset>
+      <legend>Compitation is running</legend>
+      <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="targetPointsList"
+        [showRowLines]="true" [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+        [allowColumnReordering]="true" [allowColumnResizing]="true" (onCellClick)="editRecord($event)"
+        [columnAutoWidth]="true">
+        <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
+        <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
+        <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-export [enabled]="false" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
+        <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
+        <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
+        <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
+        <!--fixed Column-->
+
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="action" caption="Action" [allowFiltering]="true"
+          [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="number" dataField="target_value" caption="Target value"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="number" dataField="target_points" caption="Target points"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="target_start"
+          caption="Target start" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+        </dxi-column>
+        <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="target_end"
+          caption="Target end" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+        </dxi-column>
+
+        <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
+          caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+        </dxi-column>
+        <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
+          caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
+        </dxi-column>
+
+        <dxi-column cssClass="grid-cell" dataType="string" dataField="created_by" caption="Created by"
+          [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
+          cellTemplate="created_byTemplate"></dxi-column>
+
+        <div *dxTemplate="let data of 'created_byTemplate'">
+          {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
+        </div>
+
+        <!-- <dxi-column cssClass="grid-cell" dataType="string" dataField="action" caption="Action" [allowFiltering]="true"
+          [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
+        <dxi-column cssClass="grid-cell" dataType="number" dataField="fixed_points" caption="Points" [allowFiltering]="true"
+          [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column> -->
+
+        <dxo-summary>
+          <dxi-total-item column="action" summaryType="count">
+          </dxi-total-item>
+        </dxo-summary>
+      </dx-data-grid>
+    </fieldset>
+  </div>
 </div>
+
+<!--Competition Section-->
 <!--END Competition Section-->
-
-<fieldset>
-  <legend>All fixed point</legend>
-  <dx-data-grid #grid class="CustomDataTable dataGrid" height="400" [(dataSource)]="fixedPointsList"
-    [showRowLines]="true" [showColumnLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
-    [allowColumnReordering]="true" [allowColumnResizing]="true" (onCellClick)="editRecord($event)"
-    [columnAutoWidth]="true">
-    <dxo-scrolling mode="virtual" preloadEnabled="true"></dxo-scrolling>
-    <dxo-remote-operations [filtering]="true" [paging]="true" [sorting]="true"></dxo-remote-operations>
-    <dxo-search-panel [visible]="true" placeholder="Keyword to search..."></dxo-search-panel>
-    <dxo-header-filter [visible]="true"></dxo-header-filter>
-    <dxo-export [enabled]="false" fileName="Leads" [allowExportSelectedData]="false"></dxo-export>
-    <dxo-filter-row [visible]="RowFilter"></dxo-filter-row>
-    <dxo-column-chooser [enabled]="false" [allowSearch]="true"></dxo-column-chooser>
-    <dxo-group-panel [visible]="GroupFilter"></dxo-group-panel>
-    <!--fixed Column-->
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="action" caption="Action" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-    <dxi-column cssClass="grid-cell" dataType="number" dataField="fixed_points" caption="Points" [allowFiltering]="true"
-      [allowEditing]="false" [visible]="true" [width]="'auto'"></dxi-column>
-
-    <!-- <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="created_at"
-      caption="Created at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
-    </dxi-column>
-    <dxi-column cssClass="grid-cell" [customizeText]="getDateFormated" dataType="Date" dataField="updated_at"
-      caption="Updated at" [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'">
-    </dxi-column>
-
-    <dxi-column cssClass="grid-cell" dataType="string" dataField="created_by" caption="Created by"
-      [allowFiltering]="true" [allowEditing]="false" [visible]="true" [width]="'auto'"
-      cellTemplate="created_byTemplate"></dxi-column>
-
-    <div *dxTemplate="let data of 'created_byTemplate'">
-      {{data.data.created_by.first_name}} {{data.data.created_by.second_name}}
-    </div> -->
-    <dxo-summary>
-      <dxi-total-item column="action" summaryType="count">
-      </dxi-total-item>
-    </dxo-summary>
-  </dx-data-grid>
-</fieldset>
